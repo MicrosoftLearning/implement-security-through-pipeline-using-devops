@@ -1,0 +1,46 @@
+name: Bug Report
+description: File a bug report
+title: "M00-LAB00: QUICK_DESCRIPTION"
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Thanks for taking the time to fill out this bug report!
+        
+        > **Note**
+        > Replace issue name LAB00:QUICK_DESCRIPTION, for example "LAB01: My new issue" (or same name as linked Issue)
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info 😉?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What happened?
+      placeholder: Tell us what you see!
+      value: |
+        Lab/Demo: 00
+        Exercise : 00
+        Task: 00
+        Step: 00
+        
+        Description of issue:
+
+        Repro steps:
+        1.
+        1.
+        1.
+    validations:
+      required: true
+  - type: textarea
+    id: Screenshots
+    attributes:
+      label: Relevant screenshots
+      description: Please copy and paste any relevant screenshots 📸
+      value: paste here 😉 
