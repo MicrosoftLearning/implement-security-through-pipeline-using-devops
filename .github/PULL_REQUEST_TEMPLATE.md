@@ -9,9 +9,8 @@
 
 Mark completed with "x" between brackets, "[x]", or checking the box once the PR is created:
 
-- [ ] Has related GitHub Issue 💥 [Create Issue](https://github.com/MicrosoftLearning/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/blob/master/.github/CONTRIBUTING.md#reporting-issues) 📝
+- [ ] Has related GitHub Issue 💥
 - [ ] Tested it
-- [ ] Read the PR collaboration guide 👓 [Collaboration Guide](https://github.com/MicrosoftLearning/AZ400-DesigningandImplementingMicrosoftDevOpsSolutions/blob/master/.github/CONTRIBUTING.md#pull-requests) 📝
 
 Changes proposed in this pull request:
 
