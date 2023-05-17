@@ -14,7 +14,7 @@ This exercise takes approximately **00** minutes.
 
 You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb application to follow the labs.
 
-- Follow the steps to [validate your lab environment](Instructions\implement-security-through-pipeline-using-devops\APL1001_M00_Validate_Lab_Environment.md).
+- Follow the steps to [validate your lab environment](Instructions\Labs\APL1001_M00_Validate_Lab_Environment.md).
 
 ## Exercise
 
