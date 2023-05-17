@@ -1,6 +1,6 @@
-# Project Spike: Labs
+# Implement security through a pipeline using DevOps
 
-This repo contains the instructions and assets required to complete the exercises in the [YOUR LEARNING PATH](https://learn.microsoft.com/training/paths/) learning path on Microsoft Learn.
+This repo contains the instructions and assets required to complete the exercises in the [Implement security through a pipeline using DevOps](https://learn.microsoft.com/training/paths/implement-security-through-pipeline-using-devops/) learning path on Microsoft Learn.
 
 ## Reporting issues
 
