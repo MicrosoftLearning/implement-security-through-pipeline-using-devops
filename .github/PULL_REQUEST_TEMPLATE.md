@@ -9,8 +9,9 @@
 
 Mark completed with "x" between brackets, "[x]", or checking the box once the PR is created:
 
-- [ ] Has related GitHub Issue 💥
+- [ ] Has related GitHub Issue 💥 [Create Issue](https://github.com/MicrosoftLearning/ProjectSpike/blob/main/.github/CONTRIBUTING.md) 📝
 - [ ] Tested it
+- [ ] Read the PR collaboration guide 👓 [Collaboration Guide](https://github.com/MicrosoftLearning/ProjectSpike/blob/main/.github/CONTRIBUTING.md) 
 
 Changes proposed in this pull request:
 
