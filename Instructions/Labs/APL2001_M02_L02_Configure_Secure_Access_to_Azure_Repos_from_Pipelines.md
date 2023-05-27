@@ -6,9 +6,9 @@ lab:
 
 # Learning Lab: Configure secure access to Azure Repos from pipelines
 
-[Description of lab]
+In this lab, understand the importance of securing access to Azure Repos from pipelines and how to do it using Azure DevOps. This lab covers fundamental concepts and best practices for securing access to packages, credential secrets, secrets for services, and Azure Key Vault.
 
-This exercise takes approximately **00** minutes.
+This exercise takes approximately **45** minutes.
 
 ## Before you start
 
@@ -16,7 +16,11 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 - Follow the steps to [validate your lab environment](APL2001_M00_Validate_Lab_Environment.md).
 
-## Exercise
+## Instructions
+
+### Exercise 1
+
+### Exercise 2
 
 ## Review
 
