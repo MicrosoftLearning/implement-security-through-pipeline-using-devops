@@ -13,6 +13,10 @@ In preparation for the learning labs, it is crucial to have your environment cor
 - **Set up an Azure Subscription:** If you don't already have an Azure subscription, create one by following the instructions on this page or visit [https://azure.microsoft.com/free](https://azure.microsoft.com/free) to sign up for a free.
 
 - **Set up an Azure DevOps organization:** If you don't already have an Azure DevOps organization that you can use for the labs, create one by following the instructions on this page, or at [Create an organization or project collection](https://learn.microsoft.com/azure/devops/organizations/accounts/create-organization).
+  
+- [Git for Windows download page](https://gitforwindows.org/). This will be installed as part of prerequisites for this lab.
+
+- [Visual Studio Code](https://code.visualstudio.com/). This will be installed as part of prerequisites for this lab.
 
 ## Instructions to create an Azure DevOps Organization (you only have to do this once)
 
@@ -62,7 +66,7 @@ Now, you'll import the eShopOnWeb into your git repository.
 1. Open your browser and navigate to your Azure DevOps organization.
 2. Open the previously created **eShopOnWeb** project.
 3. Click on **Repos > Files**, **Import a Repository** and select **Import**.
-4. On the **Import a Git Repository** window, paste the following URL https://github.com/MicrosoftLearning/eShopOnWeb.git and click **Import**:
+4. On the **Import a Git Repository** window, paste the following URL https://github.com/MicrosoftLearning/eShopOnWeb and click **Import**:
 
     ![Import Repository](media/import-repo.png)
 

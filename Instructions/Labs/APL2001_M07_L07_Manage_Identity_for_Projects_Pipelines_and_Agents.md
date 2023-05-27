@@ -6,21 +6,9 @@ lab:
 
 # Learning Lab: Manage identity for projects, pipelines, and agents
 
+In this lab, explore the importance of managing identity for projects, pipelines, and agents in Azure DevOps. This lab covers fundamental concepts and best practices for configuring Microsoft-hosted agents and pools, configuring agents for projects, configuring agent identities, configuring the scope of a service connection, and converting to a managed identity.
+
 This exercise takes approximately **45** minutes.
-
-## Lab overview
-
-In this lab, understand the importance of managing identity for projects, pipelines, and agents in Azure DevOps. This lab covers fundamental concepts and best practices for configuring Microsoft-hosted agents and pools, configuring agents for projects, configuring agent identities, configuring the scope of a service connection, and converting to a managed identity.
-
-## Objectives
-
-After you complete this lab, you will be able to:
-
-- Configure Microsoft-hosted agents and pools.
-- Configure agents for projects.
-- Configure agent identities.
-- Configure the scope of a service connection.
-- Convert to a managed identity in Azure DevOps.
 
 ## Before you start
 
