@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Learning Lab: Configure secure access to Azure Repos from pipelines'
+    title: 'Lab: Configure secure access to Azure Repos from pipelines'
     module: 'Module 2: Configure secure access to Azure Repos from pipelines'
 ---
 
-# Learning Lab: Configure secure access to Azure Repos from pipelines
+# Lab: Configure secure access to Azure Repos from pipelines
 
 In this lab, understand the importance of securing access to Azure Repos from pipelines and how to do it using Azure DevOps. This lab covers fundamental concepts and best practices for securing access to packages, credential secrets, secrets for services, and Azure Key Vault.
 

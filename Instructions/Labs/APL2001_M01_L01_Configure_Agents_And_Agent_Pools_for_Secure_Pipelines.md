@@ -1,14 +1,14 @@
 ---
 lab:
-    title: 'Learning Lab: Configure agents and agent pools for secure pipelines'
+    title: 'Lab: Configure agents and agent pools for secure pipelines'
     module: 'Module 1: Configure secure access to pipeline resources'
 ---
 
-# Learning Lab: Configure agents and agent pools for secure pipelines
+# Lab: Configure agents and agent pools for secure pipelines
 
 In this lab, you will learn how to configure Azure DevOps agents and agent Pools and manage permissions for those pools. Azure DevOps Agent Pools provide the resources to run your build and release pipelines.
 
-This exercise takes approximately **20** minutes.
+This exercise takes approximately **25** minutes.
 
 ## Before you start
 
@@ -21,7 +21,17 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 You'll create agents and configure self-hosted agents using Windows. If you want to configure agents on Linux or MacOS, follow the instructions in the [Azure DevOps documentation](https://docs.microsoft.com/azure/devops/pipelines/agents/v2-linux).
 
+During the configuration, keep in mind the following:
+
+- **Maintain separate agents per project**: Each agent can only be tied to one pool. While sharing agent pools across projects can save on infrastructure costs, it also creates the risk of lateral movement. Therefore, it's best to have separate agent pools with dedicated agents for each project to prevent cross-contamination.
+- **Utilize low-privileged accounts for running agents**: Running an agent under an identity with direct access to Azure DevOps resources can pose security threats. Operating the agent under a non-privileged local account like Network Service is advisable, which minimizes the risk.
+- **Beware of misleading group names**: The "Project Collection Service Accounts" group in Azure DevOps is a potential security risk. Running agents using an identity that's part of this group and backed by Azure AD can jeopardize the security of your entire Azure DevOps organization.
+- **Avoid high-privileged accounts for self-hosted agents**: Using high-privileged accounts to run self-hosted agents, particularly for accessing secrets or production environments, can expose your system to severe threats if a pipeline is compromised.
+- **Prioritize security**: To safeguard your systems, use the least privileged account to run self-hosted agents. For instance, consider using your machine account or a managed service identity. It's also advisable to allow Azure Pipelines to handle access to secrets and environments.
+
 ### Exercise 1: Create agents and configure agent pools
+
+In this exercise, you will create an agent and configure agent pools.
 
 1. Navigate to the Azure DevOps portal at https://dev.azure.com and sign in with your account.
 2. Choose the organization you want to work with.
@@ -74,6 +84,9 @@ You'll create agents and configure self-hosted agents using Windows. If you want
 
         ![Screenshot showing the personal access token configuration.](media/personal-access-token-configuration.png)
 
+        > [!IMPORTANT]
+        > Use the last privilege option, "Agent Pools (Read & Manage)," only for the agent configuration. Also, make sure you set the minimum expiration date for the token if it's the only purpose for the token. You can create a new token with the same privileges if you need to configure the agent again.
+
 13. To configure your agent, run the following command:
 
     ```powershell
@@ -93,6 +106,10 @@ You'll create agents and configure self-hosted agents using Windows. If you want
     7. Choose the agent run mode (Y to run as service).
     8. Enter Y to enable SERVICE_SID_TYPE_UNRESTRICTED for the agent service (Windows only).
     9. Enter the user account to use for the service.
+
+        > [!IMPORTANT]
+        > For running the agent service, refrain from using high-privileged accounts. Instead, employ a low-privileged account that holds the minimum permissions necessary for the operation of the service. This approach helps to maintain a secure and stable environment.
+
     10. Enter whether to prevent service starting immediately after configuration is finished (N to start the service).
 
         ![Screenshot showing the agent configuration.](media/agent-configuration.png)
@@ -103,24 +120,40 @@ You'll create agents and configure self-hosted agents using Windows. If you want
 
 For more details on Windows agents, see: [Self-hosted Windows agents](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent)
 
-### Exercise 2: Manage agent pool permissions
+### Exercise 2: Create and configure a new security group for the agent pool
+
+In this exercise, you will create a new security group for the agent pool.
+
+1. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
+2. Open Permissions under General.
+3. Click on the "New Group" button.
+4. Provide a name for the group, such as "eShopOnWeb Security Group".
+5. Add the users you want to be part of the group.
+6. Click on the "Create" button to create the group.
+
+    ![Screenshot showing the security group creation.](media/create-security-group.png)
+7. Open the new group and click on the "Settings" tab.
+8. Deny unnecessary permissions for the group, such as "Rename team project", "Permanently delete work items", or any other permissions you don't want the group to have since it is used only for the agent pool.
+
+> [!IMPORTANT]
+> If you leave permissions you don't want the group to have, scripts or tasks running on the agent can use the group permissions to perform actions you don't want them to perform.
+
+### Exercise 3: Manage agent pool permissions
 
 In this exercise, you will manage permissions for the agent pool.
 
 1. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
 2. Select Pipelines, and then select Agent pools.
-3. Click on the "eShopOnWebSelfPool" agent pool created in Exercise 1.
+3. Click on the "eShopOnWebSelfPool" agent pool.
 4. In the agent pool details view, click on the Security tab.
-5. You can choose to add users or group permissions to the specific project or the entire Azure DevOps organization.
-6. Click the Add button to add a new user or group to the agent pool's permissions.
-7. Select the desired user or group from the list.
-8. Choose the appropriate role for the user or group, such as Agent Pool Reader, User or Administrator.
-9. The changes are saved automatically.
+5. Click the Add button and add the new group "eShopOnWeb Security Group" to the agent pool's user permissions.
+6. You can choose to add users or group permissions to the specific project or the entire Azure DevOps organization. In this case, choose **Project**.
+7. Choose the appropriate role for the user or group, such as Agent Pool Reader, User or Administrator. In this case, choose **User**.
+8. Click Add to apply the permissions.
 
     ![Screenshot showing the agent pool security configuration.](media/agent-pool-security.png)
 
-> [!NOTE]
-> If you have YAML pipelines created in the project, you can allow specific pipeline permissions for the agent pool.
+You are now ready to securely use the agent pool in your pipelines. For more details on agent pools, see: [Agent pools](https://learn.microsoft.com/azure/devops/pipelines/agents/pools-queues).
 
 ## Review
 
