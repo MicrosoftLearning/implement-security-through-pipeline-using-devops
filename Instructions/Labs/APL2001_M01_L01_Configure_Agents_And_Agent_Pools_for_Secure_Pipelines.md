@@ -8,7 +8,7 @@ lab:
 
 In this lab, you will learn how to configure Azure DevOps agents and agent Pools and manage permissions for those pools. Azure DevOps Agent Pools provide the resources to run your build and release pipelines.
 
-This exercise takes approximately **20** minutes.
+This exercise takes approximately **25** minutes.
 
 ## Before you start
 
@@ -20,6 +20,14 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 ## Instructions
 
 You'll create agents and configure self-hosted agents using Windows. If you want to configure agents on Linux or MacOS, follow the instructions in the [Azure DevOps documentation](https://docs.microsoft.com/azure/devops/pipelines/agents/v2-linux).
+
+During the configuration, keep in mind the following:
+
+- **Maintain separate agents per project**: Each agent can only be tied to one pool. While sharing agent pools across projects can save on infrastructure costs, it also creates the risk of lateral movement. Therefore, it's best to have separate agent pools with dedicated agents for each project to prevent cross-contamination.
+- **Utilize low-privileged accounts for running agents**: Running an agent under an identity with direct access to Azure DevOps resources can pose security threats. Operating the agent under a non-privileged local account like Network Service is advisable, which minimizes the risk.
+- **Beware of misleading group names**: The "Project Collection Service Accounts" group in Azure DevOps is a potential security risk. Running agents using an identity that's part of this group and backed by Azure AD can jeopardize the security of your entire Azure DevOps organization.
+- **Avoid high-privileged accounts for self-hosted agents**: Using high-privileged accounts to run self-hosted agents, particularly for accessing secrets or production environments, can expose your system to severe threats if a pipeline is compromised.
+- **Prioritize security**: To safeguard your systems, use the least privileged account to run self-hosted agents. For instance, consider using your machine account or a managed service identity. It's also advisable to allow Azure Pipelines to handle access to secrets and environments.
 
 ### Exercise 1: Create agents and configure agent pools
 
@@ -74,6 +82,9 @@ You'll create agents and configure self-hosted agents using Windows. If you want
 
         ![Screenshot showing the personal access token configuration.](media/personal-access-token-configuration.png)
 
+        > [!IMPORTANT]
+        > Use the last privilege option, "Agent Pools (Read & Manage)," only for the agent configuration. Also, make sure you set the minimum expiration date for the token if it's the only purpose for the token. You can create a new token with the same privileges if you need to configure the agent again.
+
 13. To configure your agent, run the following command:
 
     ```powershell
@@ -93,6 +104,10 @@ You'll create agents and configure self-hosted agents using Windows. If you want
     7. Choose the agent run mode (Y to run as service).
     8. Enter Y to enable SERVICE_SID_TYPE_UNRESTRICTED for the agent service (Windows only).
     9. Enter the user account to use for the service.
+
+        > [!IMPORTANT]
+        > For running the agent service, refrain from using high-privileged accounts. Instead, employ a low-privileged account that holds the minimum permissions necessary for the operation of the service. This approach helps to maintain a secure and stable environment.
+
     10. Enter whether to prevent service starting immediately after configuration is finished (N to start the service).
 
         ![Screenshot showing the agent configuration.](media/agent-configuration.png)
