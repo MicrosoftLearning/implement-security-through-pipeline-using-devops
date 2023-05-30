@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Learning Lab: Configure and validate permissions'
+    title: 'Lab: Configure and validate permissions'
     module: 'Module 3: Configure and validate permissions'
 ---
 
-# Learning Lab: Configure and validate permissions
+# Lab: Configure and validate permissions
 
 In this lab, explore the importance of configuring and validating permissions for users, pipelines, and approvals in Azure DevOps. This lab covers critical concepts and best practices for configuring and validating user permissions, pipeline permissions, approval and branch checks, and auditing and managing permissions.
 

@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Learning Lab: Manage identity for projects, pipelines, and agents'
+    title: 'Lab: Manage identity for projects, pipelines, and agents'
     module: 'Module 7: Manage identity for projects, pipelines, and agents'
 ---
 
-# Learning Lab: Manage identity for projects, pipelines, and agents
+# Lab: Manage identity for projects, pipelines, and agents
 
 In this lab, explore the importance of managing identity for projects, pipelines, and agents in Azure DevOps. This lab covers fundamental concepts and best practices for configuring Microsoft-hosted agents and pools, configuring agents for projects, configuring agent identities, configuring the scope of a service connection, and converting to a managed identity.
 

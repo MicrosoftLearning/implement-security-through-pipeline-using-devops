@@ -1,12 +1,12 @@
 ---
 lab:
-    title: 'Learning Lab: Validate your lab environment'
+    title: 'Lab: Validate your lab environment'
     module: 'Module 0: Welcome'
 ---
 
-# Learning Lab: Validate your lab environment
+# Lab: Validate your lab environment
 
-In preparation for the learning labs, it is crucial to have your environment correctly set up. This page will guide you through the setup process, ensuring all prerequisites are met.
+In preparation for the labs, it is crucial to have your environment correctly set up. This page will guide you through the setup process, ensuring all prerequisites are met.
 
 - The labs require **Microsoft Edge** or an [Azure DevOps-supported browser.](https://learn.microsoft.com/azure/devops/server/compatibility?view=azure-devops#web-portal-supported-browsers)
 
@@ -42,7 +42,7 @@ In preparation for the learning labs, it is crucial to have your environment cor
 
 > **Note**: make sure you completed the steps to create your Azure DevOps Organization before continuing with these steps.
 
-To follow all learning lab instructions, you'll need set up a new Azure DevOps project and create a repository that's based on the [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb) application.
+To follow all lab instructions, you'll need set up a new Azure DevOps project and create a repository that's based on the [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb) application.
 
 ### Create and configure the team project
 
@@ -77,4 +77,4 @@ Now, you'll import the eShopOnWeb into your git repository.
     - **.github** folder container YAML GitHub workflow definitions.
     - **src** folder contains the .NET 6 website used on the lab scenarios.
 
-You have now completed the necessary prerequisite steps to continue with the learning labs.
+You have now completed the necessary prerequisite steps to continue with the labs.
