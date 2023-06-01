@@ -135,8 +135,10 @@ In this exercise, you will create a new security group for the agent pool.
 7. Open the new group and click on the "Settings" tab.
 8. Deny unnecessary permissions for the group, such as "Rename team project", "Permanently delete work items", or any other permissions you don't want the group to have since it is used only for the agent pool.
 
-> [!IMPORTANT]
-> If you leave permissions you don't want the group to have, scripts or tasks running on the agent can use the group permissions to perform actions you don't want them to perform.
+    ![Screenshot showing the security group settings.](media/security-group-settings.png)
+
+    > [!IMPORTANT]
+    > If you leave permissions you don't want the group to have, scripts or tasks running on the agent can use the group permissions to perform actions you don't want them to perform.
 
 ### Exercise 3: Manage agent pool permissions
 
