@@ -71,13 +71,13 @@ Azure Pipelines automatically creates a Service Principal when you connect to an
     > [!NOTE]
     > The command will generate a JSON output. Copy the output to text file. You will need it later in this lab.
 
-6. Next, start a web browser, navigate to the Azure DevOps **eShopOnWeb** project. Click on **Project Settings > Service Connections (under Pipelines)** and **New Service Connection**.
+6. Next, navigate to the Azure DevOps **eShopOnWeb** project. Click on **Project Settings > Service Connections (under Pipelines)** and **New Service Connection**.
 
     ![Screenshot of the new service connection creation button.](media/new-service-connection.png)
 
 7. On the **New service connection** blade, select **Azure Resource Manager** and **Next** (may need to scroll down).
 
-8. The choose **Service Principal (manual)** and click on **Next**.
+8. Then choose **Service Principal (manual)** and click on **Next**.
 
 9. Fill in the empty fields using the information gathered during previous steps:
     - Subscription Id and Name.

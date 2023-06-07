@@ -33,6 +33,8 @@ During the configuration, keep in mind the following:
 
 In this exercise, you will create an agent and configure agent pools.
 
+#### Task 1: Create an agent pool
+
 1. Navigate to the Azure DevOps portal at https://dev.azure.com and sign in with your account.
 2. Choose the organization you want to work with.
 3. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
@@ -44,10 +46,13 @@ In this exercise, you will create an agent and configure agent pools.
     ![Screenshot showing add agent pool options with self-hosted type.](media/create-new-agent-pool-self-hosted-agent.png)
 
 8. Click on "Create" button to create the agent pool.
-9. Click on the newly created agent pool, and then click on the "Agents" tab.
-10. Click on the "New agent" button and then "Download" button from the "Download agent" in the new pop-up window.
-11. Follow the installation instructions to install the agent on your machine from the pop-up window.
-    1. Run the following commands from Powershell to create a new agent folder in your machine.
+
+#### Task 2: Create an agent
+
+1. Click on the newly created agent pool, and then click on the "Agents" tab.
+2. Click on the "New agent" button and then "Download" button from the "Download agent" in the new pop-up window.
+3. Follow the installation instructions to install the agent on your machine from the pop-up window.
+   1. Run the following commands from Powershell to create a new agent folder in your machine.
 
         ```powershell
         mkdir agent ; cd agent        
@@ -56,38 +61,43 @@ In this exercise, you will create an agent and configure agent pools.
         > [!NOTE]
         > Make sure you are in the root folder of your user profile or the folder where you want to install the agent.
 
-    2. If you choose the "Download" folder in your machine, from Powershell, run the suggested command:
+   2. If you choose the "Download" folder in your machine, from Powershell, run the suggested command:
 
         ```powershell
-        Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-3.220.2.zip", "$PWD")
+        Add-Type -AssemblyName System.IO.Compression.FileSystem ; [SysteIO.Compression.ZipFile]::ExtractToDirecto("$HOME\Downloads\vsts-agent-win-x64-3.220.2.zip", "$PWD")
         
-        ```
-
+        ``
         > [!NOTE]
-        > If you downloaded the agent to a different location, replace the path in the above command.
+        > If you downloaded the agent to a different location, replacthe path in the above command.
 
-12. Before configuring your agent, create a new PAT token or choose an existing one. To create a new PAT token, follow the steps below:
-    1. Navigate to the eShopOnWeb project, and click on "User settings" from the right-side top menu (left of your user profile picture).
-    2. Click on the "Personal Access Tokens" menu.
+#### Task 3: Create a PAT token
 
-        ![Screenshot showing the personal access tokens menu.](media/personal-access-token-menu.png)
+Before configuring your agent, create a new PAT token or choose an existing one. To create a new PAT token, follow the steps below:
 
-    3. Click on the "New Token" button.
-    4. Provide a name for the token, such as "eShopOnWebToken".
-    5. Select the Azure DevOps organization you want to use the token.
-    6. Set the expiration date for the token (only used to configure the agent).
-    7. Select the custom defined scope.
-    8. Click to show all scopes.
-    9. Select the "Agent Pools (Read & Manage)" scope.
-    10. Click on the "Create" button to create the token.
-    11. Copy the token value and save it in a safe place (you will not be able to see it again. You can only regenerate the token).
+1. Navigate to the eShopOnWeb project, and click on "User settings" from the right-side top menu (left of your user profile picture).
+2. Click on the "Personal Access Tokens" menu.
 
-        ![Screenshot showing the personal access token configuration.](media/personal-access-token-configuration.png)
+    ![Screenshot showing the personal access tokens menu.](media/personal-access-token-menu.png)
 
-        > [!IMPORTANT]
-        > Use the last privilege option, "Agent Pools (Read & Manage)," only for the agent configuration. Also, make sure you set the minimum expiration date for the token if it's the only purpose for the token. You can create a new token with the same privileges if you need to configure the agent again.
+3. Click on the "New Token" button.
+4. Provide a name for the token, such as "eShopOnWebToken".
+5. Select the Azure DevOps organization you want to use the token.
+6. Set the expiration date for the token (only used to configure the agent).
+7. Select the custom defined scope.
+8. Click to show all scopes.
+9. Select the "Agent Pools (Read & Manage)" scope.
+10. Click on the "Create" button to create the token.
+11. Copy the token value and save it in a safe place (you will not be able to see it again. You can only regenerate the token).
 
-13. To configure your agent, run the following command:
+    ![Screenshot showing the personal access token configuration.](media/personal-access-token-configuration.png)
+
+    > [!IMPORTANT]
+    > Use the last privilege option, "Agent Pools (Read & Manage)," only for the agent configuration. Also, make sure you set the minimum expiration date for the token if it's the only purpose for the token. You can create a new token with the same privileges if you need to configure the agent again.
+
+#### Task 4: Configure the agent
+
+1. Open a new Powershell window and navigate to the agent folder you created in the previous step.
+2. To configure your agent, run the following command:
 
     ```powershell
     .\config.cmd
@@ -96,7 +106,7 @@ In this exercise, you will create an agent and configure agent pools.
     > [!NOTE]
     > Optionally run the agent interactively by running .\run.cmd. You cannot close the command prompt window while running interactively.
 
-14. Enter the following information when prompted to configure the agent:
+3. Enter the following information when prompted to configure the agent:
     1. Enter the URL of the Azure DevOps organization: https://dev.azure.com/{your organization name}.
     2. Choose the authentication type: PAT.
     3. Enter the PAT token value you created in the previous step.
@@ -124,6 +134,8 @@ For more details on Windows agents, see: [Self-hosted Windows agents](https://le
 
 In this exercise, you will create a new security group for the agent pool.
 
+#### Task 1: Create a new security group
+
 1. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
 2. Open Permissions under General.
 3. Click on the "New Group" button.
@@ -132,8 +144,11 @@ In this exercise, you will create a new security group for the agent pool.
 6. Click on the "Create" button to create the group.
 
     ![Screenshot showing the security group creation.](media/create-security-group.png)
-7. Open the new group and click on the "Settings" tab.
-8. Deny unnecessary permissions for the group, such as "Rename team project", "Permanently delete work items", or any other permissions you don't want the group to have since it is used only for the agent pool.
+
+#### Task 2: Configure the security group
+
+1. Open the new group and click on the "Settings" tab.
+2. Deny unnecessary permissions for the group, such as "Rename team project", "Permanently delete work items", or any other permissions you don't want the group to have since it is used only for the agent pool.
 
     ![Screenshot showing the security group settings.](media/security-group-settings.png)
 
