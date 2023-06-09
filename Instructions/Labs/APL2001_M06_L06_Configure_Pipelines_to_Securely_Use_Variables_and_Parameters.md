@@ -8,7 +8,7 @@ lab:
 
 In this lab, explore the importance of configuring pipelines to use variables and parameters securely in Azure DevOps. This lab covers fundamental concepts and best practices for ensuring that parameters and variables retain their type, identifying and restricting insecure use of parameters and variables, moving parameters into a YAML file that protects their type, limiting variables that can be set at queue time, and validating that mandatory variables are present and set correctly.
 
-This exercise takes approximately **45** minutes.
+These exercises take approximately **45** minutes.
 
 ## Before you start
 

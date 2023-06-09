@@ -8,7 +8,7 @@ lab:
 
 In this lab, explore the importance of configuring a secure project and repository structure to support pipelines in Azure DevOps. This lab covers fundamental concepts and best practices for organizing the project and repository structure and moving the security repository away from the application project.
 
-This exercise takes approximately **45** minutes.
+These exercises take approximately **45** minutes.
 
 ## Before you start
 

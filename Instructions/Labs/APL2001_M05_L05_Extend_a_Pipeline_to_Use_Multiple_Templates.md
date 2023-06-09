@@ -8,7 +8,7 @@ lab:
 
 In this lab, explore the importance of extending a pipeline to multiple templates and how to do it using Azure DevOps. This lab covers fundamental concepts and best practices for creating nested templates, rewriting the main deployment pipeline, configuring the pipeline and the application to use tokenization, removing plain text secrets, restricting agent logging, and identifying and conditionally removing script tasks.
 
-This exercise takes approximately **45** minutes.
+These exercises take approximately **45** minutes.
 
 ## Before you start
 
