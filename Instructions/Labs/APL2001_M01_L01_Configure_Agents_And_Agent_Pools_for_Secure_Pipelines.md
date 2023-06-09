@@ -8,7 +8,7 @@ lab:
 
 In this lab, you will learn how to configure Azure DevOps agents and agent Pools and manage permissions for those pools. Azure DevOps Agent Pools provide the resources to run your build and release pipelines.
 
-This exercise takes approximately **25** minutes.
+These exercises take approximately **25** minutes.
 
 ## Before you start
 

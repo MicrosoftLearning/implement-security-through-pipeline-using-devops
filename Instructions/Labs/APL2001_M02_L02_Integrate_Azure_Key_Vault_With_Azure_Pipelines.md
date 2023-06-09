@@ -8,7 +8,7 @@ lab:
 
 Azure Key Vault provides secure storage and management of sensitive data, such as keys, passwords, and certificates. Azure Key Vault includes support for hardware security modules and a range of encryption algorithms and key lengths. By using Azure Key Vault, you can minimize the possibility of disclosing sensitive data through source code, a common mistake developers make. Access to Azure Key Vault requires proper authentication and authorization, supporting fine-grained permissions to its content.
 
-This exercise takes approximately **40** minutes.
+These exercises take approximately **40** minutes.
 
 ## Before you start
 

@@ -10,7 +10,7 @@ Managed identities offer a secure method for controlling access to Azure resourc
 
 In this lab, you'll create a managed identity to use in your YAML pipelines using Azure DevOps with self-hosted agents and a managed identity.
 
-This exercise takes approximately **45** minutes.
+These exercises take approximately **45** minutes.
 
 ## Before you start
 
