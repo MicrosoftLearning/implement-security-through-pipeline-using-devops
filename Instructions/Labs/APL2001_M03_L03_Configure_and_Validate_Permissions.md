@@ -6,7 +6,7 @@ lab:
 
 # Lab: Configure and validate permissions
 
-In this lab, ab covers critical concepts and best practices for configuring and validating user permissions, pipeline permissions, approval and branch checks, and auditing and managing permissions.
+In this lab, you'll set up a secure environment that adheres to the principle of least privilege, ensuring that members can access only the resources they need to perform their tasks and minimize potential security risks. This involves configuring and validating user and pipeline permissions and setting up approval and branch checks in Azure DevOps.
 
 These exercises take approximately **30** minutes.
 
@@ -17,8 +17,6 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 - Follow the steps to [validate your lab environment](APL2001_M00_Validate_Lab_Environment.md).
 
 ## Instructions
-
-In this lab, you'll set up a secure environment that adheres to the principle of least privilege, ensuring that each member can access only the resources they need to perform their tasks, thereby minimizing potential security risks. This involves configuring and validating user and pipeline permissions, setting up approval and branch checks, and auditing the permissions in Azure DevOps.
 
 ### Exercise 1: Import CI pipeline and configure pipeline specific permissions
 
@@ -201,14 +199,12 @@ In this exercise, you will configure and validate approval and branch checks for
 
     ![Screenshot of the pipeline log with the Testing WebApp stage executed successfully".](media/pipeline-test-environment-success.png)
 9. Back to the pipeline and you will see the stage "Deploy to WebApp" waiting for approval. Click on **Review** and **Approve** as you did before for the "Testing WebApp" stage.
-10. Wait for the pipeline to finish, open the pipeline log and check that the "Deploy to WebApp" stage was executed successfully.
+10. Wait for the pipeline to finish amd check that the "Deploy to WebApp" stage was executed successfully.
 
-    ![Screenshot of the pipeline with the Deploy to WebApp stage to be approved".](media/pipeline-deploy-environment-approve.png)
+    ![Screenshot of the pipeline with the Deploy to WebApp stage to be approved".](media/pipeline-deploy-environment-success.png)
 
 You should be able to run the pipeline successfully with the approvals and branch checks in both environments, Test and Production.
 
-### Exercise 3: Manage and audit permissions
-
 ## Review
 
-In this lab, you learned how to configure approvals and branch checks for secure YAML pipelines in Azure DevOps. You created a new YAML pipeline, added build and test tasks, configured approvals, and enforced branch checks to ensure that only authorized changes are deployed. You also learned how to use Azure DevOps security groups and roles to manage approvals and permissions, and how to configure branch policies to enforce checks such as pull request reviews and build validation.
+In this lab, you have learned how to set up a secure environment that adheres to the principle of least privilege, ensuring that members can access only the resources they need to perform their tasks and minimize potential security risks. You configured and validated user and pipeline permissions and set up approval and branch checks in Azure DevOps.
