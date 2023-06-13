@@ -172,6 +172,13 @@ In this exercise, you will manage permissions for the agent pool.
 
 You are now ready to securely use the agent pool in your pipelines. For more details on agent pools, see: [Agent pools](https://learn.microsoft.com/azure/devops/pipelines/agents/pools-queues).
 
+### Exercise 4: Remove the resources used in the lab
+
+1. Stop and remove the agent service by running .config.cmd remove.
+2. Delete the agent pool.
+3. Delete the security group.
+4. Revoke the PAT token.
+
 ## Review
 
 In this lab, you learned how to configure Azure DevOps self-hosted agent and agent pools and manage permissions for those pools. By managing permissions effectively, you can ensure that the right users have access to the resources they need while maintaining the security and integrity of your DevOps processes.

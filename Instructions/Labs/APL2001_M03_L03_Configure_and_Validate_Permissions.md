@@ -205,6 +205,17 @@ In this exercise, you will configure and validate approval and branch checks for
 
 You should be able to run the pipeline successfully with the approvals and branch checks in both environments, Test and Production.
 
+### Exercise 3: Remove the resources used in the lab
+
+1. In the Azure portal, open the created Resource Group and click on **Delete resource group** for all created resources in this lab.
+
+    ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
+
+    > [!WARNING]
+    > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
+
+2. Reset the specific permissions you added to the Azure DevOps organization and project in this lab.
+
 ## Review
 
 In this lab, you have learned how to set up a secure environment that adheres to the principle of least privilege, ensuring that members can access only the resources they need to perform their tasks and minimize potential security risks. You configured and validated user and pipeline permissions and set up approval and branch checks in Azure DevOps.

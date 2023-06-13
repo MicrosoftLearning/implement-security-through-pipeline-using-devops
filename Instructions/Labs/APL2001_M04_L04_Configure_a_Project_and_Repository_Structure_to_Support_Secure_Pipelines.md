@@ -22,6 +22,15 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 ### Exercise 2
 
+### Exercise 3: Remove the resources used in the lab
+
+1. In the Azure portal, open the created Resource Group and click on **Delete resource group** for all created resources in this lab.
+
+    ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
+
+    > [!WARNING]
+    > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
+
 ## Review
 
 [Review of lab]
