@@ -6,9 +6,9 @@ lab:
 
 # Lab: Configure pipelines to securely use variables and parameters
 
-In this lab, explore the importance of configuring pipelines to use variables and parameters securely in Azure DevOps. This lab covers fundamental concepts and best practices for ensuring that parameters and variables retain their type, identifying and restricting insecure use of parameters and variables, moving parameters into a YAML file that protects their type, limiting variables that can be set at queue time, and validating that mandatory variables are present and set correctly.
+In this lab, you will learn how to configure pipelines to securely use variables and parameters.
 
-These exercises take approximately **45** minutes.
+These exercises take approximately **20** minutes.
 
 ## Before you start
 
@@ -18,19 +18,166 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 ## Instructions
 
-### Exercise 1
+### Exercise 1: Ensure parameter and variable types
 
-### Exercise 2
+#### Task 1: Import and run the CI pipeline
 
-### Exercise 3: Remove the resources used in the lab
+> [!NOTE]
+> Skip the import if already done in another lab.
 
-1. In the Azure portal, open the created Resource Group and click on **Delete resource group** for all created resources in this lab.
+Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
-    ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
+1. Open a browser and go to the eShopOnWeb project in Azure DevOps.
+2. Go to **Pipelines > Pipelines**.
+3. Click on **New Pipeline** button.
+4. Select **Azure Repos Git (Yaml)**.
+5. Select the **eShopOnWeb** repository.
+6. Select **Existing Azure Pipelines YAML File**.
+7. Select the **/.ado/eshoponweb-ci.yml** file then click on **Continue**.
+8. Click the **Run** button to run the pipeline.
+9. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci-parameters** and click on **Save**.
 
-    > [!WARNING]
-    > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
+#### Task 2: Ensure parameter types for YAML pipelines
+
+In this task, you will set parameter and parameter types for the pipeline.
+
+1. Go to **Pipelines > Pipelines** and click on the **eshoponweb-ci-parameters** pipeline.
+2. Click on **Edit**.
+3. Add the following parameters to the top of the YAML file:
+
+    ```YAML
+    parameters:
+   - name: dotNetProjects
+     type: string
+     default: '**/*.sln'
+   - name: testProjects
+     type: string
+     default: 'tests/UnitTests/*.csproj'
+
+    ```
+
+4. Replace the hardcoded paths in the 'Restore', 'Build', and 'Test' tasks with the parameters you just created.
+   - **Replace projects**: '**/*.sln' with projects: ${{ parameters.dotNetProjects }} in the 'Restore' and 'Build' tasks.
+   - **Replace projects**: 'tests/UnitTests/*.csproj' with projects: ${{ parameters.testProjects }} in the 'Test' task.
+
+    Your YAML file should look like this:
+
+    ```YAML
+        steps:
+        - task: DotNetCoreCLI@2
+          displayName: Restore
+          inputs:
+            command: 'restore'
+            projects: ${{ parameters.dotNetProjects }}
+            feedsToUse: 'select'
+    
+        - task: DotNetCoreCLI@2
+          displayName: Build
+          inputs:
+            command: 'build'
+            projects: ${{ parameters.dotNetProjects }}
+    
+        - task: DotNetCoreCLI@2
+          displayName: Test
+          inputs:
+            command: 'test'
+            projects: ${{ parameters.testProjects }}
+
+    ```
+
+5. Save the pipeline and run it. It should run successfully.
+
+    ![Screenshot of the pipeline run with parameters.](media/pipeline-parameters-run.png)
+
+#### Task 2: Securing variables and parameters
+
+In this task, you will secure the variables and parameters from your pipeline by using variable groups.
+
+1. Go to **Pipelines > Library**.
+2. Click on the “+ Variable group” button to create a new variable group. Give it a name like "BuildConfigurations".
+3. Add a variable named "buildConfiguration" and set its value to 'Release'.
+4. Save the variable group.
+
+    ![Screenshot of the variable group with BuildConfigurations.](media/eshop-variable-group.png)
+
+5. Click on the **Pipeline permissions** button and click on the **+ Add** button to add a new pipeline.
+6. Select the **eshoponweb-ci-parameters** pipeline and click on **Add** to allow the pipeline to use the variable group.
+
+    ![Screenshot of the pipeline permissions.](media/pipeline-permissions.png)
+
+7. (Optional) You can also set specific users or groups to be able to edit the variable group by clicking on the **Security** button.
+8. Go back to the YAML file and at the top of the file, right under the parameters, reference the variable group by adding the following:
+
+    ```YAML
+    variables:
+      - group: BuildConfigurations
+    
+    ```
+
+9. In the 'Build' task, replace command: 'build' with the following lines to utilize the build configuration from the variable group.
+
+    ```YAML
+    command: 'build'
+    projects: ${{ parameters.dotNetProjects }}
+    configuration: $(buildConfiguration)
+    
+    ```
+
+10. Save the pipeline and run it. It should run successfully with the build configuration set to 'Release'. You can verify this by looking at the logs of the 'Build' task.
+
+Following this approach, you can secure your variables and parameters by using variable groups without having to hardcode them in your YAML file.
+
+#### Task 3: Validating mandatory variables and parameters
+
+In this task, you will validate the mandatory variables before the pipeline executes.
+
+1. Go to **Pipelines > Pipelines**.
+2. Open **eshoponweb-ci-parameters** pipeline and click on **Edit**.
+3. Add a new stage as the first stage named “Validate” to validate the mandatory variables before the pipeline executes.
+
+    ```YAML
+    - stage: Validate
+      displayName: Validate mandatory variables
+      jobs:
+      - job: ValidateVariables
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+        - script: |
+            if [ -z "$(buildConfiguration)" ]; then
+              echo "Error: buildConfiguration variable is not set"
+              exit 1
+            fi
+          displayName: 'Validate Variables'
+    
+    ```
+
+    > [!NOTE]
+    > This stage will run a script to validate the buildConfiguration variable. If the variable is not set, the script will fail and the pipeline will stop.
+
+4. Make the “Build” stage depend on the “Validate” stage by adding dependsOn: Validate under the Build stage:
+
+    ```YAML
+    - stage: Build
+      displayName: Build .Net Core Solution
+      dependsOn: Validate
+    
+    ```
+
+5. Save the pipeline and run it. It will run successfully because the buildConfiguration variable is set in the variable group.
+6. To test the validation, remove the buildConfiguration variable from the variable group, or delete the variable group, and run the pipeline again. It should fail with the following error:
+
+    You should see the following error in the logs:
+
+    ```YAML
+    Error: buildConfiguration variable is not set
+    
+    ```
+
+    ![Screenshot of the pipeline run with validation failing.](media/pipeline-validation-fail.png)
+
+7. Add the variable group and the buildConfiguration variable back to the variable group and run the pipeline again. It should run successfully.
 
 ## Review
 
-[Review of lab]
+In this lab you learned how to configure pipelines to securely use variables and parameters, and how to validate mandatory variables and parameters.
