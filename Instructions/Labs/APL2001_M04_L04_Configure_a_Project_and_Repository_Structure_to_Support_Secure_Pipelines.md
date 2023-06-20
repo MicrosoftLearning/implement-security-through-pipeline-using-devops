@@ -6,9 +6,9 @@ lab:
 
 # Lab: Configure a project and repository structure to support secure pipelines
 
-In this lab, explore the importance of configuring a secure project and repository structure to support pipelines in Azure DevOps. This lab covers fundamental concepts and best practices for organizing the project and repository structure and moving the security repository away from the application project.
+In this lab, you will learn how to configure a project and repository structure in Azure DevOps to support secure pipelines. This lab covers best practices for organizing projects and repositories, assigning permissions, and managing secure files.
 
-These exercises take approximately **45** minutes.
+These exercises take approximately **30** minutes.
 
 ## Before you start
 
@@ -18,19 +18,26 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 ## Instructions
 
-### Exercise 1
+### Exercise 1: Configure a secure project structure
 
-### Exercise 2
+In this exercise, you will configure a secure project structure by creating a new project and assigning it project permissions. Separating processes and resources into different projects supports security.
 
-### Exercise 3: Remove the resources used in the lab
+#### Task 1: Create a new project
 
-1. In the Azure portal, open the created Resource Group and click on **Delete resource group** for all created resources in this lab.
+#### Task 2: Assign project permissions
 
-    ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
+### Exercise 2: Configure a secure repository structure
 
-    > [!WARNING]
-    > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
+In this exercise, you will configure a secure repository structure by creating a new repository in your project, adding secure files, assigning security roles and access, and moving the security-related files away from the main project.
+
+#### Task 1: Create a repository
+
+#### Task 2: Add secure files
+
+#### Task 3: Assign security roles and access for all files in the Library
+
+#### Task 4: Move the security-related files
 
 ## Review
 
-[Review of lab]
+In this lab, you learned how to configure and organize a secure project and repository structure in Azure DevOps. By managing permissions effectively, you can ensure that the right users have access to the resources they need while maintaining the security and integrity of your DevOps pipelines and processes.
