@@ -1,6 +1,6 @@
 ---
 lab:
-    title: Configure agents and agent pools for secure pipelines'
+    title: Configure agents and agent pools for secure pipelines
     module: 'Module 1: Configure secure access to pipeline resources'
 ---
 
