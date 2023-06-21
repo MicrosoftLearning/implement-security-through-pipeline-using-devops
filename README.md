@@ -1,4 +1,4 @@
-# APL-2001 - Implement security through a pipeline using Azure DevOps
+# APL-2001: Implement security through a pipeline using Azure DevOps
 
 This repo contains the instructions and assets required to complete the exercises in the [Implement security through a pipeline using DevOps](https://learn.microsoft.com/training/paths/implement-security-through-pipeline-using-devops/) learning path on Microsoft Learn.
 
