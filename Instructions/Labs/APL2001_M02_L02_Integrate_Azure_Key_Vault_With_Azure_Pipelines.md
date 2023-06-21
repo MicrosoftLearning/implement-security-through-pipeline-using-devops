@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Lab: Integrate Azure Key Vault with Azure Pipelines'
+    title: 'Integrate Azure Key Vault with Azure Pipelines'
     module: 'Module 2: Configure secure access to Azure Repos from pipelines'
 ---
 
-# Lab: Integrate Azure Key Vault with Azure Pipelines
+# Integrate Azure Key Vault with Azure Pipelines
 
 Azure Key Vault provides secure storage and management of sensitive data, such as keys, passwords, and certificates. Azure Key Vault includes support for hardware security modules and a range of encryption algorithms and key lengths. By using Azure Key Vault, you can minimize the possibility of disclosing sensitive data through source code, a common mistake developers make. Access to Azure Key Vault requires proper authentication and authorization, supporting fine-grained permissions to its content.
 

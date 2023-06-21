@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Lab: Configure a project and repository structure to support secure pipelines'
+    title: 'Configure a project and repository structure to support secure pipelines'
     module: 'Module 4: Configure a project and repository structure to support secure pipelines'
 ---
 
-# Lab: Configure a project and repository structure to support secure pipelines
+# Configure a project and repository structure to support secure pipelines
 
 In this lab, you will learn how to configure a project and repository structure in Azure DevOps to support secure pipelines. This lab covers best practices for organizing projects and repositories, assigning permissions, and managing secure files.
 

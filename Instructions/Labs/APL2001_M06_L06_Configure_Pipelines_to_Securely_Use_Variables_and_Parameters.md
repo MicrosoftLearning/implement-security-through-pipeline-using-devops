@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Lab: Configure pipelines to securely use variables and parameters'
+    title: 'Configure pipelines to securely use variables and parameters'
     module: 'Module 6: Configure pipelines to securely use variables and parameters'
 ---
 
-# Lab: Configure pipelines to securely use variables and parameters
+# Configure pipelines to securely use variables and parameters
 
 In this lab, you will learn how to configure pipelines to securely use variables and parameters.
 

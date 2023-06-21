@@ -1,10 +1,10 @@
 ---
 lab:
-    title: 'Lab: Validate your lab environment'
+    title: 'Validate your lab environment'
     module: 'Module 0: Welcome'
 ---
 
-# Lab: Validate your lab environment
+# Validate your lab environment
 
 In preparation for the labs, it is crucial to have your environment correctly set up. This page will guide you through the setup process, ensuring all prerequisites are met.
 
