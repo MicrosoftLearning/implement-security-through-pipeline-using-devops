@@ -147,14 +147,32 @@ In this task, you will move the YAML templates to a separate repository and proj
 2. Create a new file named **eshoponweb-secure-variables.yml**.
 3. Copy the content of the file **.ado/eshoponweb-secure-variables.yml** from the eShopOnWeb repository to the new file.
 4. Commit the changes.
-5. Open the **eshoponweb-cd-webapp-code.yml** pipeline definition from the eShopOnWeb project, and replace the variables section with the following:
+5. Open the **eshoponweb-cd-webapp-code.yml** pipeline definition from the eShopOnWeb project.
+6. Add the following to the resources section:
+
+    ```YAML
+    resources:
+      repositories:
+        - repository: eShopSecurity
+          type: git
+          name: eShopSecurity/eShopSecurity #name of the project and repository
+
+    ```
+
+7. Replace the variables section with the following:
 
     ```YAML
     variables:
-      - template: eshoponweb-secure-variables.yml@eShopSecurity
+      - template: eshoponweb-secure-variables.yml@eShopSecurity #name of the template and repository
     ```
 
-6. Click on **Save** and **Run** the pipeline again.
+    ![Screenshot of the pipeline definition with the new variables and resource sections.](media/pipeline-variables-resource-section.png)
+
+8. Click on **Save** and **Run** the pipeline again. You will see that the pipeline is using the YAML template from the eShopSecurity repository.
+
+    ![Screenshot of the pipeline execution using the YAML template from the eShopSecurity repository.](media/pipeline-execution-using-template.png)
+
+Now you have the YAML templates in a separate repository and project. You can reuse these templates in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can controls the resource group, location, security and where the resources are deployed and other information in your template values and you don't need to make any changes to your pipeline definition.
 
 ### Exercise 2: Remove the Azure lab resources
 
