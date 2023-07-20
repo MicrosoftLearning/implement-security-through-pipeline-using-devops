@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Configure pipelines to securely use variables and parameters'
-    module: 'Module 6: Configure pipelines to securely use variables and parameters'
+    module: 'Module 7: Configure pipelines to securely use variables and parameters'
 ---
 
 # Configure pipelines to securely use variables and parameters
@@ -27,15 +27,16 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
-1. Open a browser and go to the eShopOnWeb project in Azure DevOps.
-2. Go to **Pipelines > Pipelines**.
-3. Click on **New Pipeline** button.
-4. Select **Azure Repos Git (Yaml)**.
-5. Select the **eShopOnWeb** repository.
-6. Select **Existing Azure Pipelines YAML File**.
-7. Select the **/.ado/eshoponweb-ci.yml** file then click on **Continue**.
-8. Click the **Run** button to run the pipeline.
-9. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci-parameters** and click on **Save**.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Open the eShopOnWeb project.
+3. Go to **Pipelines > Pipelines**.
+4. Click on **New Pipeline** button.
+5. Select **Azure Repos Git (Yaml)**.
+6. Select the **eShopOnWeb** repository.
+7. Select **Existing Azure Pipelines YAML File**.
+8. Select the **/.ado/eshoponweb-ci.yml** file then click on **Continue**.
+9. Click the **Run** button to run the pipeline.
+10. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci-parameters** and click on **Save**.
 
 #### Task 2: Ensure parameter types for YAML pipelines
 

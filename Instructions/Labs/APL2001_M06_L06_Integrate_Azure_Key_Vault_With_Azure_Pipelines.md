@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Integrate Azure Key Vault with Azure Pipelines'
-    module: 'Module 2: Configure secure access to Azure Repos from pipelines'
+    module: 'Module 6: Configure secure access to Azure Repos from pipelines'
 ---
 
 # Integrate Azure Key Vault with Azure Pipelines
@@ -71,22 +71,23 @@ Azure Pipelines automatically creates a Service Principal when you connect to an
     > [!NOTE]
     > The command will generate a JSON output. Copy the output to text file. You will need it later in this lab.
 
-6. Next, navigate to the Azure DevOps **eShopOnWeb** project. Click on **Project Settings > Service Connections (under Pipelines)** and **New Service Connection**.
+6. Next, navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+7. Navigate to the Azure DevOps **eShopOnWeb** project. Click on **Project Settings > Service Connections (under Pipelines)** and **New Service Connection**.
 
     ![Screenshot of the new service connection creation button.](media/new-service-connection.png)
 
-7. On the **New service connection** blade, select **Azure Resource Manager** and **Next** (may need to scroll down).
+8. On the **New service connection** blade, select **Azure Resource Manager** and **Next** (may need to scroll down).
 
-8. Then choose **Service Principal (manual)** and click on **Next**.
+9. Then choose **Service Principal (manual)** and click on **Next**.
 
-9. Fill in the empty fields using the information gathered during previous steps:
+10. Fill in the empty fields using the information gathered during previous steps:
     - Subscription Id and Name.
     - Service Principal Id (or clientId/AppId), Service Principal Key (or Password) and TenantId.
     - In **Service connection name** type **azure subs**. This name will be referenced in YAML pipelines when needing an Azure DevOps Service Connection to communicate with your Azure subscription.
 
         ![Screenshot of the Azure service connection configuration.](media/azure-service-connection.png)
 
-10. Do not check **Grant access permission to all pipelines**. Click on **Verify and Save**.
+11. Do not check **Grant access permission to all pipelines**. Click on **Verify and Save**.
 
     > [!NOTE]
     > The **Grant access permission to all pipelines** option is not recommended for production environments. It is only used in this lab to simplify the configuration of the pipeline.
@@ -95,16 +96,17 @@ Azure Pipelines automatically creates a Service Principal when you connect to an
 
 In this task, you will import an existing CI YAML pipeline definition, modify and run it. It will create a new Azure Container Registry (ACR) and build/publish the eShopOnWeb container images.
 
-1. Navigate to the Azure DevOps **eShopOnWeb** project. Go to **Pipelines > Pipelines** and click on **Create Pipeline** (or **New pipeline**).
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Navigate to the Azure DevOps **eShopOnWeb** project. Go to **Pipelines > Pipelines** and click on **Create Pipeline** (or **New pipeline**).
 
-2. On the **Where is your code?** window, select **Azure Repos Git (YAML)** and select the **eShopOnWeb** repository.
+3. On the **Where is your code?** window, select **Azure Repos Git (YAML)** and select the **eShopOnWeb** repository.
 
-3. On the **Configure** section, choose **Existing Azure Pipelines YAML file**. Provide the following path **/.ado/eshoponweb-ci-dockercompose.yml** and click on **Continue**.
+4. On the **Configure** section, choose **Existing Azure Pipelines YAML file**. Provide the following path **/.ado/eshoponweb-ci-dockercompose.yml** and click on **Continue**.
 
     ![Screenshot of the Pipeline selection from the YAML file.](media/select-ci-container-compose.png)
 
-4. In the YAML pipeline definition, in the variables section, customize your Resource Group name by replacing **AZ400-EWebShop-NAME** by the name of your preference, for example, "**rg-eshoponweb**", replace **YOUR-SUBSCRIPTION-ID** with your own Azure subscriptionId, and choose the location of your preference nearest to your location, for example **"westus"**.
-5. (Optional) You can use the self-hosted agent created in the previous lab updating the pool name currently set to the Microsoft-hosted agent to the name of the agent pool you created, "eShopOnWebSelfPool".
+5. In the YAML pipeline definition, in the variables section, customize your Resource Group name by replacing **AZ400-EWebShop-NAME** by the name of your preference, for example, "**rg-eshoponweb**", replace **YOUR-SUBSCRIPTION-ID** with your own Azure subscriptionId, and choose the location of your preference nearest to your location, for example **"westus"**.
+6. (Optional) You can use the self-hosted agent created in the previous lab updating the pool name currently set to the Microsoft-hosted agent to the name of the agent pool you created, "eShopOnWebSelfPool".
 
     Instead of:
 
@@ -126,28 +128,28 @@ In this task, you will import an existing CI YAML pipeline definition, modify an
     > [!NOTE]
     > To run the pipeline with the self-hosted agent, you will need to have the agent running and all the prerequisites installed, for example, Visual Studio to build the solution. If you do not have the prerequisites installed, you can use the Microsoft-hosted agent.
 
-6. Click on **Save and Run**, choose to commit directly to the main branch, or create a new branch.
-7. Click on **Save and Run** again.
+7. Click on **Save and Run**, choose to commit directly to the main branch, or create a new branch.
+8. Click on **Save and Run** again.
 
     > [!NOTE]
     > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
 
-8. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Create ACR for images", click on **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure Container Registry (ACR) resource.
+9. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Create ACR for images", click on **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure Container Registry (ACR) resource.
 
     ![Screenshot of the permit access from the YAML pipeline.](media/pipeline-permit-resource.png)
 
-9. The build may take a few minutes to complete, wait for the pipeline to execute. The build definition consists of the following tasks:
+10. The build may take a few minutes to complete, wait for the pipeline to execute. The build definition consists of the following tasks:
       - **AzureResourceManagerTemplateDeployment** uses **bicep** to deploy an Azure Container Registry.
       - **PowerShell** task take the bicep output (acr login server) and creates pipeline variable.
       - **DockerCompose** task builds and pushes the container images for eShopOnWeb to the Azure Container Registry .
 
-10. Your pipeline will take a name based on the Project name. Rename it to identify the pipeline better. Go to **Pipelines > Pipelines** on the recently created pipeline, mouse over the executed pipeline, and click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci-dockercompose** and click on **Save**.
+11. Your pipeline will take a name based on the Project name. Rename it to identify the pipeline better. Go to **Pipelines > Pipelines** on the recently created pipeline, mouse over the executed pipeline, and click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci-dockercompose** and click on **Save**.
 
-11. Once the execution is finished, on the Azure Portal, open the previously defined Resource Group, and you should find an Azure Container Registry (ACR) with the created container images **eshoppublicapi** and **eshopwebmvc**. You will only use **eshopwebmvc** in the deploy phase.
+12. Once the execution is finished, on the Azure Portal, open the previously defined Resource Group, and you should find an Azure Container Registry (ACR) with the created container images **eshoppublicapi** and **eshopwebmvc**. You will only use **eshopwebmvc** in the deploy phase.
 
     ![Screenshot of the container images in ACR from the Azure Portal.](media/azure-container-registry.png)
 
-12. Click on **Access Keys** and copy the **password** value, it will be used in the following task, as we will keep it as a secret in Azure Key Vault.
+13. Click on **Access Keys** and copy the **password** value, it will be used in the following task, as we will keep it as a secret in Azure Key Vault.
 
     ![Screenshot of the ACR password from the Access Keys setting.](media/acr-password.png)
 
@@ -199,11 +201,12 @@ For this lab scenario, we will have a Azure Container Instance (ACI) that pull a
 
 In this task, you will create a Variable Group in Azure DevOps that will retrieve the ACR password secret from Key Vault using the Service Connection (Service Principal)
 
-1. On your lab computer, start a web browser and navigate to the Azure DevOps project **eShopOnWeb**.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Navigate to the Azure DevOps project **eShopOnWeb**.
 
-2. In the vertical navigational pane of the of the Azure DevOps portal, select **Pipelines > Library**. Click on **+ Variable Group**.
+3. In the vertical navigational pane of the of the Azure DevOps portal, select **Pipelines > Library**. Click on **+ Variable Group**.
 
-3. On the **New variable group** blade, specify the following settings:
+4. On the **New variable group** blade, specify the following settings:
 
     | Setting | Value |
     | --- | --- |
@@ -212,8 +215,8 @@ In this task, you will create a Variable Group in Azure DevOps that will retriev
     | Azure subscription | **Available Azure service connection > Azure subs** |
     | Key vault name | Your key vault name|
 
-4. Under **Variables**, click on **+ Add** and select the **acr-secret** secret. Click on **OK**.
-5. Click on **Save**.
+5. Under **Variables**, click on **+ Add** and select the **acr-secret** secret. Click on **OK**.
+6. Click on **Save**.
 
     ![Screenshot of the variable group creation.](media/vg-create.png)
 
@@ -221,27 +224,28 @@ In this task, you will create a Variable Group in Azure DevOps that will retriev
 
 In this task, you will import a CD pipeline, customize it and run it for deploying the container image created before in a Azure Container Instance.
 
-1. From the lab computer, start a web browser, navigate to the Azure DevOps **eShopOnWeb** project. Go to **Pipelines > Pipelines** and click on **New Pipeline**.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Navigate to the Azure DevOps **eShopOnWeb** project. Go to **Pipelines > Pipelines** and click on **New Pipeline**.
 
-2. On the **Where is your code?** window, select **Azure Repos Git (YAML)** and select the **eShopOnWeb** repository.
+3. On the **Where is your code?** window, select **Azure Repos Git (YAML)** and select the **eShopOnWeb** repository.
 
-3. On the **Configure** section, choose **Existing Azure Pipelines YAML file**. Provide the following path **/.ado/eshoponweb-cd-aci.yml** and click on **Continue**.
+4. On the **Configure** section, choose **Existing Azure Pipelines YAML file**. Provide the following path **/.ado/eshoponweb-cd-aci.yml** and click on **Continue**.
 
-4. In the YAML pipeline definition, customize:
+5. In the YAML pipeline definition, customize:
 
     - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
     - **az400eshop-NAME** replace NAME to make it globally unique.
     - **YOUR-ACR.azurecr.io** and **ACR-USERNAME** with your ACR login server (both need the ACR name, can be reviewed on the ACR > Access Keys).
     - **rg-eshoponweb** with the resource group name defined before in the lab.
 
-5. Click on **Save and Run** and wait for the pipeline to execute successfully.
+6. Click on **Save and Run** and wait for the pipeline to execute successfully.
 
     > **Note**: The deployment may take a few minutes to complete. The CD definition consists of the following tasks:
     - **Resources** : it is prepared to automatically trigger based on CI pipeline completion. It also download the repository for the bicep file.
     - **Variables (for Deploy stage)** connects to the variable group to consume the Azure Key Vault secret **acr-secret**
     - **AzureResourceManagerTemplateDeployment** deploys the Azure Container Instance (ACI) using bicep template and provides the ACR login parameters to allow ACI to download the previously created container image from Azure Container Registry (ACR).
 
-6. Your pipeline will take a name based on the project name. Lets **rename** it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-cd-aci** and click on **Save**.
+7. Your pipeline will take a name based on the project name. Lets **rename** it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-cd-aci** and click on **Save**.
 
 ### Exercise 2: Remove the Azure lab resources
 

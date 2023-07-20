@@ -22,13 +22,14 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 #### Task 1: Create a multi-stage main YAML pipeline
 
-1. Open a browser and go to the eShopOnWeb project in Azure DevOps.
-2. Go to **Pipelines > Pipelines**.
-3. Click on **New Pipeline** button.
-4. Select **Azure Repos Git (Yaml)**.
-5. Select the **eShopOnWeb** repository.
-6. Click on **Starter pipeline**.
-7. Replace the content of the **azure-pipelines.yml** file with the following code:
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Open the eShopOnWeb project.
+3. Go to **Pipelines > Pipelines**.
+4. Click on **New Pipeline** button.
+5. Select **Azure Repos Git (Yaml)**.
+6. Select the **eShopOnWeb** repository.
+7. Click on **Starter pipeline**.
+8. Replace the content of the **azure-pipelines.yml** file with the following code:
 
     ```YAML
     trigger:
@@ -56,17 +57,17 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
     ```
 
-8. Click on **Save and run**. Choose if you want to commit directly to the main branch or create a new branch. Click on **Save and run** button.
+9. Click on **Save and run**. Choose if you want to commit directly to the main branch or create a new branch. Click on **Save and run** button.
 
    > [!NOTE]
    > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
 
-9. You will see the pipeline running with the three stages (Dev, Test, and Production) and the corresponding jobs. Wait until the pipeline finishes and back to the **Pipelines** page.
+10. You will see the pipeline running with the three stages (Dev, Test, and Production) and the corresponding jobs. Wait until the pipeline finishes and back to the **Pipelines** page.
 
     ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/eshoponweb-pipeline-multi-stage.png)
 
-10. Click on **...** (More options) on the right side of the pipeline you just created and select **Rename/move**.
-11. Rename the pipeline to **eShopOnWeb-MultiStage-Main** and click on **Save**.
+11. Click on **...** (More options) on the right side of the pipeline you just created and select **Rename/move**.
+12. Rename the pipeline to **eShopOnWeb-MultiStage-Main** and click on **Save**.
 
 #### Task 2: Create a variables template
 
