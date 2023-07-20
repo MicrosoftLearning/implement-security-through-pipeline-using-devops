@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Configure pipelines to securely use variables and parameters'
-    module: 'Module 6: Configure pipelines to securely use variables and parameters'
+    module: 'Module 7: Configure pipelines to securely use variables and parameters'
 ---
 
 # Configure pipelines to securely use variables and parameters

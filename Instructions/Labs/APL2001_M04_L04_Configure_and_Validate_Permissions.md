@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Configure and validate permissions'
-    module: 'Module 3: Configure and validate permissions'
+    module: 'Module 4: Configure and validate permissions'
 ---
 
 # Configure and validate permissions

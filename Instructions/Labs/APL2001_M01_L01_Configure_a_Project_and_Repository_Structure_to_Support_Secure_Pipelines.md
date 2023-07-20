@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Configure a project and repository structure to support secure pipelines'
-    module: 'Module 4: Configure a project and repository structure to support secure pipelines'
+    module: 'Module 1: Configure a project and repository structure to support secure pipelines'
 ---
 
 # Configure a project and repository structure to support secure pipelines

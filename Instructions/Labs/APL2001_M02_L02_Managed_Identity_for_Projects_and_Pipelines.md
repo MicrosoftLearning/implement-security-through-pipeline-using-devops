@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Managed identity for projects and pipelines'
-    module: 'Module 7: Manage identity for projects, pipelines, and agents'
+    module: 'Module 2: Manage identity for projects, pipelines, and agents'
 ---
 
 # Managed identity for projects and pipelines

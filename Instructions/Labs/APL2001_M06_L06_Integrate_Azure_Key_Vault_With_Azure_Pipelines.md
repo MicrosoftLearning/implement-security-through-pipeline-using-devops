@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Integrate Azure Key Vault with Azure Pipelines'
-    module: 'Module 2: Configure secure access to Azure Repos from pipelines'
+    module: 'Module 6: Configure secure access to Azure Repos from pipelines'
 ---
 
 # Integrate Azure Key Vault with Azure Pipelines
