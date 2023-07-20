@@ -30,15 +30,16 @@ In this exercise, you will import and run the CI pipeline, configure the service
 
 Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
-1. Open a browser and go to the eShopOnWeb project in Azure DevOps.
-2. Go to **Pipelines > Pipelines**.
-3. Click on **New Pipeline** button.
-4. Select **Azure Repos Git (Yaml)**.
-5. Select the **eShopOnWeb** repository.
-6. Select **Existing Azure Pipelines YAML File**.
-7. Select the **/.ado/eshoponweb-ci.yml** file then click on **Continue**.
-8. Click the **Run** button to run the pipeline.
-9. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci** and click on **Save**.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Open the eShopOnWeb project.
+3. Go to **Pipelines > Pipelines**.
+4. Click on **New Pipeline** button.
+5. Select **Azure Repos Git (Yaml)**.
+6. Select the **eShopOnWeb** repository.
+7. Select **Existing Azure Pipelines YAML File**.
+8. Select the **/.ado/eshoponweb-ci.yml** file then click on **Continue**.
+9. Click the **Run** button to run the pipeline.
+10. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci** and click on **Save**.
 
 #### Task 2: Manage the service connection
 
@@ -243,7 +244,7 @@ In this exercise, you will create a new service connection using the Managed Ide
 
 #### Task 1: Create a new service connection
 
-1. In your browser, open the [**Azure DevOps**](https://dev.azure.com) portal.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
 2. Open the **eShopOnWeb** project and navigate to **Project settings > Service connections**.
 3. Click on the **New service connection** button and select **Azure Resource Manager**.
 4. Select **Managed Identity** as the **Authentication method**.
@@ -255,7 +256,7 @@ In this exercise, you will create a new service connection using the Managed Ide
 
 #### Task 2: Update the CD pipeline
 
-1. In your browser, open the [**Azure DevOps**](https://dev.azure.com) portal.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
 2. Open the **eShopOnWeb** project and navigate to **Pipelines > Pipelines**.
 3. Click on the **eshoponweb-cd-webapp-code** pipeline and click on **Edit**.
 4. In the variables section, update the **serviceConnection** variable with the name of the service connection you created in the previous task, **azure subs managed**.
@@ -286,7 +287,7 @@ In this exercise, you will create a new service connection using the Managed Ide
     > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
 
 8. Click to **Run** the pipeline, and then click on **Run** again.
-9. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", click on **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
+9.  Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", click on **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
 10. The deployment may take a few minutes to complete, wait for the pipeline to execute.
 11. You should see from the pipeline logs that the pipeline is using the Managed Identity.
 

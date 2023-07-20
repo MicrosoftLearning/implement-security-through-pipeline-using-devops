@@ -24,7 +24,7 @@ In this exercise, you will configure a secure project structure by creating a ne
 
 #### Task 1: Create a new team project
 
-1. In your browser, open the Azure DevOps portal.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
 2. Open your organization settings and then Projects under the General section.
 3. Click on the **+ New project** button.
 4. Enter eShopSecurity as the name for the new team project.
@@ -60,15 +60,16 @@ You can manage permissions and settings for each project separately by going to 
 
 #### Task 1: (If done, skip) Import and run the CI pipeline
 
-1. Open a browser and go to the eShopOnWeb project in Azure DevOps.
-2. Go to **Pipelines > Pipelines**.
-3. Click on **New Pipeline** button.
-4. Select **Azure Repos Git (Yaml)**.
-5. Select the **eShopOnWeb** repository.
-6. Select **Existing Azure Pipelines YAML File**.
-7. Select the **/.ado/eshoponweb-ci.yml** file then click on **Continue**.
-8. Click the **Run** button to run the pipeline.
-9. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci** and click on **Save**.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Open the eShopOnWeb project in Azure DevOps.
+3. Go to **Pipelines > Pipelines**.
+4. Click on **New Pipeline** button.
+5. Select **Azure Repos Git (Yaml)**.
+6. Select the **eShopOnWeb** repository.
+7. Select **Existing Azure Pipelines YAML File**.
+8. Select the **/.ado/eshoponweb-ci.yml** file then click on **Continue**.
+9. Click the **Run** button to run the pipeline.
+10. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better. Go to **Pipelines > Pipelines** and click on the recently created pipeline. Click on the ellipsis and **Rename/Remove** option. Name it **eshoponweb-ci** and click on **Save**.
 
 #### Task 2: (If done, skip) Import and run the CD pipeline
 

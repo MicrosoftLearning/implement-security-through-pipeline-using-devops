@@ -35,17 +35,16 @@ In this exercise, you will create an agent and configure agent pools.
 
 #### Task 1: Create an agent pool
 
-1. Navigate to the Azure DevOps portal at https://dev.azure.com and sign in with your account.
-2. Choose the organization you want to work with.
-3. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
-4. From Pipelines > Agent Pools, click on the "Add pool" button.
-5. Choose the "Self-hosted" pool type.
-6. Provide a name for the agent pool, such as "eShopOnWebSelfPool," and add an optional description.
-7. Leave the "Grant access permission to all pipelines" option unchecked.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
+3. From Pipelines > Agent Pools, click on the "Add pool" button.
+4. Choose the "Self-hosted" pool type.
+5. Provide a name for the agent pool, such as "eShopOnWebSelfPool," and add an optional description.
+6. Leave the "Grant access permission to all pipelines" option unchecked.
 
     ![Screenshot showing add agent pool options with self-hosted type.](media/create-new-agent-pool-self-hosted-agent.png)
 
-8. Click on "Create" button to create the agent pool.
+7. Click on "Create" button to create the agent pool.
 
 #### Task 2: Create an agent
 
@@ -74,20 +73,21 @@ In this exercise, you will create an agent and configure agent pools.
 
 Before configuring your agent, create a new PAT token or choose an existing one. To create a new PAT token, follow the steps below:
 
-1. Navigate to the eShopOnWeb project, and click on "User settings" from the right-side top menu (left of your user profile picture).
-2. Click on the "Personal Access Tokens" menu.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Navigate to the eShopOnWeb project, and click on "User settings" from the right-side top menu (left of your user profile picture).
+3. Click on the "Personal Access Tokens" menu.
 
     ![Screenshot showing the personal access tokens menu.](media/personal-access-token-menu.png)
 
-3. Click on the "New Token" button.
-4. Provide a name for the token, such as "eShopOnWebToken".
-5. Select the Azure DevOps organization you want to use the token.
-6. Set the expiration date for the token (only used to configure the agent).
-7. Select the custom defined scope.
-8. Click to show all scopes.
-9. Select the "Agent Pools (Read & Manage)" scope.
-10. Click on the "Create" button to create the token.
-11. Copy the token value and save it in a safe place (you will not be able to see it again. You can only regenerate the token).
+4. Click on the "New Token" button.
+5. Provide a name for the token, such as "eShopOnWebToken".
+6. Select the Azure DevOps organization you want to use the token.
+7. Set the expiration date for the token (only used to configure the agent).
+8. Select the custom defined scope.
+9. Click to show all scopes.
+10. Select the "Agent Pools (Read & Manage)" scope.
+11. Click on the "Create" button to create the token.
+12. Copy the token value and save it in a safe place (you will not be able to see it again. You can only regenerate the token).
 
     ![Screenshot showing the personal access token configuration.](media/personal-access-token-configuration.png)
 
@@ -136,12 +136,13 @@ In this exercise, you will create a new security group for the agent pool.
 
 #### Task 1: Create a new security group
 
-1. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
-2. Open Permissions under General.
-3. Click on the "New Group" button.
-4. Provide a name for the group, such as "eShopOnWeb Security Group".
-5. Add the users you want to be part of the group.
-6. Click on the "Create" button to create the group.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
+3. Open Permissions under General.
+4. Click on the "New Group" button.
+5. Provide a name for the group, such as "eShopOnWeb Security Group".
+6. Add the users you want to be part of the group.
+7. Click on the "Create" button to create the group.
 
     ![Screenshot showing the security group creation.](media/create-security-group.png)
 
@@ -159,14 +160,15 @@ In this exercise, you will create a new security group for the agent pool.
 
 In this exercise, you will manage permissions for the agent pool.
 
-1. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
-2. Select Pipelines, and then select Agent pools.
-3. Click on the "eShopOnWebSelfPool" agent pool.
-4. In the agent pool details view, click on the Security tab.
-5. Click the Add button and add the new group "eShopOnWeb Security Group" to the agent pool's user permissions.
-6. You can choose to add users or group permissions to the specific project or the entire Azure DevOps organization. In this case, choose **Project**.
-7. Choose the appropriate role for the user or group, such as Agent Pool Reader, User or Administrator. In this case, choose **User**.
-8. Click Add to apply the permissions.
+1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
+2. Open the eShopOnWeb project, and click on "Project settings" from the left-side bottom menu.
+3. Select Pipelines, and then select Agent pools.
+4. Click on the "eShopOnWebSelfPool" agent pool.
+5. In the agent pool details view, click on the Security tab.
+6. Click the Add button and add the new group "eShopOnWeb Security Group" to the agent pool's user permissions.
+7. You can choose to add users or group permissions to the specific project or the entire Azure DevOps organization. In this case, choose **Project**.
+8. Choose the appropriate role for the user or group, such as Agent Pool Reader, User or Administrator. In this case, choose **User**.
+9. Click Add to apply the permissions.
 
     ![Screenshot showing the agent pool security configuration.](media/agent-pool-security.png)
 
