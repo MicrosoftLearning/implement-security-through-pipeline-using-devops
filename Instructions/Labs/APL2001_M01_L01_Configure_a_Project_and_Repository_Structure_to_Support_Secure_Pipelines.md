@@ -46,15 +46,19 @@ You can manage permissions and settings for each project separately by going to 
 2. Open the Repos menu and click on the **Initialize** button to initialize the new repository by adding the README.md file.
 3. Open the Project settings menu and select repositories under the Repos section.
 4. Select the new **eShopSecurity** repository and click on the **Security** tab.
-5. Remove the **Inheritance** permission, and deny access to user and groups that should not have access to the repository.
-6. Add only a specific group of users, or user that you want to grant access to the repository and run pipelines from the eShopOnWeb project.
-7. Click on the search box, enter the name of the group, select it, and then set the permissions you want to allow or deny for the group or user.
-8. Deny all permissions for the added user or group, and allow only Read permission.
+5. Remove the Inherit permissions from parent by unchecking the **Inheritance** toggle button.
+6. Select the **Contributors** group and click on the **Deny** button to deny all permissions.
+7. Select your user under Users and click on the **Allow** button to allow all permissions.
 
     ![Screenshot of the repository security settings with allow for read and deny for all other permissions.](media/repository-security.png)
 
-> [!NOTE]
-> Ensure that you have the same group in your eShopOnWeb project. This will allow you to run pipelines from the eShopOnWeb project and access the repository in the eShopSecurity project.
+8. (Optional) Add specific group of users, or user that you want to grant access to the repository and run pipelines from the eShopOnWeb project. Click on the search box, enter the name of the group, select it, and then set the permissions you want to allow or deny for the group or user.
+
+    > [!NOTE]
+    > Ensure that you have the same group in your eShopOnWeb project. This will allow you to run pipelines from the eShopOnWeb project and access the repository in the eShopSecurity project.
+9. Your changes will be saved automatically.
+
+Now only the user you assigned permissions and the administrators can access the repository. This is useful when you want to allow specific users to access the repository and run pipelines from the eShopOnWeb project.
 
 ### Exercise 2: Configure a pipeline and template structure to support secure pipelines
 
