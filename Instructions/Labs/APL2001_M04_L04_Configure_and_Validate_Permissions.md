@@ -22,7 +22,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 In this exercise, you will import and run the CI pipeline for the eShopOnWeb application, and configure pipeline specific permissions.
 
-#### Task 1: Import and run the CI pipeline
+#### Task 1: (If done, skip) Import and run the CI pipeline
 
 > [!NOTE]
 > Skip the import if already done in another lab.
@@ -72,7 +72,7 @@ In this task, you will configure the CI pipeline to run with a specific agent po
 
 The should be able to run the pipeline successfully.
 
-#### Task 3: Configure the CD pipeline and validate permissions
+#### Task 3: (If done, skip) Configure the CD pipeline and validate permissions
 
 > [!NOTE]
 > Skip the import if already done in another lab.

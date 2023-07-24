@@ -26,7 +26,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 In this exercise, you will import and run the CI pipeline, configure the service connection with your Azure Subscription and then import and run the CD pipeline.
 
-#### Task 1: Import and run the CI pipeline
+#### Task 1: (If done, skip) Import and run the CI pipeline
 
 Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
@@ -98,7 +98,7 @@ A service principal is automatically created by Azure Pipeline when you connect 
 
 10. Click on **Verify and Save**.
 
-#### Task 3: Import and run the CD pipeline
+#### Task 3: (If done, skip) Import and run the CD pipeline
 
 Now, import the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml).
 

@@ -20,10 +20,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 ### Exercise 1: Ensure parameter and variable types
 
-#### Task 1: Import and run the CI pipeline
-
-> [!NOTE]
-> Skip the import if already done in another lab.
+#### Task 1: (If done, skip) Import and run the CI pipeline
 
 Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
