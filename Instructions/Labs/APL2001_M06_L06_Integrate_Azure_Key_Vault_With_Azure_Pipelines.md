@@ -105,7 +105,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify an
 
     ![Screenshot of the Pipeline selection from the YAML file.](media/select-ci-container-compose.png)
 
-5. In the YAML pipeline definition, in the variables section, customize your Resource Group name by replacing **AZ400-EWebShop-NAME** by the name of your preference, for example, "**rg-eshoponweb**", replace **YOUR-SUBSCRIPTION-ID** with your own Azure subscriptionId, and choose the location of your preference nearest to your location, for example **"westus"**.
+5. In the YAML pipeline definition, in the variables section, customize your Resource Group name by replacing **AZ400-EWebShop-NAME** by the name of your preference, for example, "**rg-eshoponweb**", replace **YOUR-SUBSCRIPTION-ID** with your own Azure subscriptionId, and choose the location of your preference nearest to your location, for example **"southcentralus"**.
 6. (Optional) You can use the self-hosted agent created in the previous lab updating the pool name currently set to the Microsoft-hosted agent to the name of the agent pool you created, "eShopOnWebSelfPool".
 
     Instead of:
