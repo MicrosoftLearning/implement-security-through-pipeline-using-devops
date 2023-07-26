@@ -79,7 +79,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
     ```YAML
     variables:
       resource-group: 'YOUR-RESOURCE-GROUP-NAME'
-      location: 'westus' #name of the Azure region you want to deploy your resources
+      location: 'southcentralus' #name of the Azure region you want to deploy your resources
       templateFile: '.azure/bicep/webapp.bicep'
       subscriptionid: 'YOUR-SUBSCRIPTION-ID'
       azureserviceconnection: 'YOUR-AZURE-SERVICE-CONNECTION-NAME'
@@ -165,7 +165,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
     variables:
       resource-group: 'rg-eshoponweb'
-      location: 'westus'
+      location: 'southcentralus'
       templateFile: '.azure/bicep/webapp.bicep'
       subscriptionid: ''
       azureserviceconnection: 'azure subs'

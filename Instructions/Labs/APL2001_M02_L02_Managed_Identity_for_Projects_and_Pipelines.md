@@ -265,7 +265,7 @@ In this exercise, you will create a new service connection using the Managed Ide
     ```YAML
         variables:
           resource-group: 'rg-eshoponweb'
-          location: 'westus'
+          location: 'southcentralus'
           templateFile: '.azure/bicep/webapp.bicep'
           subscriptionid: 'YOURSUBSCRIPTION'
           azureserviceconnection: 'azure subs managed'
