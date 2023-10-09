@@ -22,14 +22,21 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 #### Task 1: Create a multi-stage main YAML pipeline
 
-1. Navigate to the Azure DevOps portal at https://dev.azure.com and open your organization.
-2. Open the eShopOnWeb project.
-3. Go to **Pipelines > Pipelines**.
-4. Click on **New Pipeline** button.
-5. Select **Azure Repos Git (Yaml)**.
-6. Select the **eShopOnWeb** repository.
-7. Click on **Starter pipeline**.
-8. Replace the content of the **azure-pipelines.yml** file with the following code:
+1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+
+1. Open the **eShopOnWeb** project.
+
+1. Go to **Pipelines > Pipelines**.
+
+1. Select **New Pipeline** button.
+
+1. Select **Azure Repos Git (Yaml)**.
+
+1. Select the **eShopOnWeb** repository.
+
+1. Select **Starter pipeline**.
+
+1. Replace the content of the **azure-pipelines.yml** file with the following code:
 
     ```YAML
     trigger:
@@ -57,24 +64,28 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
     ```
 
-9. Click on **Save and run**. Choose if you want to commit directly to the main branch or create a new branch. Click on **Save and run** button.
+1. Select **Save and run**. Choose if you want to commit directly to the main branch or create a new branch. Select **Save and run** button.
 
    > [!NOTE]
    > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
 
-10. You will see the pipeline running with the three stages (Dev, Test, and Production) and the corresponding jobs. Wait until the pipeline finishes and back to the **Pipelines** page.
+1. You will see the pipeline running with the three stages (Dev, Test, and Production) and the corresponding jobs. Wait until the pipeline finishes and back to the **Pipelines** page.
 
     ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/eshoponweb-pipeline-multi-stage.png)
 
-11. Click on **...** (More options) on the right side of the pipeline you just created and select **Rename/move**.
-12. Rename the pipeline to **eShopOnWeb-MultiStage-Main** and click on **Save**.
+1. Select **...** (More options) on the right side of the pipeline you just created and select **Rename/move**.
+
+1. Rename the pipeline to **eShopOnWeb-MultiStage-Main** and select **Save**.
 
 #### Task 2: Create a variables template
 
 1. Go to **Repos > Files**.
-2. Expand the **.ado** folder and click on **New file**.
-3. Name the file **eshoponweb-variables.yml** and click on **Create**.
-4. Add the following code to the file:
+
+1. Expand the **.ado** folder and click on **New file**.
+
+1. Name the file **eshoponweb-variables.yml** and click on **Create**.
+
+1. Add the following code to the file:
 
     ```YAML
     variables:
@@ -90,14 +101,17 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
     > [!IMPORTANT]
     > Replace the values of the variables with the values of your environment (resource group, location, subscription ID, Azure service connection, and web app name).
 
-5. Click on **Commit**, add a comment, and click on **Commit** button.
+1. Select **Commit**, add a comment, and select **Commit** button.
 
 #### Task 3: Prepare the pipeline to use templates
 
 1. Go to **Pipelines > Pipelines**.
-2. Open the **eShopOnWeb-MultiStage-Main** pipeline.
-3. Click on **Edit**.
-4. Replace the content of the **azure-pipelines.yml** file with the following code:
+
+1. Open the **eShopOnWeb-MultiStage-Main** pipeline.
+
+1. Select **Edit**.
+
+1. Replace the content of the **azure-pipelines.yml** file with the following code:
 
     ```YAML
     trigger:
@@ -120,8 +134,9 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
     ```
 
-5. Save the pipeline.
-6. Choose if you want to commit directly to the main branch or create a new branch. Click on **Save** button.
+1. Save the pipeline.
+
+1. Choose if you want to commit directly to the main branch or create a new branch. Select **Save** button.
 
    > [!NOTE]
    > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
@@ -129,8 +144,10 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 #### Task 4: Updating CI/CD templates
 
 1. Go to **Pipelines > Pipelines**.
-2. Edit the **eshoponweb-ci.yml** file.
-3. Remove everything above the **jobs** section.
+
+1. Edit the **eshoponweb-ci.yml** file.
+
+1. Remove everything above the **jobs** section.
 
     ```YAML
     #NAME THE PIPELINE SAME AS FILE (WITHOUT ".yml")
@@ -148,10 +165,13 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
     ```
 
-4. Save the pipeline.
-5. Go to **Pipelines > Pipelines**.
-6. Edit the **eshoponweb-cd-webapp-code.yml** file.
-7. Remove everything above the **jobs** section.
+1. Save the pipeline.
+
+1. Go to **Pipelines > Pipelines**.
+
+1. Edit the **eshoponweb-cd-webapp-code.yml** file.
+
+1. Remove everything above the **jobs** section.
 
     ```YAML
     #NAME THE PIPELINE SAME AS FILE (WITHOUT ".yml")
@@ -178,7 +198,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
     ```
 
-8. Update the **download** step to:
+1. Update the **download** step to:
 
     ```YAML
     - download: current
@@ -187,21 +207,25 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
       artifact: Bicep
     ```
 
-9. Save the pipeline.
-10. (Optional) Update the production step to deploy your application to another environment, or swap the deployment slots.
+1. Save the pipeline.
+
+1. (Optional) Update the production step to deploy your application to another environment, or swap the deployment slots.
 
 #### Task 5: Run the main pipeline
 
 1. Go to **Pipelines > Pipelines**.
-2. Open the **eShopOnWeb-MultiStage-Main** pipeline.
-3. Click on **Run pipeline**.
-4. Wait until the pipeline finishes and check the results.
+
+1. Open the **eShopOnWeb-MultiStage-Main** pipeline.
+
+1. Select **Run pipeline**.
+
+1. Wait until the pipeline finishes and check the results.
 
     ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/multi-stage-completed.png)
 
 ### Exercise 2: Remove the Azure lab resources
 
-1. In the Azure portal, open the created Resource Group and click on **Delete resource group** for all created resources in this lab.
+1. In the Azure portal, open the created Resource Group and select **Delete resource group** for all created resources in this lab.
 
     ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
 
