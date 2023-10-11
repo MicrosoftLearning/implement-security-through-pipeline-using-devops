@@ -49,7 +49,7 @@ Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/
 
 1. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
-1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/Remove** option.
+1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
 1. Name it **eshoponweb-ci** and select **Save**.
 

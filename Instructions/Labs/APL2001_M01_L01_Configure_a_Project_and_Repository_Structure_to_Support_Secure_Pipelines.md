@@ -97,7 +97,7 @@ Now only the user you assigned permissions and the administrators can access the
 
 1. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
-1. Go to **Pipelines > Pipelines** and select the recently created pipeline. Select the ellipsis and then select **Rename/Remove** option.
+1. Go to **Pipelines > Pipelines** and select the recently created pipeline. Select the ellipsis and then select **Rename/move** option.
 
 1. Name it **eshoponweb-ci** and select **Save**.
 
@@ -198,7 +198,7 @@ In this task, you will create a Service Principal by using the Azure CLI, and Se
       - **AzureResourceManagerTemplateDeployment**: Deploys the Azure Web App using bicep template.
 1. Your pipeline will take a name based on the project name. Let's rename it for identifying the pipeline better.
 
-1. Go to **Pipelines > Pipelines** and select the recently created pipeline. Select the ellipsis and then select **Rename/Remove** option.
+1. Go to **Pipelines > Pipelines** and select the recently created pipeline. Select the ellipsis and then select **Rename/move** option.
 
 1. Name it **eshoponweb-cd-webapp-code** and select **Save**.
 

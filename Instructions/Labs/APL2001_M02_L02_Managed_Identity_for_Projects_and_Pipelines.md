@@ -50,7 +50,7 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 1. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
-1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/Remove** option.
+1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
 1. Name it **eshoponweb-ci** and select **Save**.
 
@@ -171,7 +171,7 @@ Now, import the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github
 
 1. Your pipeline will take a name based on the project name. Let's **rename** it for identifying the pipeline better.
 
-1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/Remove** option.
+1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
 1. Name it **eshoponweb-cd-webapp-code** and then select **Save**.
 

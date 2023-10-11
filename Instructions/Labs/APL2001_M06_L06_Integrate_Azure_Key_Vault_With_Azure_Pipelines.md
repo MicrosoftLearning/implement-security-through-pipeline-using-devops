@@ -151,7 +151,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify an
 
 1. Your pipeline will take a name based on the Project name. Rename it to identify the pipeline better.
 
-1. Go to **Pipelines > Pipelines** on the recently created pipeline, mouse over the executed pipeline, and select the ellipsis and **Rename/Remove** option.
+1. Go to **Pipelines > Pipelines** on the recently created pipeline, mouse over the executed pipeline, and select the ellipsis and **Rename/move** option.
 
 1. Name it **eshoponweb-ci-dockercompose** and select **Save**.
 
@@ -265,7 +265,7 @@ In this task, you will import a CD pipeline, customize it and run it for deployi
 
 1. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
-1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/Remove** option.
+1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
 1. Name it **eshoponweb-cd-aci** and select **Save**.
 
