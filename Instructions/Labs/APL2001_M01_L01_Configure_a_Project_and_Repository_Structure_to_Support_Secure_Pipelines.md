@@ -83,7 +83,7 @@ Now only the user you assigned permissions and the administrators can access the
 
 1. Go to **Pipelines > Pipelines**.
 
-1. Select the **New Pipeline** button.
+1. Select the **Create Pipeline** button.
 
 1. Select **Azure Repos Git (Yaml)**.
 
