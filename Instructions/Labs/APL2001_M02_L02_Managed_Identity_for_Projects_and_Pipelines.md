@@ -285,12 +285,12 @@ In this exercise, you will create a new Azure Virtual Machine using the self-hos
 
 1. Open the new Azure Virtual Machine you created earlier using the RDP connection. You can find the connection information in the **Overview** checking the **Connect** button.
 
-1. From the Azure VM, follow the steps to install the agent in the new Azure Virtual Machine from the [**Exercise 1**](APL2001_M01_L01_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md).
+2. From the Azure VM, follow the steps to install the agent in the new Azure Virtual Machine from the [**Exercise**](APL2001_M03_L03_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md), or by following [Download and configure the agent](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent).
    The differences you need to configure are:
    1. To differentiate the new agent pool and the agent, you can create a new agent pool and name it **eShopOnWebSelfPoolManaged**, and then name the agent **eShopOnWebSelfAgentManaged**.
    2. During the User account configuration, select **NT AUTHORITY\NETWORK SERVICE** as the account to run the service.
 
-1. Once you have the agent installed, open your agent pool in the Azure DevOps portal and check that the new agent is available.
+3. Once you have the agent installed, open your agent pool in the Azure DevOps portal and check that the new agent is available.
 
     ![Screenshot of the new agent in the new agent pool.](media/new-agent-pool.png)
 
