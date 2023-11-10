@@ -75,7 +75,7 @@ Now only the user you assigned permissions and the administrators can access the
 
 ### Exercise 2: Configure a pipeline and template structure to support secure pipelines
 
-#### Task 1: (If done, skip) Import and run the CI pipeline
+#### Task 1: Import and run the CI pipeline
 
 1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
 
@@ -160,9 +160,9 @@ In this task, you will create a Service Principal by using the Azure CLI, and Se
 1. Do not check **Grant access permission to all pipelines**. Select **Verify and Save**.
 
     > [!NOTE]
-    > The **Grant access permission to all pipelines** option is not recommended for production environments. It is only used in this lab to simplify the configuration of the pipeline.
+    > The **Grant access permission to all pipelines** option is not recommended for production environments. It is recommended to use the **Grant access permission to all pipelines** option only for testing purposes.
 
-#### Task 3: (If done, skip) Import and run the CD pipeline
+#### Task 3: Import and run the CD pipeline
 
 1. Go to **Pipelines > Pipelines**.
 
@@ -288,7 +288,7 @@ In this task, you will move the YAML templates to a separate repository and proj
 
 Now you have the YAML templates in a separate repository and project. You can reuse these templates in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can controls the resource group, location, security and where the resources are deployed and other information in your template values and you don't need to make any changes to your pipeline definition.
 
-### Exercise 2: Remove the Azure lab resources
+### Exercise 3: Remove the Azure lab resources
 
 1. In the Azure portal, open the created Resource Group and select **Delete resource group** for all created resources in this lab.
 
