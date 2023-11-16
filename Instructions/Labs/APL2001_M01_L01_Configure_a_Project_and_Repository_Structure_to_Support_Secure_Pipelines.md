@@ -288,7 +288,11 @@ In this task, you will move the YAML templates to a separate repository and proj
 
 Now you have the YAML templates in a separate repository and project. You can reuse these templates in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can controls the resource group, location, security and where the resources are deployed and other information in your template values and you don't need to make any changes to your pipeline definition.
 
-### Exercise 2: Remove the Azure lab resources
+### Exercise 2: Perform cleanup of Azure and Azure DevOps resources
+
+In this exercise, you will remove Azure and Azure DevOps resources created in this lab.
+
+#### Task 1: Remove Azure resources
 
 1. In the Azure portal, open the created Resource Group and select **Delete resource group** for all created resources in this lab.
 
@@ -296,6 +300,16 @@ Now you have the YAML templates in a separate repository and project. You can re
 
     > [!WARNING]
     > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
+
+#### Task 2: Remove Azure DevOps pipelines
+
+1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+
+1. Open the **eShopOnWeb** project.
+
+1. Go to **Pipelines > Pipelines**.
+
+1. Go to **Pipelines > Pipelines** and remove the existing pipelines.
 
 ## Review
 

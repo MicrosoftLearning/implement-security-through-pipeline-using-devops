@@ -48,7 +48,8 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 1. Select the **Run** button to run the pipeline.
 
-1. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
+    > [!NOTE]
+    > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
@@ -64,7 +65,7 @@ In this task, you will create a service principal by using the Azure CLI, which 
 - Deploy the eShopOnWeb application
 
 > [!NOTE]
-> If you do already have a service principal, you can proceed directly to the next task.
+> If you do already have a service principal and a service connection to your Azure subscription named **azure subs**, you can proceed directly to the next task.
 
 You will need a service principal to deploy Azure resources from Azure Pipelines.
 
@@ -113,7 +114,7 @@ A service principal is automatically created by Azure Pipeline when you connect 
 
 1. Select **Verify and Save**.
 
-#### Task 3: (If done, skip) Import and run the CD pipeline
+#### Task 3: Import and run the CD pipeline
 
 Now, import the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml).
 
@@ -129,10 +130,24 @@ Now, import the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github
 
 1. Select the **/.ado/eshoponweb-cd-webapp-code.yml** file then select **Continue**.
 
-1. In the YAML pipeline definition, in the variables section, customize:
-   - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
-   - **az400eshop-NAME**, with a web app name to be deployed with a global unique name, for example, **eshoponweb-lab-YOURNAME**.
+1. In the YAML pipeline definition, set the variables section to:
+
+    ```YAML
+    variables:
+      resource-group: 'AZ400-EWebShop-NAME'
+      location: 'westeurope'
+      templateFile: '.azure/bicep/webapp.bicep'
+      subscriptionid: 'YOUR-SUBSCRIPTION-ID'
+      azureserviceconnection: 'azure subs'
+      webappname: 'az400-webapp-NAME'
+    ```
+
+1. In the variables section, replace the placeholders with the following values:
+
    - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb**.
+   - **location** with the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
+   - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
+   - **az400-webapp-NAME**, with a web app name to be deployed with a global unique name, for example, **eshoponweb-lab-YOURNAME**.
 
 1. (Optional) You can use a self-hosted agent updating the pool name currently set to the Microsoft-hosted agent to the name of the agent pool you created, **eShopOnWebSelfPool**.
 
@@ -241,7 +256,7 @@ In this exercise, you will create a new Azure Virtual Machine using the self-hos
 
 1. Select the **Dev/Test** as the workload environment and the **General purpose** as the workload type.
 
-1. Select the **Continue to create a VM** button, on the **Basics** tab perform the following actions, then select **Networking** tab:
+1. Select the **Continue to create a VM** button, on the **Basics** tab perform the following actions, then select **Management** tab:
 
     | Setting | Action |
     | -- | -- |
@@ -257,11 +272,6 @@ In this exercise, you will create a new Azure Virtual Machine using the self-hos
     | **Password** text box | Enter the password of your preference |
     | **Public inbound ports** section | Select **Allow selected ports**. |
     | **Select inbound ports** drop-down list | Select **RDP (3389)**. |
-    
-1. On the **Networking** tab perform the following actions, then select **Management** tab:
-   
-    | **Virtual network** section | Select **Create new**, enter a name of your preference and then select **Ok** |
-    | **Public IP address** section | Select **Create new**, enter a name of your preference and then select **Ok** |
 
 1. On the **Management** tab perform the following actions, then select **Review + create**:
    
@@ -285,10 +295,11 @@ In this exercise, you will create a new Azure Virtual Machine using the self-hos
 
 1. Open the new Azure Virtual Machine you created earlier using the RDP connection. You can find the connection information in the **Overview** checking the **Connect** button.
 
-2. From the Azure VM, follow the steps to install the agent in the new Azure Virtual Machine from the [**Exercise**](APL2001_M03_L03_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md), or by following [Download and configure the agent](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent).
-   The differences you need to configure are:
-   1. To differentiate the new agent pool and the agent, you can create a new agent pool and name it **eShopOnWebSelfPoolManaged**, and then name the agent **eShopOnWebSelfAgentManaged**.
-   2. During the User account configuration, select **NT AUTHORITY\NETWORK SERVICE** as the account to run the service.
+2. From the Azure VM, follow the steps to install the agent in the new Azure Virtual Machine from the [Exercise 1 of the lab Configure agents and agent pools for secure pipelines](APL2001_M03_L03_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md). When following the instructions, account for the following changes:
+
+   - Name the agent pool **eShopOnWebSelfPoolManaged** (instead of **eShopOnWebSelfPool**) in Task 1 step 5.
+   - Name the agent **eShopOnWebSelfAgentManaged** (instead of **eShopOnWebSelfAgent**) in Task 4, step 3.
+   - Select **NT AUTHORITY\NETWORK SERVICE** as the account to run the service during during the User account configuration in Task 4, step 3.
 
 3. Once you have the agent installed, open your agent pool in the Azure DevOps portal and check that the new agent is available.
 
@@ -324,24 +335,19 @@ In this exercise, you will create a new service connection using the Managed Ide
 
 1. In the variables section, update the **serviceConnection** variable with the name of the service connection you created in the previous task, **azure subs managed**.
 
-1. Update the pipeline agent pool to use the self-hosted agent pool you created in the previous exercise, **eShopOnWebSelfPoolManaged**.
-
     ```YAML
-        variables:
-          resource-group: 'rg-eshoponweb'
-          location: 'southcentralus'
-          templateFile: '.azure/bicep/webapp.bicep'
-          subscriptionid: 'YOURSUBSCRIPTION'
           azureserviceconnection: 'azure subs managed'
-          webappname: 'eshoponweb-lab'
-    
-        stages:
-        - stage: Deploy
-          displayName: Deploy to WebApp
+    ```
+
+1. In the **jobs** subsection of the **stages** section, update the value of the **pool** property to reference the self-hosted agent pool you created in the previous exercise, **eShopOnWebSelfPoolManaged**, so it has the following format:
+
+    ```YAML    
           jobs:
           - job: Deploy
             pool: eShopOnWebSelfPoolManaged
-    
+            steps:
+            #download artifacts
+            - download: eshoponweb-ci
     ```
 
 1. Select **Save**, choose to commit directly to the main branch, or create a new branch.
