@@ -149,6 +149,15 @@ Now, import the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github
    - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
    - **az400-webapp-NAME**, with a web app name to be deployed with a global unique name, for example, **eshoponweb-lab-YOURNAME**.
 
+1. If present, in the resources section, remove the following entries:
+
+    ```YAML
+    repositories:
+      - repository: eShopSecurity
+        type: git
+        name: eShopSecurity/eShopSecurity #name of the project and repository
+    ```
+
 1. (Optional) You can use a self-hosted agent updating the pool name currently set to the Microsoft-hosted agent to the name of the agent pool you created, **eShopOnWebSelfPool**.
 
     Instead of:
