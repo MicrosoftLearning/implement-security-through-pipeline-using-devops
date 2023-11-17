@@ -158,26 +158,6 @@ Now, import the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github
         name: eShopSecurity/eShopSecurity #name of the project and repository
     ```
 
-1. (Optional) You can use a self-hosted agent updating the pool name currently set to the Microsoft-hosted agent to the name of the agent pool you created, **eShopOnWebSelfPool**.
-
-    Instead of:
-
-    ```YAML
-        pool:
-          vmImage: windows-latest
-    
-    ```
-
-    Use:
-
-    ```YAML
-        pool: eShopOnWebSelfPool
-    
-    ```
-
-    > [!NOTE]
-    > To run the pipeline with the self-hosted agent, you will need to have the agent running and all the prerequisites installed, for example, Visual Studio to build the solution. If you do not have the prerequisites installed, you can use the Microsoft-hosted agent.
-
 1. Select **Save and Run**, choose to commit directly to the main branch, or create a new branch.
 
 1. Select **Save and Run** again.
