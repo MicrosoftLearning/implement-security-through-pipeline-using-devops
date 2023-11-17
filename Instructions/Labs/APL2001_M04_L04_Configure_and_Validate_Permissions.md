@@ -188,6 +188,7 @@ In this exercise, you will configure and validate approval and branch checks for
           runOnce:
             deploy:
               steps:
+              - checkout: self
     ```
 
     > [!NOTE]
