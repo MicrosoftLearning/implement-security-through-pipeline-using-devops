@@ -145,7 +145,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Go to **Pipelines > Pipelines**.
 
-1. Edit the **eshoponweb-ci.yml** file.
+1. Edit the **eshoponweb-ci** pipeline.
 
 1. Remove everything above the **jobs** section.
 
@@ -169,7 +169,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Go to **Pipelines > Pipelines**.
 
-1. Edit the **eshoponweb-cd-webapp-code.yml** file.
+1. Edit the **eshoponweb-cd-webapp-code** pipeline.
 
 1. Remove everything above the **jobs** section.
 

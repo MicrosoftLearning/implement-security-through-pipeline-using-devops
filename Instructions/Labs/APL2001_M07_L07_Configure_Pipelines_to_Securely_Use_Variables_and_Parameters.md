@@ -20,7 +20,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 ### Exercise 1: Ensure parameter and variable types
 
-#### Task 1: (If done, skip) Import and run the CI pipeline
+#### Task 1: Import and run the CI pipeline
 
 Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
@@ -60,13 +60,21 @@ In this task, you will set parameter and parameter types for the pipeline.
 
     ```YAML
     parameters:
-   - name: dotNetProjects
-     type: string
-     default: '**/*.sln'
-   - name: testProjects
-     type: string
-     default: 'tests/UnitTests/*.csproj'
+    - name: dotNetProjects
+      type: string
+      default: '**/*.sln'
+    - name: testProjects
+      type: string
+      default: 'tests/UnitTests/*.csproj'
 
+    resources:
+      repositories:
+      - repository: self
+        trigger: none
+
+    stages:
+    - stage: Build
+      displayName: Build .Net Core Solution
     ```
 
 1. Replace the hardcoded paths in the 'Restore', 'Build', and 'Test' tasks with the parameters you just created.
@@ -116,9 +124,9 @@ In this task, you will secure the variables and parameters from your pipeline by
 
     ![Screenshot of the variable group with BuildConfigurations.](media/eshop-variable-group.png)
 
-1. Select the **Pipeline permissions** button and select the **+ Add** button to add a new pipeline.
+1. Select the **Pipeline permissions** button and select the **+** button to add a new pipeline.
 
-1. Select the **eshoponweb-ci-parameters** pipeline and select **Add** to allow the pipeline to use the variable group.
+1. Select the **eshoponweb-ci-parameters** pipeline to allow the pipeline to use the variable group.
 
     ![Screenshot of the pipeline permissions.](media/pipeline-permissions.png)
 

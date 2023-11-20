@@ -70,23 +70,6 @@ In this task, you will configure the CI pipeline to run with a specific agent po
 
 1. Select **Add** button and select the **eshoponweb-ci** pipeline to add it to the list of pipelines with access to the agent pool.
 
-1. Back to the **eshoponweb-ci** pipeline, select **Edit** button.
-
-1. Update the YAML file to use the **Default** agent pool. Replace the **pool** section with the following code:
-
-    ```yaml
-    pool: Default
-
-    ```
-
-    > [!NOTE]
-    > To run the pipeline with the self-hosted agent, you will need to have the agent running and all the prerequisites installed, for example, Visual Studio to build the solution.
-
-1. Select **Save**, choose to commit directly to the main branch, or create a new branch.
-
-    > [!NOTE]
-    > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
-
 1. Select **Run** button to run the pipeline.
 
 1. Open the in progress pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Build .Net Core Solution", select **View**, **Permit** and **Permit** again.
@@ -97,8 +80,6 @@ The should be able to run the pipeline successfully.
 
 > [!NOTE]
 > Skip the import if already done in another lab.
-
-In this task, you will configure the CD pipeline without adding any permissions to the same agent pool used by the CI pipeline. This will cause the pipeline to fail. Then, you will add the permissions to the agent pool and run the pipeline successfully.
 
 > [!IMPORTANT]
 > If you have permissions, you will be able to **Permit** the pipeline to run directly from the executing pipeline. If you don't have permissions, you will need to use another account with administration permissions to enable your pipeline to run using the specific agent as described in the previous Task 2, or to add user permissions to the agent pool.
@@ -120,40 +101,19 @@ In this task, you will configure the CD pipeline without adding any permissions 
    - **az400eshop-NAME**, with a web app name to be deployed with a global unique name, for example, **eshoponweb-lab-YOURNAME**.
    - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb**.
 
-1. Update the YAML file to use the **Default** agent pool. Replace the **pool** section with the following code:
+1. Update the YAML file to use the **windows-latest** image in the **Default** Microsoft-hosted agent pool. To accopmlish this, set the **pool** section to the following value:
 
     ```yaml
-    pool: Default
+    pool: 
+      vmImage: windows-latest
 
     ```
 
 1. Select **Save** and then select **Run**.
 
-1. Open the pipeline, and you will see the message "This pipeline needs permission to access a resource before this run can continue to Deploy Web App". Select **View** and there will be no option to **Permit** the pipeline to run.
+1. Open the pipeline, and you will see the message "This pipeline needs permission to access a resource before this run can continue to Deploy Web App". Select **View** and then select **Permit** to allow the pipeline to run.
 
-    ![Screenshot of the pipeline with the error message and no permit button".](media/pipeline-permission-no-permit.png)
-
-#### Task 4: Add permissions to the agent pool
-
-In this task, you will add permissions to the agent pool to allow the CD pipeline to run.
-
-1. Go to Project Settings, and select **Agent Pools** under **Pipelines**.
-
-1. Open the **Default** agent pool.
-
-1. Select **Security** tab.
-
-1. Under **User permissions** click on **Add** button.
-
-1. Select the user that is running the pipeline and the **User** role, then select **Add**.
-
-    ![Screenshot of the agent pool security tab adding the user.](media/agent-pool-security-add-user-permissions.png)
-
-1. Back to the **eshoponweb-cd-webapp-code** pipeline, select **Run** button to run the pipeline.
-
-1. Open the pipeline, and you will see the message "This pipeline needs permission to access a resource before this run can continue to Deploy Web App". Select **View**, **Permit** and **Permit** again.
-
-You should be able to run the pipeline successfully.
+    ![Screenshot of the pipeline with permit buttons".](media/pipeline-permission-permit.png)
 
 ### Exercise 2: Configure and validate approval and branch checks
 
@@ -163,7 +123,7 @@ In this exercise, you will configure and validate approval and branch checks for
 
 1. Go to **Pipelines > Environments**.
 
-1. Select **New environment** button.
+1. Select **Create environment** button.
 
 1. Name the environment **Test**, select **None** as the resource, and select **Create**.
 
@@ -173,15 +133,15 @@ In this exercise, you will configure and validate approval and branch checks for
 
 1. Select **Approvals**.
 
-1. Select **Add approver** and select your user, and if you have another user, add it to validate the approval process.
+1. In the **Approvers** text box, enter your user name and, if you have another user, add it to validate the approval process.
 
-1. Give the instructions **Please approve the deployment to Test** and select **Save**.
+1. Give the instructions **Please approve the deployment to Test** and select **Create**.
 
     ![Screenshot of the environment approvals with instructions.](media/add-environment-approvals.png)
 
-1. Select **+** button and select **Branch control**.
+1. Select **+** button, select **Branch control**, and then select **Next**.
 
-1. In the **Allowed branches** field, leave the default and select **Save**. You can add more branches if you want.
+1. In the **Allowed branches** field, leave the default and select **Create**. You can add more branches if you want.
 
     ![Screenshot of the environment branch control with the main branch.](media/add-environment-branch-control.png)
 
@@ -205,31 +165,34 @@ In this exercise, you will configure and validate approval and branch checks for
 
     ```yaml
     stages:
-   - stage: Test
-     displayName: Testing WebApp
-     jobs:
-     - deployment: Test
-       pool:
-         vmImage: 'windows-latest'
-       environment: Test
-       strategy:
-         runOnce:
-           deploy:
-             steps:
-             - script: echo Hello world! Testing environments!
-   - stage: Deploy
-     displayName: Deploy to WebApp
-     jobs:
-     - deployment: Deploy
-       pool:
-         vmImage: 'windows-latest'
-       environment: Production
-       strategy:
-         runOnce:
-           deploy:
-             steps:
-
+    - stage: Test
+      displayName: Testing WebApp
+      jobs:
+      - deployment: Test
+        pool:
+          vmImage: 'windows-latest'
+        environment: Test
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - script: echo Hello world! Testing environments!
+    - stage: Deploy
+    displayName: Deploy to WebApp
+      jobs:
+      - deployment: Deploy
+        pool: 
+          vmImage: windows-latest
+        environment: Production
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - checkout: self
     ```
+
+    > [!NOTE]
+    > You will need to shift the lines following the code above six spaces to the right to ensure that YAML indentation rules are satisfied.
 
     Your pipeline should look like this:
 

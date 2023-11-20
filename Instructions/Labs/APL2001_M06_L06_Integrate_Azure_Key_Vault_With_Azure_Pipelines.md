@@ -32,7 +32,7 @@ Setup CI YAML pipeline for:
 - Creating an Azure Container Registry to keep the container images
 - Using Docker Compose to build and push **eshoppublicapi** and **eshopwebmvc** container images. Only **eshopwebmvc** container will be deployed.
 
-#### Task 1: Create a service principal
+#### Task 1: (If done, skip) Create a service principal
 
 In this task, you will create a Service Principal by using the Azure CLI, which will allow Azure DevOps to:
 
@@ -155,15 +155,30 @@ In this task, you will import an existing CI YAML pipeline definition, modify an
 
 1. Name it **eshoponweb-ci-dockercompose** and select **Save**.
 
-1. Once the execution is finished, on the Azure Portal, open the previously defined Resource Group, and you should find an Azure Container Registry (ACR) with the created container images **eshoppublicapi** and **eshopwebmvc**. You will only use **eshopwebmvc** in the deploy phase.
+1. Once the execution is finished, on the Azure Portal, open the previously defined Resource Group and select the entry representing the Azure Container Registry (ACR) deployed by the pipeline.
+
+    > [!NOTE]
+    > In order to view repositories in the registry, you need to assign a role that provides such access. You will use for this purpose the AcrPull role.
+
+1. On the Container registry page, select **Access control (IAM)**, select **+ Add** and, in the drop-down list, select **Add role assignment**.
+
+1. On the **Role** tab of the **Add role assignment** page, select **AcrPull** and then select **Next**.
+
+1. On the **Members** tab, click **+ Select members**, select your user account, click **Select**, and then select **Next**.
+
+1. Select **Review + assign** and, once the assignment successfully completes, refresh the browser page.
+
+1. Back on the Container registry page, in the vertical menu bar on the left, in the **Services** section, select **Repositories**.
+
+1. Verify that the registry contains images **eshoppublicapi** and **eshopwebmvc**. You will only use **eshopwebmvc** in the deploy phase.
 
     ![Screenshot of the container images in ACR from the Azure Portal.](media/azure-container-registry.png)
 
-1. Select **Access Keys** and copy the **password** value, it will be used in the following task, as we will keep it as a secret in Azure Key Vault.
+1. Select **Access Keys**, enable the **Admin user** checkbox, and copy the **password** value, which will be used in the following task, as we will keep it as a secret in Azure Key Vault.
 
     ![Screenshot of the ACR password from the Access Keys setting.](media/acr-password.png)
 
-#### Task 2: Create an Azure Key Vault
+#### Task 3: Create an Azure Key Vault
 
 In this task, you will create an Azure Key vault by using the Azure portal.
 
@@ -185,7 +200,9 @@ For this lab scenario, we will have a Azure Container Instance (ACI) that pull a
     | Days to retain deleted vaults | **7** |
     | Purge protection | **Disable purge protection** |
 
-1. On the **Access policy** tab of the **Create key vault** blade, on the **Access Policy** section, select **+ Create** to setup a new policy.
+1. On the **Access configuration** tab of the **Create key vault** blade, in the **Permission model** section, select **Vault access policy**. 
+
+1. In the **Access Policies** section, select **+ Create** to setup a new policy.
 
     > **Note**: You need to secure access to your key vaults by allowing only authorized applications and users. To access the data from the vault, you will need to provide read (Get/List) permissions to the previously created service principal that you will be using for authentication in the pipeline.
 

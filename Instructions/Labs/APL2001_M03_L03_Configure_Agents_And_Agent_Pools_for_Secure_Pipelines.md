@@ -172,7 +172,7 @@ In this exercise, you will create a new security group for the agent pool.
 
 #### Task 2: Configure the security group
 
-1. Open the new group and select the **Settings** tab.
+1. Select the new group to display its **Permissions** tab.
 
 1. Deny unnecessary permissions for the group, such as **Rename team project**, **Permanently delete work items**, or any other permissions you don't want the group to have since it is used only for the agent pool.
 
@@ -193,11 +193,9 @@ In this exercise, you will manage permissions for the agent pool.
 
 1. Select the **eShopOnWebSelfPool** agent pool.
 
-1. In the agent pool details view, select the **Security tab**.
+1. In the agent pool details view, select the **Security** tab.
 
-1. Select the **Add button** and add the new group **eShopOnWeb Security Group** to the agent pool's user permissions.
-
-1. You can choose to add users or group permissions to the specific project or the entire Azure DevOps organization. In this case, choose **Project**.
+1. Select the **Add** button and add the new group **eShopOnWeb Security Group** to the agent pool's user permissions.
 
 1. Choose the appropriate role for the user or group, such as Agent Pool Reader, User or Administrator. In this case, choose **User**.
 
