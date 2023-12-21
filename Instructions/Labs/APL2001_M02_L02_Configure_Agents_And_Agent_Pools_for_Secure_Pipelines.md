@@ -31,11 +31,53 @@ During the configuration, keep in mind the following:
 
 ### Exercise 1: Create agents and configure agent pools
 
-In this exercise, you will create an agent and configure agent pools.
+In this exercise, you will create an Azure virtual machine (VM) and use it to create an agent and configure agent pools.
 
-#### Task 1: Create an agent pool
+#### Task 1: Create and connect to an Azure VM
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. In your browser, open the Azure Portal at `https://portal.azure.com`. If prompted, sign in by using an account with the Owner role in your Azure subscription.
+
+1. In the **Search resources, services and docs (G+/)** box, type **Virtual Machines** and select it from the dropdown list.
+
+1. Select the **Create** button.
+
+1. Select the **Azure virtual machine with preset configuration**.
+
+    ![Screenshot of the create virtual machine with preset configuration.](media/create-virtual-machine-preset.png)
+
+1. Select the **Dev/Test** as the workload environment and the **General purpose** as the workload type.
+
+1. Select the **Continue to create a VM** button, on the **Basics** tab perform the following actions and then select **Review + create**:
+
+   | Setting | Action |
+   | -- | -- |
+   | **Subscription** drop-down list | Select your Azure subscription. |
+   | **Resource group** section | Create a new resource group named **rg-eshoponweb-agentpool**. |
+   | **Virtual machine name** text box | Enter name of your preference, for example, **eshoponweb-vm**. |
+   | **Region** drop-down list | Select the same Azure region you used earlier in this lab. |
+   | **Availability options** drop-down list | Select **No infrastructure redundancy required**. |
+   | **Security type** drop-down list | Select with the **Trusted launch virtual machines** option. |
+   | **Image** drop-down list | Select the **Windows Server 2022 Datacenter: Azure Edition - x64 Gen2** image. |
+   | **Size** drop-down list | Select the cheapest **Standard** size for testing purposes. |
+   | **Username** text box | Enter the username of your preference |
+   | **Password** text box | Enter the password of your preference |
+   | **Public inbound ports** section | Select **Allow selected ports**. |
+   | **Select inbound ports** drop-down list | Select **RDP (3389)**. |
+
+1. On the **Review + create** tab, select **Create**.
+
+   > [!NOTE]
+   > Wait for the provisioning process to complete. This should take about 2 minutes.
+
+1. In the Azure portal, navigate to the page displaying configuration of the newly created Azure VM. 
+
+1. On the Azure VM page, select **Connect**, in the drop-down menu, select **Connect**, then select **Download RDP file**, and use the downloaded RDP file to establish a Remote Desktop session to the operating system running in the Azure VM.
+
+#### Task 2: Create an agent pool
+
+1. In the Remote Desktop session to the Azure VM, start Microsoft Edge web browser.
+
+1. In the web browser, navigate to the Azure DevOps portal at `https://dev.azure.com` and sign in to access your organization.
 
 1. Open the **eShopOnWeb** project, and select **Project settings** from the left-side bottom menu.
 
@@ -51,15 +93,16 @@ In this exercise, you will create an agent and configure agent pools.
 
 1. Select **Create** button to create the agent pool.
 
-#### Task 2: Create an agent
+#### Task 3: Download and extract the agent installation files
 
-1. Select the newly created agent pool, and then select the **Agents** tab.
+1. In the Azure DevOps portal, select the newly created agent pool and then select the **Agents** tab.
 
 1. Select the **New agent** button and then **Download** button from the **Download agent** in the new pop-up window.
 
-1. Follow the installation instructions to install the agent on your machine from the pop-up window.
+   > [!NOTE]
+   > Follow the installation instructions to install the agent.
 
-1. Run the following commands from Powershell to create a new agent folder in your machine.
+1. Start a PowerShell session and run the following commands to create a folder named **agent**.
 
    ```powershell
    mkdir agent ; cd agent        
@@ -68,23 +111,25 @@ In this exercise, you will create an agent and configure agent pools.
    > [!NOTE]
    > Make sure you are in the root folder of your user profile or the folder where you want to install the agent.
 
-1. If you choose the **Download** folder in your machine, from Powershell, run the suggested command:
+1. Run the following command to extract the content of the downloaded agent installer files:
 
    ```powershell
-   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [SysteIO.Compression.ZipFile]::ExtractToDirecto("$HOME\Downloads\vsts-agent-win-x64-3.220.2.zip", "$PWD")
+   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-3.232.0.zip", "$PWD")
    ```
+
    > [!NOTE]
-   > If you downloaded the agent to a different location, replacthe path in the above command.
+   > If you downloaded the agent to a different location (or the downloaded version differs), adjust the above command accordingly.
 
 #### Task 3: Create a PAT token
 
-Before configuring your agent, create a new PAT token or choose an existing one. To create a new PAT token, follow the steps below:
+> [!NOTE]
+> Before configuring the agent, you need to create a PAT token (unless you have an existing one). To create a PAT token, follow the steps below:
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Within the Remote Desktop session to the Azure VM, open another browser window, navigate to the Azure DevOps portal at `https://dev.azure.com`, and access your organization.
 
-1. Navigate to the eShopOnWeb project, and select **User settings** from the right-side top menu (left of your user profile picture).
+1. Select **User settings** from the right-side top menu (directly to the left of your user's avatar icon).
 
-1. Select the **Personal Access Tokens** menu.
+1. Select the **Personal access tokens** menu item.
 
    ![Screenshot showing the personal access tokens menu.](media/personal-access-token-menu.png)
 
@@ -92,7 +137,7 @@ Before configuring your agent, create a new PAT token or choose an existing one.
 
 1. Provide a name for the token, such as **eShopOnWebToken**.
 
-1. Select the Azure DevOps organization you want to use the token.
+1. Select the Azure DevOps organization for you want to use the token.
 
 1. Set the expiration date for the token (only used to configure the agent).
 
@@ -109,44 +154,46 @@ Before configuring your agent, create a new PAT token or choose an existing one.
    ![Screenshot showing the personal access token configuration.](media/personal-access-token-configuration.png)
 
    > [!IMPORTANT]
-   > Use the last privilege option, **Agent Pools (Read & Manage)**, only for the agent configuration. Also, make sure you set the minimum expiration date for the token if it's the only purpose for the token. You can create a new token with the same privileges if you need to configure the agent again.
+   > Use the least privilege option, **Agent Pools (Read & Manage)**, only for the agent configuration. Also, make sure you set the minimum expiration date for the token if that is the only purpose of the token. You can create another token with the same privileges if you need to configure the agent again.
 
 #### Task 4: Configure the agent
 
-1. Open a new Powershell window and navigate to the agent folder you created in the previous step.
+1. Within the Remote Desktop session to the Azure VM, switch back to the Powershell window. If necessary, change the current directory to the one into which you extracted the agent installation files earlier in this exercise. 
 
-1. To configure your agent, run the following command:
+1. To configure your agent to run unattended, invoke the following command:
 
    ```powershell
    .\config.cmd
    ```
 
    > [!NOTE]
-   > Optionally run the agent interactively by running .\run.cmd. You cannot close the command prompt window while running interactively.
+   > If you want to run the agent interactively, use `.\run.cmd` instead. 
 
-1. Enter the following information when prompted to configure the agent:
-   - Enter the URL of the Azure DevOps organization: `https://dev.azure.com/`{your organization name}.
-   - Choose the authentication type: **PAT**.
-   - Enter the PAT token value you created in the previous step.
-   - Enter the agent pool name **eShopOnWebSelfPool** you created in the previous step.
+1. To configure the agent, perform the following actions when prompted:
+
+   - Enter the URL of the Azure DevOps organization (**server URL**) in the format `https://dev.azure.com/`{your organization name}.
+   - Accept the default authentication type (**PAT**).
+   - Enter the value of the PAT token you created in the previous step.
+   - Enter the agent pool name **eShopOnWebSelfPool** you created earlier in this exercise.
    - Enter the agent name **eShopOnWebSelfAgent**.
-   - Choose the agent work folder (default is _work).
-   - Choose the agent run mode (Y to run as service).
-   - Enter Y to enable SERVICE_SID_TYPE_UNRESTRICTED for the agent service (Windows only).
-   - Enter the user account to use for the service.
+   - Accept the default agent work folder (_work).
+   - Enter **Y** to configure the agent to run as service.
+   - Enter **Y** to enable SERVICE_SID_TYPE_UNRESTRICTED for the agent service.
+   - Enter **NT AUTHORITY\SYSTEM** to set the security context for the service.
 
    > [!IMPORTANT]
-   > For running the agent service, refrain from using high-privileged accounts. Instead, employ a low-privileged account that holds the minimum permissions necessary for the operation of the service. This approach helps to maintain a secure and stable environment.
+   > In general, you should follow the principle of least privilege when configuring the service security context.
 
-   - Enter whether to prevent service starting immediately after configuration is finished (N to start the service).
+   - Accept the default option (**N**) to allow the service to start immediately after configuration is finished.
 
    ![Screenshot showing the agent configuration.](media/agent-configuration.png)
 
-   - Check the agent status by navigating to the agent pool and clicking on the **Agents** tab. You should see the new agent in the list.
+1. Check the agent status by switching to the web browser displaying the Azure DevOps portal, navigating to the agent pool and clicking on the **Agents** tab. You should see the new agent in the list.
 
    ![Screenshot showing the agent status.](media/agent-status.png)
 
-For more details on Windows agents, see: [Self-hosted Windows agents](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent)
+   > [!NOTE]
+   > For more details on Windows agents, see: [Self-hosted Windows agents](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent)
 
 ### Exercise 2: Create and configure a new security group for the agent pool
 
@@ -154,17 +201,11 @@ In this exercise, you will create a new security group for the agent pool.
 
 #### Task 1: Create a new security group
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
-
-1. Open the **eShopOnWeb** project, and select **Project settings** from the left-side bottom menu.
-
-1. Open Permissions under General.
+1. Within the Remote Desktop session to the Azure VM, in the web browser displaying the Azure DevOps portal, in the **Project settings** pane, in the **General** section, select **Permissions **.
 
 1. Select the **New Group** button.
 
 1. Provide a name for the group, such as **eShopOnWeb Security Group**.
-
-1. Add the users you want to be part of the group.
 
 1. Select the **Create** button to create the group.
 
@@ -172,9 +213,9 @@ In this exercise, you will create a new security group for the agent pool.
 
 #### Task 2: Configure the security group
 
-1. Select the new group to display its **Permissions** tab.
+1. In the web browser window displaying the Azure Devops portal, select the new group to display its **Permissions** tab.
 
-1. Deny unnecessary permissions for the group, such as **Rename team project**, **Permanently delete work items**, or any other permissions you don't want the group to have since it is used only for the agent pool.
+1. Deny unnecessary permissions for the group, such as **Rename team project**, **Permanently delete work items**, or any other permissions you don't want the group to have since we assume it will be used only for the agent pool.
 
    ![Screenshot showing the security group settings.](media/security-group-settings.png)
 
@@ -185,11 +226,7 @@ In this exercise, you will create a new security group for the agent pool.
 
 In this exercise, you will manage permissions for the agent pool.
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
-
-1. Open the **eShopOnWeb** project, and select **Project settings** from the left-side bottom menu.
-
-1. Select **Pipelines**, and then select **Agent pools**.
+1. In the web browser window displaying the Azure Devops portal, in the **Project settings** of the **eShopOnWeb** project, in the **Pipelines** section, select **Agent pools**.
 
 1. Select the **eShopOnWebSelfPool** agent pool.
 
@@ -199,21 +236,39 @@ In this exercise, you will manage permissions for the agent pool.
 
 1. Choose the appropriate role for the user or group, such as Agent Pool Reader, User or Administrator. In this case, choose **User**.
 
-1. Select Add to apply the permissions.
+1. Select **Add** to apply the permissions.
 
    ![Screenshot showing the agent pool security configuration.](media/agent-pool-security.png)
 
 You are now ready to securely use the agent pool in your pipelines. For more details on agent pools, see: [Agent pools](https://learn.microsoft.com/azure/devops/pipelines/agents/pools-queues).
 
-### Exercise 4: Remove the resources used in the lab
+### Exercise 4: Perform cleanup of Azure and Azure DevOps resources
 
-1. Stop and remove the agent service by running `.config.cmd remove`.
+In this exercise, you will perform post-lab cleanup of some of the Azure DevOps resources created in this lab.
 
-1. Delete the agent pool.
+#### Task 1: Stop and deallocate Azure VM
 
-1. Delete the security group.
+> [!NOTE]
+> You will be using the Azure VM you created in this lab in the next lab, so rather than deleting it, you will stop and deallocate it to eliminate its compute charges.
 
-1. Revoke the PAT token.
+1. In the Azure portal, navigate to the page displaying the Azure VM **eshoponweb-vm** you deployed in this lab
+
+1. On the **eshoponweb-vm** Azure VM page, in the toolbar, select **Stop** to stop and deallocate it.
+
+#### Task 2: Remove Azure DevOps resources
+
+> [!NOTE]
+> You will be using the self-hosted agent you created in this lab in the next lab, so rather than deleting it, you will only revoke the Personal Access Token used to configure it. This will not prevent it from running later.
+
+1. In the Azure DevOps portal, select **User settings** from the right-side top menu (directly to the left of your user's avatar icon).
+
+1. Select the **Personal access tokens** menu item.
+
+   ![Screenshot showing the personal access tokens menu.](media/personal-access-token-menu.png)
+
+1. Select the **eShopOnWebToken** entry. 
+
+1. Select **Revoke** and, when prompted to confirm, select **Revoke** again.
 
 ## Review
 

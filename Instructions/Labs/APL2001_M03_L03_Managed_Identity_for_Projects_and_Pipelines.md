@@ -167,41 +167,10 @@ Next, you need to assign the Managed Identity permissions to the resource group 
 
 In this exercise, you will create a new Azure Virtual Machine using the self-hosted agent and the Managed Identity you created in the previous exercise. Then, you will update the CI pipeline to use the new Azure Virtual Machine.
 
-#### Task 1: Create a new Azure Virtual Machine
 
-1. In your browser, open the Azure Portal at `https://portal.azure.com`.
 
-1. In the **Search resources, services and docs (G+/)** box, type **Virtual Machines** and select it from the dropdown list.
 
-1. Select the **Create** button.
 
-1. Select the **Azure virtual machine with preset configuration**.
-
-    ![Screenshot of the create virtual machine with preset configuration.](media/create-virtual-machine-preset.png)
-
-1. Select the **Dev/Test** as the workload environment and the **General purpose** as the workload type.
-
-1. Select the **Continue to create a VM** button, on the **Basics** tab perform the following actions and then select **Review + create**:
-
-   | Setting | Action |
-   | -- | -- |
-   | **Subscription** drop-down list | Select your Azure subscription. |
-   | **Resource group** section | Select the existing or new resource group, for example, **rg-eshoponweb-resource**. |
-   | **Virtual machine name** text box | Enter name of your preference, for example, **eshoponweb-vm**. |
-   | **Region** drop-down list | Select the same Azure region you used earlier in this lab. |
-   | **Availability options** drop-down list | Select **No infrastructure redundancy required**. |
-   | **Security type** drop-down list | Select with the **Trusted launch virtual machines** option. |
-   | **Image** drop-down list | Select the **Windows Server 2019 or 2022 Datacenter** image. |
-   | **Size** drop-down list | Select the cheapest **Standard** size for testing purposes. |
-   | **Username** text box | Enter the username of your preference |
-   | **Password** text box | Enter the password of your preference |
-   | **Public inbound ports** section | Select **Allow selected ports**. |
-   | **Select inbound ports** drop-down list | Select **RDP (3389)**. |
-
-1. On the **Review + create** tab, select **Create**.
-
-   > [!NOTE]
-   > Wait for the provisioning process to complete. This should take about 2 minutes.
 
 1. In the Azure portal, navigate to the page of the newly dpeloyed virtual machine. 
 
@@ -218,7 +187,7 @@ In this exercise, you will create a new Azure Virtual Machine using the self-hos
 
 #### Task 2: Install the self-hosted agent on the Azure Virtual Machine
 
-1. Open the new Azure Virtual Machine you created earlier using the RDP connection. You can find the connection information in the **Overview** checking the **Connect** button.
+
 
 2. From the Azure VM, follow the steps to install the agent in the new Azure Virtual Machine from the [Exercise 1 of the lab Configure agents and agent pools for secure pipelines](APL2001_M03_L03_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md). When following the instructions, account for the following changes:
 
