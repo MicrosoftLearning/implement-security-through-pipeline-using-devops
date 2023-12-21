@@ -1,7 +1,7 @@
 ---
 lab:
     title: Configure agents and agent pools for secure pipelines
-    module: 'Module 3: Configure secure access to pipeline resources'
+    module: 'Module 2: Configure secure access to pipeline resources'
 ---
 
 # Configure agents and agent pools for secure pipelines
@@ -47,7 +47,7 @@ In this exercise, you will create an agent and configure agent pools.
 
 1. Leave the **Grant access permission to all pipelines** option unchecked.
 
-    ![Screenshot showing add agent pool options with self-hosted type.](media/create-new-agent-pool-self-hosted-agent.png)
+   ![Screenshot showing add agent pool options with self-hosted type.](media/create-new-agent-pool-self-hosted-agent.png)
 
 1. Select **Create** button to create the agent pool.
 
@@ -58,23 +58,23 @@ In this exercise, you will create an agent and configure agent pools.
 1. Select the **New agent** button and then **Download** button from the **Download agent** in the new pop-up window.
 
 1. Follow the installation instructions to install the agent on your machine from the pop-up window.
-   1. Run the following commands from Powershell to create a new agent folder in your machine.
 
-        ```powershell
-        mkdir agent ; cd agent        
-        ```
+1. Run the following commands from Powershell to create a new agent folder in your machine.
 
-        > [!NOTE]
-        > Make sure you are in the root folder of your user profile or the folder where you want to install the agent.
+   ```powershell
+   mkdir agent ; cd agent        
+   ```
 
-   2. If you choose the **Download** folder in your machine, from Powershell, run the suggested command:
+   > [!NOTE]
+   > Make sure you are in the root folder of your user profile or the folder where you want to install the agent.
 
-        ```powershell
-        Add-Type -AssemblyName System.IO.Compression.FileSystem ; [SysteIO.Compression.ZipFile]::ExtractToDirecto("$HOME\Downloads\vsts-agent-win-x64-3.220.2.zip", "$PWD")
-        
-        ```
-        > [!NOTE]
-        > If you downloaded the agent to a different location, replacthe path in the above command.
+1. If you choose the **Download** folder in your machine, from Powershell, run the suggested command:
+
+   ```powershell
+   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [SysteIO.Compression.ZipFile]::ExtractToDirecto("$HOME\Downloads\vsts-agent-win-x64-3.220.2.zip", "$PWD")
+   ```
+   > [!NOTE]
+   > If you downloaded the agent to a different location, replacthe path in the above command.
 
 #### Task 3: Create a PAT token
 
@@ -86,7 +86,7 @@ Before configuring your agent, create a new PAT token or choose an existing one.
 
 1. Select the **Personal Access Tokens** menu.
 
-    ![Screenshot showing the personal access tokens menu.](media/personal-access-token-menu.png)
+   ![Screenshot showing the personal access tokens menu.](media/personal-access-token-menu.png)
 
 1. Select the **New Token** button.
 
@@ -106,10 +106,10 @@ Before configuring your agent, create a new PAT token or choose an existing one.
 
 1. Copy the token value and save it in a safe place (you will not be able to see it again. You can only regenerate the token).
 
-    ![Screenshot showing the personal access token configuration.](media/personal-access-token-configuration.png)
+   ![Screenshot showing the personal access token configuration.](media/personal-access-token-configuration.png)
 
-    > [!IMPORTANT]
-    > Use the last privilege option, **Agent Pools (Read & Manage)**, only for the agent configuration. Also, make sure you set the minimum expiration date for the token if it's the only purpose for the token. You can create a new token with the same privileges if you need to configure the agent again.
+   > [!IMPORTANT]
+   > Use the last privilege option, **Agent Pools (Read & Manage)**, only for the agent configuration. Also, make sure you set the minimum expiration date for the token if it's the only purpose for the token. You can create a new token with the same privileges if you need to configure the agent again.
 
 #### Task 4: Configure the agent
 
@@ -117,34 +117,34 @@ Before configuring your agent, create a new PAT token or choose an existing one.
 
 1. To configure your agent, run the following command:
 
-    ```powershell
-    .\config.cmd
-    ```
+   ```powershell
+   .\config.cmd
+   ```
 
-    > [!NOTE]
-    > Optionally run the agent interactively by running .\run.cmd. You cannot close the command prompt window while running interactively.
+   > [!NOTE]
+   > Optionally run the agent interactively by running .\run.cmd. You cannot close the command prompt window while running interactively.
 
 1. Enter the following information when prompted to configure the agent:
-    - Enter the URL of the Azure DevOps organization: `https://dev.azure.com/`{your organization name}.
-    - Choose the authentication type: **PAT**.
-    - Enter the PAT token value you created in the previous step.
-    - Enter the agent pool name **eShopOnWebSelfPool** you created in the previous step.
-    - Enter the agent name **eShopOnWebSelfAgent**.
-    - Choose the agent work folder (default is _work).
-    - Choose the agent run mode (Y to run as service).
-    - Enter Y to enable SERVICE_SID_TYPE_UNRESTRICTED for the agent service (Windows only).
-    - Enter the user account to use for the service.
+   - Enter the URL of the Azure DevOps organization: `https://dev.azure.com/`{your organization name}.
+   - Choose the authentication type: **PAT**.
+   - Enter the PAT token value you created in the previous step.
+   - Enter the agent pool name **eShopOnWebSelfPool** you created in the previous step.
+   - Enter the agent name **eShopOnWebSelfAgent**.
+   - Choose the agent work folder (default is _work).
+   - Choose the agent run mode (Y to run as service).
+   - Enter Y to enable SERVICE_SID_TYPE_UNRESTRICTED for the agent service (Windows only).
+   - Enter the user account to use for the service.
 
-        > [!IMPORTANT]
-        > For running the agent service, refrain from using high-privileged accounts. Instead, employ a low-privileged account that holds the minimum permissions necessary for the operation of the service. This approach helps to maintain a secure and stable environment.
+   > [!IMPORTANT]
+   > For running the agent service, refrain from using high-privileged accounts. Instead, employ a low-privileged account that holds the minimum permissions necessary for the operation of the service. This approach helps to maintain a secure and stable environment.
 
-    - Enter whether to prevent service starting immediately after configuration is finished (N to start the service).
+   - Enter whether to prevent service starting immediately after configuration is finished (N to start the service).
 
-        ![Screenshot showing the agent configuration.](media/agent-configuration.png)
+   ![Screenshot showing the agent configuration.](media/agent-configuration.png)
 
-    - Check the agent status by navigating to the agent pool and clicking on the **Agents** tab. You should see the new agent in the list.
+   - Check the agent status by navigating to the agent pool and clicking on the **Agents** tab. You should see the new agent in the list.
 
-        ![Screenshot showing the agent status.](media/agent-status.png)
+   ![Screenshot showing the agent status.](media/agent-status.png)
 
 For more details on Windows agents, see: [Self-hosted Windows agents](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent)
 
@@ -168,7 +168,7 @@ In this exercise, you will create a new security group for the agent pool.
 
 1. Select the **Create** button to create the group.
 
-    ![Screenshot showing the security group creation.](media/create-security-group.png)
+   ![Screenshot showing the security group creation.](media/create-security-group.png)
 
 #### Task 2: Configure the security group
 
@@ -176,10 +176,10 @@ In this exercise, you will create a new security group for the agent pool.
 
 1. Deny unnecessary permissions for the group, such as **Rename team project**, **Permanently delete work items**, or any other permissions you don't want the group to have since it is used only for the agent pool.
 
-    ![Screenshot showing the security group settings.](media/security-group-settings.png)
+   ![Screenshot showing the security group settings.](media/security-group-settings.png)
 
-    > [!IMPORTANT]
-    > If you leave permissions you don't want the group to have, scripts or tasks running on the agent can use the group permissions to perform actions you don't want them to perform.
+   > [!IMPORTANT]
+   > If you leave permissions you don't want the group to have, scripts or tasks running on the agent can use the group permissions to perform actions you don't want them to perform.
 
 ### Exercise 3: Manage agent pool permissions
 
@@ -201,7 +201,7 @@ In this exercise, you will manage permissions for the agent pool.
 
 1. Select Add to apply the permissions.
 
-    ![Screenshot showing the agent pool security configuration.](media/agent-pool-security.png)
+   ![Screenshot showing the agent pool security configuration.](media/agent-pool-security.png)
 
 You are now ready to securely use the agent pool in your pipelines. For more details on agent pools, see: [Agent pools](https://learn.microsoft.com/azure/devops/pipelines/agents/pools-queues).
 

@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Managed identity for projects and pipelines'
-    module: 'Module 2: Manage identity for projects, pipelines, and agents'
+    module: 'Module 3: Manage identity for projects, pipelines, and agents'
 ---
 
 # Managed identity for projects and pipelines
@@ -26,7 +26,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 In this exercise, you will import and run the CI pipeline, configure the service connection with your Azure Subscription and then import and run the CD pipeline.
 
-#### Task 1: (If done, skip) Import and run the CI pipeline
+#### Task 1: Import and run the CI pipeline
 
 Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
@@ -36,7 +36,7 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 1. Go to **Pipelines > Pipelines**.
 
-1. Select **New Pipeline** button.
+1. Select **Create Pipeline** button.
 
 1. Select **Azure Repos Git (Yaml)**.
 
@@ -48,79 +48,25 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 1. Select the **Run** button to run the pipeline.
 
-    > [!NOTE]
-    > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
+   > [!NOTE]
+   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
 1. Name it **eshoponweb-ci** and select **Save**.
 
-#### Task 2: Manage the service connection
-
-You can create a connection from Azure Pipelines to external and remote services for executing tasks in a job.
-
-In this task, you will create a service principal by using the Azure CLI, which will allow Azure DevOps to:
-
-- Deploy resources on your azure subscription
-- Deploy the eShopOnWeb application
+> [!NOTE]
+> Before you proceed, verify that you already have a service connection to your Azure subscription named **azure subs**. If not, rerun exercise 2, task 2 of the previous lab of this course **Configure a project and repository structure to support secure pipelines**.
 
 > [!NOTE]
-> If you do already have a service principal and a service connection to your Azure subscription named **azure subs**, you can proceed directly to the next task.
+> You will also need the value of your subscription ID, which you retrieved in exercise 2, task 2 of the previous lab of this course. If you haven't recorded it, refer to that task for the instructions on getting this accomplished. 
 
-You will need a service principal to deploy Azure resources from Azure Pipelines.
+#### Task 2: Import and run the CD pipeline
 
-A service principal is automatically created by Azure Pipeline when you connect to an Azure subscription from inside a pipeline definition or when you create a new service connection from the project settings page (automatic option). You can also manually create the service principal from the portal or using Azure CLI and re-use it across projects.
+> [!NOTE]
+> In this task, you will import and run the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml).
 
-1. Start a web browser, navigate to the Azure Portal at `https://portal.azure.com`, and sign in with the user account that has the Owner role in the Azure subscription you will be using in this lab and has the role of the Global Administrator in the Azure AD tenant associated with this subscription.
-
-1. In the Azure portal, select the **Cloud Shell** icon, located directly to the right of the search text box at the top of the page.
-
-1. If prompted to select either **Bash** or **PowerShell**, select **Bash**.
-
-   > [!NOTE]
-   > If this is the first time you are starting **Cloud Shell** and you are presented with the **You have no storage mounted** message, select the subscription you are using in this lab, and select **Create storage**.
-
-1. From the **Bash** prompt, in the **Cloud Shell** pane, run the following commands to retrieve the values of the Azure subscription ID attribute:
-
-    ```sh
-    subscriptionName=$(az account show --query name --output tsv)
-    subscriptionId=$(az account show --query id --output tsv)
-    echo $subscriptionName
-    echo $subscriptionId
-    ```
-
-    > [!NOTE]
-    > Copy both values to a text file. You will need them later in this lab.
-
-1. From the **Bash** prompt, in the **Cloud Shell** pane, run the following command to create a service principal:
-
-    ```sh
-    az ad sp create-for-rbac --name sp-eshoponweb-azdo --role contributor --scopes /subscriptions/$subscriptionId
-    ```
-
-    > [!NOTE]
-    > The command will generate a JSON output. Copy the output to text file. You will need it later in this lab.
-
-1. Next, navigate to the Azure DevOps **eShopOnWeb** project. Click on **Project Settings > Service Connections (under Pipelines)** and **New Service Connection**.
-
-1. On the **New service connection** blade, select **Azure Resource Manager** and **Next** (may need to scroll down).
-
-1. Then choose **Service principal (manual)** and select **Next**.
-
-1. Fill in the empty fields using the information gathered during previous steps:
-    - Subscription Id and Name.
-    - Service Principal Id (or clientId), Key (or Password) and TenantId.
-    - In **Service connection name** type **azure subs**. This name will be referenced in YAML pipelines when needing an Azure DevOps Service Connection to communicate with your Azure subscription.
-
-1. Select **Verify and Save**.
-
-#### Task 3: Import and run the CD pipeline
-
-Now, import the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml).
-
-1. Go to **Pipelines > Pipelines**.
-
-1. Click on **New pipeline** button.
+1. On the **Pipelines** pane of the **eShopOnWeb** project, select the **New pipeline** button.
 
 1. Select **Azure Repos Git (Yaml)**.
 
@@ -132,46 +78,38 @@ Now, import the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github
 
 1. In the YAML pipeline definition, set the variables section to:
 
-    ```YAML
-    variables:
-      resource-group: 'AZ400-EWebShop-NAME'
-      location: 'westeurope'
-      templateFile: '.azure/bicep/webapp.bicep'
-      subscriptionid: 'YOUR-SUBSCRIPTION-ID'
-      azureserviceconnection: 'azure subs'
-      webappname: 'az400-webapp-NAME'
-    ```
+   ```yaml
+   variables:
+     resource-group: 'AZ400-EWebShop-NAME'
+     location: 'westeurope'
+     templateFile: '.azure/bicep/webapp.bicep'
+     subscriptionid: 'YOUR-SUBSCRIPTION-ID'
+     azureserviceconnection: 'azure subs'
+     webappname: 'az400-webapp-NAME'
+   ```
 
 1. In the variables section, replace the placeholders with the following values:
 
    - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb**.
    - **location** with the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
    - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
-   - **az400-webapp-NAME**, with a web app name to be deployed with a global unique name, for example, **eshoponweb-lab-YOURNAME**.
+   - **az400-webapp-NAME**, with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-id-** followed by a random six-digit number. 
 
-1. If present, in the resources section, remove the following entries:
-
-    ```YAML
-    repositories:
-      - repository: eShopSecurity
-        type: git
-        name: eShopSecurity/eShopSecurity #name of the project and repository
-    ```
-
-1. Select **Save and Run**, choose to commit directly to the main branch, or create a new branch.
+1. Select **Save and Run** and choose to commit directly to the main branch.
 
 1. Select **Save and Run** again.
 
-    > [!NOTE]
-    > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
-
 1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", selet **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
 
-    ![Screenshot of the permit access from the YAML pipeline.](media/pipeline-deploy-permit-resource.png)
+   ![Screenshot of the permit access from the YAML pipeline.](media/pipeline-deploy-permit-resource.png)
 
 1. The deployment may take a few minutes to complete, wait for the pipeline to execute. The CD definition consists of the following tasks:
-      - **Resources**: it is prepared to automatically trigger based on CI pipeline completion. It also downloads the repository for the bicep file.
-      - **AzureResourceManagerTemplateDeployment**: Deploys the Azure Web App using bicep template.
+
+   - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web ppp using bicep template.
+   - **AzureRmWebAppDeployment**: Publishes the Web site to the Azure App Service web app.
+
+> [!NOTE]
+> In case the deployment fails, navigate to the pipeline run page and select **Rerun failed jobs** to invoke another pipeline run.
 
 1. Your pipeline will take a name based on the project name. Let's **rename** it for identifying the pipeline better.
 
@@ -191,18 +129,16 @@ In this exercise, you will create a managed identity and then create a new servi
 
     ![Screenshot of the Managed Identities option in the Azure Portal.](media/managed-identities.png)
 
-1. Select the **Create managed identity** button.
+1. On the **Managed Identities** page, select the **+ Create** button.
 
-1. In the **Create Managed Identity** pane, fill in the required information:
-   - **Subscription** with your Azure subscription.
-   - **Resource Group** with existing or new resource group.
-   - **Region** with the region close to your location or available for your resources.
-   - **Name** with the Managed Identity name of your preference, for example, **eshoponweb-mi**.
+1. On the **Create Managed Identity** pane, perform the following actions:
+
+   - Ensure that the **Subscription** drop-down list includes the name of your Azure subscription.
+   - Select **Create new** below the **Resource Group** drop-down list and create a new resource group named **rg-eshoponweb-resources**.
+   - Set the **Region** to the same Azure region you chose in the previous exercise of this lab.
+   - Enter a name you want to assign to the managed identity in the **Name** textbox (for example, **eshoponweb-mi**).
 
     ![Screenshot of the create Managed Identity pane.](media/create-managed-identity.png)
-
-    > [!NOTE]
-    > If you don't have a resource group, you can create one by clicking on the **Create new** link.
 
 1. Select the **Review + create** button, then select **Create**.
 
@@ -216,12 +152,12 @@ Next, you need to assign the Managed Identity permissions to the resource group 
 
 1. Select the **Add role assignment** button, and perform the following actions:
 
-    | Setting | Action |
-    | -- | -- |
-    | **Scope** drop-down list | Select **Resource Group**. |
-    | **Subscription** drop-down list | Select your Azure subscription. |
-    | **Resource group** drop-down list | Select the existing resource group. |
-    | **Role** drop-down list | Select the **Contributor** role. |
+   | Setting | Action |
+   | -- | -- |
+   | **Scope** drop-down list | Select **Resource Group**. |
+   | **Subscription** drop-down list | Select your Azure subscription. |
+   | **Resource group** drop-down list | Select the resource group where you deployed the web app in the previous exercise of this lab (**rg-eshoponweb**). |
+   | **Role** drop-down list | Select the **Contributor** role. |
 
 1. Select the **Save** button.
 
@@ -245,42 +181,42 @@ In this exercise, you will create a new Azure Virtual Machine using the self-hos
 
 1. Select the **Dev/Test** as the workload environment and the **General purpose** as the workload type.
 
-1. Select the **Continue to create a VM** button, on the **Basics** tab perform the following actions, then select **Management** tab:
+1. Select the **Continue to create a VM** button, on the **Basics** tab perform the following actions and then select **Review + create**:
 
-    | Setting | Action |
-    | -- | -- |
-    | **Subscription** drop-down list | Select your Azure subscription. |
-    | **Resource group** section | Select the existing or new resource group, for example, **eshoponweb-resource**. |
-    | **Virtual machine name** text box | Enter name of your preference, for example, **eshoponweb-vm**. |
-    | **Region** drop-down list | Select the region close to your location or available for your resources, for example, **South Central US**. |
-    | **Availability options** drop-down list | Select **No infrastructure redundancy required**. |
-    | **Security type** drop-down list | Select with the **Trusted launch virtual machines** option. |
-    | **Image** drop-down list | Select the **Windows Server 2019 or 2022 Datacenter** image. |
-    | **Size** drop-down list | Select the cheapest **Standard** size for testing purposes. |
-    | **Username** text box | Enter the username of your preference |
-    | **Password** text box | Enter the password of your preference |
-    | **Public inbound ports** section | Select **Allow selected ports**. |
-    | **Select inbound ports** drop-down list | Select **RDP (3389)**. |
-
-1. On the **Management** tab perform the following actions, then select **Review + create**:
-   
-    | **Enable system assigned managed identity** section | Select **checkbox**. This will allow the VM to use the Managed Identity you created. |
-    | **Public IP address** section | Select **Create new**, enter a name of your preference and then select **Ok** |
-
-    > [!IMPORTANT]
-    > Don't skip the step Exercise 5: Remove the Azure lab resources to avoid unexpected charges.
+   | Setting | Action |
+   | -- | -- |
+   | **Subscription** drop-down list | Select your Azure subscription. |
+   | **Resource group** section | Select the existing or new resource group, for example, **rg-eshoponweb-resource**. |
+   | **Virtual machine name** text box | Enter name of your preference, for example, **eshoponweb-vm**. |
+   | **Region** drop-down list | Select the same Azure region you used earlier in this lab. |
+   | **Availability options** drop-down list | Select **No infrastructure redundancy required**. |
+   | **Security type** drop-down list | Select with the **Trusted launch virtual machines** option. |
+   | **Image** drop-down list | Select the **Windows Server 2019 or 2022 Datacenter** image. |
+   | **Size** drop-down list | Select the cheapest **Standard** size for testing purposes. |
+   | **Username** text box | Enter the username of your preference |
+   | **Password** text box | Enter the password of your preference |
+   | **Public inbound ports** section | Select **Allow selected ports**. |
+   | **Select inbound ports** drop-down list | Select **RDP (3389)**. |
 
 1. On the **Review + create** tab, select **Create**.
 
-1. Open the virtual machine settings, select the **Identity** tab and select the **Azure role assignments** button.
+   > [!NOTE]
+   > Wait for the provisioning process to complete. This should take about 2 minutes.
 
-1. Select the **Add role assignment** button.
+1. In the Azure portal, navigate to the page of the newly dpeloyed virtual machine. 
 
-1. Select the subscription scope, subscription and the **Contributor** role.
+1. In the vertical menu on the left side, in the **Security** section, select **Identity**.
 
-1. Select the **Save** button.
+1. On the **eshoponweb-vm /| Identity** page, on the **System assigned** tab, select **Off**, select **Save**, and then select **Yes**.
 
-#### Task 2: Open the new Azure Virtual Machine and install the self-hosted agent
+   > [!NOTE]
+   > You could use a system assigned managed identity in this case as well, but we'll leverage the user assigned managed identity you created earlier in this lab.
+
+1. On the **eshoponweb-vm /| Identity** page, select the **User assigned** tab and then select **+ Add**.
+
+1. In the **Add user assigned managed identity** pane, select the user assigned managed identity you created earlier in this lab (**eshopweb-mi**) and then select **Add**.
+
+#### Task 2: Install the self-hosted agent on the Azure Virtual Machine
 
 1. Open the new Azure Virtual Machine you created earlier using the RDP connection. You can find the connection information in the **Overview** checking the **Connect** button.
 
@@ -309,6 +245,7 @@ In this exercise, you will create a new service connection using the Managed Ide
 1. Select **Managed Identity** as the **Authentication method**.
 
 1. Fill in the empty fields using the information gathered during previous steps:
+
     - Subscription Id, Name and Tenant Id (or clientId).
     - In **Service connection name** type **azure subs managed**. This name will be referenced in YAML pipelines when needing an Azure DevOps Service Connection to communicate with your Azure subscription.
 
@@ -324,27 +261,27 @@ In this exercise, you will create a new service connection using the Managed Ide
 
 1. In the variables section, update the **serviceConnection** variable with the name of the service connection you created in the previous task, **azure subs managed**.
 
-    ```YAML
-          azureserviceconnection: 'azure subs managed'
-    ```
+   ```yaml
+         azureserviceconnection: 'azure subs managed'
+   ```
 
 1. In the **jobs** subsection of the **stages** section, update the value of the **pool** property to reference the self-hosted agent pool you created in the previous exercise, **eShopOnWebSelfPoolManaged**, so it has the following format:
 
-    ```YAML    
-          jobs:
-          - job: Deploy
-            pool: eShopOnWebSelfPoolManaged
-            steps:
-            #download artifacts
-            - download: eshoponweb-ci
-    ```
+   ```yaml
+         jobs:
+         - job: Deploy
+           pool: eShopOnWebSelfPoolManaged
+           steps:
+           #download artifacts
+           - download: eshoponweb-ci
+   ```
 
 1. Select **Save**, choose to commit directly to the main branch, or create a new branch.
 
 1. Select **Save** again.
 
-    > [!NOTE]
-    > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
+   > [!NOTE]
+   > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
 
 1. Select to **Run** the pipeline, and then click on **Run** again.
 
@@ -354,7 +291,7 @@ In this exercise, you will create a new service connection using the Managed Ide
 
 1. You should see from the pipeline logs that the pipeline is using the Managed Identity.
 
-    ![Screenshot of the pipeline logs using the Managed Identity.](media/pipeline-logs-managed-identity.png)
+   ![Screenshot of the pipeline logs using the Managed Identity.](media/pipeline-logs-managed-identity.png)
 
 After the pipeline finishes, you can go to the Azure portal and check the new App Service resource.
 
@@ -362,10 +299,10 @@ After the pipeline finishes, you can go to the Azure portal and check the new Ap
 
 1. In the Azure portal, open the created Resource Group and select **Delete resource group** for all created resources in this lab.
 
-    ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
+   ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
 
-    > [!WARNING]
-    > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
+   > [!WARNING]
+   > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
 
 ## Review
 

@@ -38,31 +38,30 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Replace the content of the **azure-pipelines.yml** file with the following code:
 
-    ```YAML
-    trigger:
-    - main
+   ```yaml
+   trigger:
+   - main
 
-    pool:
-      vmImage: 'windows-latest'
+   pool:
+     vmImage: 'windows-latest'
 
-    stages:
-    - stage: Dev
-      jobs:
-      - job: Build
-        steps:
-        - script: echo Build
-    - stage: Test
-      jobs:
-      - job: Test
-        steps:
-        - script: echo Test
-    - stage: Production
-      jobs:
-      - job: Deploy
-        steps:
-        - script: echo Deploy
-
-    ```
+   stages:
+   - stage: Dev
+     jobs:
+     - job: Build
+       steps:
+       - script: echo Build
+   - stage: Test
+     jobs:
+     - job: Test
+       steps:
+       - script: echo Test
+   - stage: Production
+     jobs:
+     - job: Deploy
+       steps:
+       - script: echo Deploy
+   ```
 
 1. Select **Save and run**. Choose if you want to commit directly to the main branch or create a new branch. Select **Save and run** button.
 
@@ -71,7 +70,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. You will see the pipeline running with the three stages (Dev, Test, and Production) and the corresponding jobs. Wait until the pipeline finishes and back to the **Pipelines** page.
 
-    ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/eshoponweb-pipeline-multi-stage.png)
+   ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/eshoponweb-pipeline-multi-stage.png)
 
 1. Select **...** (More options) on the right side of the pipeline you just created and select **Rename/move**.
 
@@ -87,19 +86,18 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Add the following code to the file:
 
-    ```YAML
-    variables:
-      resource-group: 'YOUR-RESOURCE-GROUP-NAME'
-      location: 'southcentralus' #name of the Azure region you want to deploy your resources
-      templateFile: '.azure/bicep/webapp.bicep'
-      subscriptionid: 'YOUR-SUBSCRIPTION-ID'
-      azureserviceconnection: 'YOUR-AZURE-SERVICE-CONNECTION-NAME'
-      webappname: 'YOUR-WEB-APP-NAME'
+   ```yaml
+   variables:
+     resource-group: 'YOUR-RESOURCE-GROUP-NAME'
+     location: 'southcentralus' #name of the Azure region you want to deploy your resources
+     templateFile: '.azure/bicep/webapp.bicep'
+     subscriptionid: 'YOUR-SUBSCRIPTION-ID'
+     azureserviceconnection: 'YOUR-AZURE-SERVICE-CONNECTION-NAME'
+     webappname: 'YOUR-WEB-APP-NAME'
+   ```
 
-    ```
-
-    > [!IMPORTANT]
-    > Replace the values of the variables with the values of your environment (resource group, location, subscription ID, Azure service connection, and web app name).
+   > [!IMPORTANT]
+   > Replace the values of the variables with the values of your environment (resource group, location, subscription ID, Azure service connection, and web app name).
 
 1. Select **Commit**, add a comment, and select **Commit** button.
 
@@ -113,26 +111,25 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Replace the content of the **azure-pipelines.yml** file with the following code:
 
-    ```YAML
-    trigger:
-    - main
-    variables:
-    - template: .ado/eshoponweb-variables.yml
-    
-    stages:
-    - stage: Dev
-      jobs:
-      - template: .ado/eshoponweb-ci.yml
-    - stage: Test
-      jobs:
-      - template: .ado/eshoponweb-cd-webapp-code.yml
-    - stage: Production
-      jobs:
-      - job: Deploy
-        steps:
-        - script: echo Deploy to Production or Swap
-
-    ```
+   ```yaml
+   trigger:
+   - main
+   variables:
+   - template: .ado/eshoponweb-variables.yml
+   
+   stages:
+   - stage: Dev
+     jobs:
+     - template: .ado/eshoponweb-ci.yml
+   - stage: Test
+     jobs:
+     - template: .ado/eshoponweb-cd-webapp-code.yml
+   - stage: Production
+     jobs:
+     - job: Deploy
+       steps:
+       - script: echo Deploy to Production or Swap
+   ```
 
 1. Save the pipeline.
 
@@ -149,21 +146,20 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Remove everything above the **jobs** section.
 
-    ```YAML
-    #NAME THE PIPELINE SAME AS FILE (WITHOUT ".yml")
-    # trigger:
-    # - main
-    
-    resources:
-      repositories:
-        - repository: self
-          trigger: none
-    
-    stages:
-    - stage: Build
-      displayName: Build .Net Core Solution
-
-    ```
+   ```yaml
+   #NAME THE PIPELINE SAME AS FILE (WITHOUT ".yml")
+   # trigger:
+   # - main
+   
+   resources:
+     repositories:
+       - repository: self
+         trigger: none
+   
+   stages:
+   - stage: Build
+     displayName: Build .Net Core Solution
+   ```
 
 1. Save the pipeline.
 
@@ -173,39 +169,38 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Remove everything above the **jobs** section.
 
-    ```YAML
-    #NAME THE PIPELINE SAME AS FILE (WITHOUT ".yml")
-    
-    # Trigger CD when CI executed successfully
-    resources:
-      pipelines:
-        - pipeline: eshoponweb-ci
-          source: eshoponweb-ci # given pipeline name
-          trigger: true
+   ```yaml
+   #NAME THE PIPELINE SAME AS FILE (WITHOUT ".yml")
+   
+   # Trigger CD when CI executed successfully
+   resources:
+     pipelines:
+       - pipeline: eshoponweb-ci
+         source: eshoponweb-ci # given pipeline name
+         trigger: true
 
-    variables:
-      resource-group: 'rg-eshoponweb'
-      location: 'southcentralus'
-      templateFile: '.azure/bicep/webapp.bicep'
-      subscriptionid: ''
-      azureserviceconnection: 'azure subs'
-      webappname: 'eshoponweb-lab'
-      # webappname: 'webapp-windows-eshop'
-    
-    stages:
-    - stage: Deploy
-      displayName: Deploy to WebApp`
-
-    ```
+   variables:
+     resource-group: 'rg-eshoponweb'
+     location: 'southcentralus'
+     templateFile: '.azure/bicep/webapp.bicep'
+     subscriptionid: ''
+     azureserviceconnection: 'azure subs'
+     webappname: 'eshoponweb-lab'
+     # webappname: 'webapp-windows-eshop'
+   
+   stages:
+   - stage: Deploy
+     displayName: Deploy to WebApp`
+   ```
 
 1. Update the **download** step to:
 
-    ```YAML
-    - download: current
-      artifact: Website
-    - download: current
-      artifact: Bicep
-    ```
+   ```yaml
+   - download: current
+     artifact: Website
+   - download: current
+     artifact: Bicep
+   ```
 
 1. Save the pipeline.
 
@@ -221,16 +216,16 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Wait until the pipeline finishes and check the results.
 
-    ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/multi-stage-completed.png)
+   ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/multi-stage-completed.png)
 
 ### Exercise 2: Remove the Azure lab resources
 
 1. In the Azure portal, open the created Resource Group and select **Delete resource group** for all created resources in this lab.
 
-    ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
+   ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
 
-    > [!WARNING]
-    > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
+   > [!WARNING]
+   > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
 
 ## Review
 
