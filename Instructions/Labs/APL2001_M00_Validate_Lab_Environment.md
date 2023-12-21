@@ -74,7 +74,7 @@ First, you'll create an **eShopOnWeb** Azure DevOps project to be used by severa
 
 1. Select **Create**.
 
-    ![Create Project](media/create-project.png)
+   ![Create Project](media/create-project.png)
 
 ### Import eShopOnWeb git repository
 
@@ -88,14 +88,14 @@ Now, you'll import the eShopOnWeb into your git repository.
 
 1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
 
-    ![Import Repository](media/import-repo.png)
+   ![Import Repository](media/import-repo.png)
 
 1. The repository is organized the following way:
-    
-    - **.ado** folder contains Azure DevOps YAML pipelines.
-    - **.devcontainer** folder container setup to develop using containers (either locally in VS Code or GitHub Codespaces).
-    - **.azure** folder contains Bicep & ARM infrastructure as code templates.
-    - **.github** folder container YAML GitHub workflow definitions.
-    - **src** folder contains the .NET 6 website used on the lab scenarios.
+
+   - **.ado** folder contains Azure DevOps YAML pipelines.
+   - **.devcontainer** folder container setup to develop using containers (either locally in VS Code or GitHub Codespaces).
+   - **.azure** folder contains Bicep & ARM infrastructure as code templates.
+   - **.github** folder container YAML GitHub workflow definitions.
+   - **src** folder contains the .NET 6 website used on the lab scenarios.
 
 You have now completed the necessary prerequisite steps to continue with the labs.
