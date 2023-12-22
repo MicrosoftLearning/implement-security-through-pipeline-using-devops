@@ -29,6 +29,7 @@ In this exercise, you will configure a secure project structure by creating a ne
 1. Open your **organization settings** at the bottom left corner of the portal and then **Projects** under the General section.
 
 1. Select the **New Project** option and use the following settings:
+
    - name: **eShopSecurity**
    - visibility: **Private**
    - Advanced: Version Control: **Git**
@@ -100,68 +101,7 @@ Now only the user you assigned permissions and the administrators can access the
 
 1. Name it **eshoponweb-ci** and select **Save**.
 
-#### Task 2: Create a Service Principal and Service Connection to access Azure resources
-
-In this task, you will create a Service Principal by using the Azure CLI, and Service Connection in Azure DevOps which will allow you to deploy resources on your Azure subscription.
-
-1. Start a web browser, navigate to the Azure Portal at `https://portal.azure.com`, and sign in with the user account that has the Owner role in the Azure subscription you will be using in this lab and has the role of the Global Administrator in the Microsoft Entra tenant associated with this subscription.
-
-1. On the Azure portal, select the **Cloud Shell** icon, located directly to the right of the search textbox at the top of the page.
-
-1. If prompted to select either **Bash** or **PowerShell**, select **Bash**.
-
-   > [!NOTE]
-   > If this is the first time you are starting **Cloud Shell** and you are presented with the **You have no storage mounted** message, select the subscription you are using in this lab, and select **Create storage**.
-
-1. From the **Bash** prompt, in the **Cloud Shell** pane, run the following commands to retrieve the values of the Azure subscription ID and subscription name attributes:
-
-   ```bash
-   az account show --query id --output tsv
-   az account show --query name --output tsv
-   ```
-
-   > [!NOTE]
-   > Copy both values to a text file. You will need them later in this lab.
-
-1. From the **Bash** prompt in the **Cloud Shell** pane, run the following command to create a Service Principal:
-
-   ```bash
-   az ad sp create-for-rbac --name myServicePrincipalName \
-                        --role contributor \
-                        --scopes /subscriptions/mySubscriptionID
-   ```
-
-   > [!NOTE]
-   > Replace the **myServicePrincipalName** with any unique string of characters consisting of letters and digits, for example **AzureDevOpsSP**, and **mySubscriptionID** with your Azure subscriptionId.
-
-   > [!NOTE]
-   > The command will generate a JSON output. Copy the output to text file. You will need it later in this lab.
-
-1. Next, navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
-
-1. Open the **eShopOnWeb** project, and select **Project settings** in the bottom left corner of the portal.
-
-1. Select the **Service connections** under Pipelines, and then select **Create service connection** button.
-
-   ![Screenshot of the new service connection creation button.](media/new-service-connection.png)
-
-1. On the **New service connection** blade, select **Azure Resource Manager** and **Next** (may need to scroll down).
-
-1. Then choose **Service Principal (manual)** and select **Next**.
-
-1. Fill in the empty fields using the information gathered during previous steps:
-   - Subscription Id and Name.
-   - Service Principal Id (or clientId/AppId), Service Principal Key (or Password) and TenantId.
-   - In **Service connection name** type **azure subs**. This name will be referenced in YAML pipelines when needing an Azure DevOps Service Connection to communicate with your Azure subscription.
-
-   ![Screenshot of the Azure service connection configuration.](media/azure-service-connection.png)
-
-1. Do not check **Grant access permission to all pipelines**. Select **Verify and Save**.
-
-   > [!NOTE]
-   > The **Grant access permission to all pipelines** option is not recommended for production environments. It is only used in this lab to simplify the configuration of the pipeline.
-
-#### Task 3: Import and run the CD pipeline
+#### Task 2: Import and run the CD pipeline
 
 1. Go to **Pipelines > Pipelines**.
 
@@ -176,10 +116,11 @@ In this task, you will create a Service Principal by using the Azure CLI, and Se
 1. Select the **/.ado/eshoponweb-cd-webapp-code.yml** file then select **Continue**.
 
 1. In the YAML pipeline definition under the variables section, customize:
+
    - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb-secure**.
    - **Location** with the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
    - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
-   - **az400eshop-NAME**, with a web app name to be deployed with a global unique name, for example, the string **eshoponweb-lab-secure-** followed by a random six-digit number. 
+   - **az400-webapp-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-secure-** followed by a random six-digit number. 
 
 1. Select **Save and Run** and choose to commit directly to the main branch.
 
@@ -190,8 +131,10 @@ In this task, you will create a Service Principal by using the Azure CLI, and Se
    ![Screenshot of the permit access from the YAML pipeline.](media/pipeline-deploy-permit-resource.png)
 
 1. The deployment may take a few minutes to complete, wait for the pipeline to execute. The pipeline is triggered following the completion of the CI pipeline and it includes the following tasks:
-   - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web ppp using bicep template.
+
+   - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web app using bicep template.
    - **AzureRmWebAppDeployment**: Publishes the Web site to the Azure App Service web app.
+
 1. Your pipeline will take a name based on the project name. Let's rename it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines** and select the recently created pipeline. Select the ellipsis and then select **Rename/move** option.
@@ -202,7 +145,7 @@ Now you should have two pipelines running in your eShopOnWeb project.
 
 ![Screenshot of the successful executed CI/CD pipelines.](media/pipeline-successful-executed.png)
 
-#### Task 4: Move the CD pipeline variables to a YAML template
+#### Task 3: Move the CD pipeline variables to a YAML template
 
 In this task, you will create a YAML template to store the variables used in the CD pipeline. This will allow you to reuse the template in other pipelines.
 
@@ -214,7 +157,7 @@ In this task, you will create a YAML template to store the variables used in the
 
 1. Add the variables section used in the CD pipeline to the new file. The file should look like the following:
 
-   ```YAML
+   ```yaml
    variables:
      resource-group: 'rg-eshoponweb-secure'
      location: 'southcentralus' #the name of the Azure region you want to deploy your resources
@@ -222,7 +165,6 @@ In this task, you will create a YAML template to store the variables used in the
      subscriptionid: 'YOUR-SUBSCRIPTION-ID'
      azureserviceconnection: 'azure subs' #the name of the service connection to your Azure subscription
      webappname: 'eshoponweb-lab-secure-XXXXXX' #the globally unique name of the web app
-
    ```
 
    > [!IMPORTANT]
@@ -235,7 +177,7 @@ In this task, you will create a YAML template to store the variables used in the
 
 1. From the list of files in the repo, open the **eshoponweb-cd-webapp-code.yml** pipeline definition, and replace the variables section with the following:
 
-   ```YAML
+   ```yaml
    variables:
      - template: eshoponweb-secure-variables.yml
    ```
@@ -244,9 +186,9 @@ In this task, you will create a YAML template to store the variables used in the
 
 1. Verify that the pipeline run completed successfully. 
 
-Now you have a YAML template with the variables used in the CD pipeline. You can reuse this template in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can controls the resource group and location where the resources are deployed and other information in your template values and you don't need to make any changes to your pipeline definition.
+Now you have a YAML template with the variables used in the CD pipeline. You can reuse this template in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can control the resource group and location where the resources are deployed and other information in your template values and you don't need to make any changes to your pipeline definition.
 
-#### Task 5: Move the YAML templates to a separate repository and project
+#### Task 4: Move the YAML templates to a separate repository and project
 
 In this task, you will move the YAML templates to a separate repository and project.
 
@@ -262,17 +204,16 @@ In this task, you will move the YAML templates to a separate repository and proj
 
 1. Add the following to the resources section:
 
-   ```YAML
+   ```yaml
      repositories:
        - repository: eShopSecurity
          type: git
          name: eShopSecurity/eShopSecurity #name of the project and repository
-
    ```
 
 1. Replace the variables section with the following:
 
-   ```YAML
+   ```yaml
    variables:
      - template: eshoponweb-secure-variables.yml@eShopSecurity #name of the template and repository
    ```
@@ -293,7 +234,7 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 #### Task 1: Remove Azure resources
 
-1. In the Azure portal, navigate to the resource group containing deployed resources and select **Delete resource group** to delete all resources created in this lab.
+1. In the Azure portal, navigate to the resource group **rg-eshoponweb-secure** containing deployed resources and select **Delete resource group** to delete all resources created in this lab.
 
    ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
 
@@ -309,6 +250,30 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 1. Go to **Pipelines > Pipelines**.
 
 1. Go to **Pipelines > Pipelines** and delete the existing pipelines.
+
+#### Task 3: Recreate the Azure DevOps repo
+
+1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
+
+1. In the **Project settings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
+
+1. In the **All Repositories** pane, hover over the far-right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
+
+1. In the **Rename the eShopOnWeb repository** window, in the **Repository name** text box, enter **eShopOnWeb_old** and select **Rename**.
+
+1. Back in the **All Repositories** pane, select **+ Create**.
+
+1. In the **Create a repository** pane, in the **Repository name** text box, enter **eShopOnWeb**, uncheck the **Add a README** checkbox, and select **Create**.
+
+1. Back in the **All Repositories** pane, hover over the far right end of the **eShopOnWeb_old** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Delete**.  
+
+1. In the **Delete eShopOnWeb_old repository** window, enter **eShopOnWeb_old** and select **Delete**.
+
+1. In the left navigational menu of the Azure DevOps portal, select **Repos**.
+
+1. In the **eShopOnWeb is empty. Add some code!** pane, select **Import a repository**.
+
+1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
 
 ## Review
 

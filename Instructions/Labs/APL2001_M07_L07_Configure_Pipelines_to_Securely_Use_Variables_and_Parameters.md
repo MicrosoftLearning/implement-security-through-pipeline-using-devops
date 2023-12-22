@@ -30,7 +30,7 @@ Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/
 
 1. Go to **Pipelines > Pipelines**.
 
-1. Select **New Pipeline** button.
+1. Select **Create Pipeline**.
 
 1. Select **Azure Repos Git (Yaml)**.
 
@@ -42,7 +42,8 @@ Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/
 
 1. Select the **Run** button to run the pipeline.
 
-1. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
+   > [!NOTE]
+   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines** and select the recently created pipeline. select the ellipsis and **Rename/move** option.
 
@@ -56,104 +57,106 @@ In this task, you will set parameter and parameter types for the pipeline.
 
 1. Select **Edit**.
 
-1. Add the following parameters to the top of the YAML file:
+1. Add the following parameters and resources sections to the top of the YAML file:
 
-    ```YAML
-    parameters:
-    - name: dotNetProjects
-      type: string
-      default: '**/*.sln'
-    - name: testProjects
-      type: string
-      default: 'tests/UnitTests/*.csproj'
+   ```yaml
+   parameters:
+   - name: dotNetProjects
+     type: string
+     default: '**/*.sln'
+   - name: testProjects
+     type: string
+     default: 'tests/UnitTests/*.csproj'
 
-    resources:
-      repositories:
-      - repository: self
-        trigger: none
+   resources:
+     repositories:
+     - repository: self
+       trigger: none
 
-    stages:
-    - stage: Build
-      displayName: Build .Net Core Solution
-    ```
+   ```
 
-1. Replace the hardcoded paths in the 'Restore', 'Build', and 'Test' tasks with the parameters you just created.
-   - **Replace projects**: '**/*.sln' with projects: ${{ parameters.dotNetProjects }} in the 'Restore' and 'Build' tasks.
-   - **Replace projects**: 'tests/UnitTests/*.csproj' with projects: ${{ parameters.testProjects }} in the 'Test' task.
+1. Replace the hardcoded paths in the `Restore`, `Build`, and `Test` tasks with the parameters you just created.
 
-    Your YAML file should look like this:
+   - **Replace projects**: `**/*.sln` with projects: ${{ parameters.dotNetProjects }} in the `Restore` and `Build` tasks.
+   - **Replace projects**: `tests/UnitTests/*.csproj` with projects: ${{ parameters.testProjects }} in the `Test` task.
 
-    ```YAML
-        steps:
-        - task: DotNetCoreCLI@2
-          displayName: Restore
-          inputs:
-            command: 'restore'
-            projects: ${{ parameters.dotNetProjects }}
-            feedsToUse: 'select'
-    
-        - task: DotNetCoreCLI@2
-          displayName: Build
-          inputs:
-            command: 'build'
-            projects: ${{ parameters.dotNetProjects }}
-    
-        - task: DotNetCoreCLI@2
-          displayName: Test
-          inputs:
-            command: 'test'
-            projects: ${{ parameters.testProjects }}
+   The `Restore`, `Build`, and `Test` tasks in the steps section of the YAML file should look like this:
 
-    ```
+   ```yaml
+       steps:
+       - task: DotNetCoreCLI@2
+         displayName: Restore
+         inputs:
+           command: 'restore'
+           projects: ${{ parameters.dotNetProjects }}
+           feedsToUse: 'select'
+   
+       - task: DotNetCoreCLI@2
+         displayName: Build
+         inputs:
+           command: 'build'
+           projects: ${{ parameters.dotNetProjects }}
+   
+       - task: DotNetCoreCLI@2
+         displayName: Test
+         inputs:
+           command: 'test'
+           projects: ${{ parameters.testProjects }}
 
-1. Save the pipeline and run it, it should run successfully.
+   ```
 
-    ![Screenshot of the pipeline run with parameters.](media/pipeline-parameters-run.png)
+1. Save the pipeline and run it. Verify that the pipeline run completes successfully.
 
-#### Task 2: Securing variables and parameters
+   ![Screenshot of the pipeline run with parameters.](media/pipeline-parameters-run.png)
+
+#### Task 3: Securing variables and parameters
 
 In this task, you will secure the variables and parameters from your pipeline by using variable groups.
 
 1. Go to **Pipelines > Library**.
 
-1. Select the **+ Variable group** button to create a new variable group. Give it a name like **BuildConfigurations**.
+1. Select the **+ Variable group** button to create a new variable group named **BuildConfigurations**.
 
 1. Add a variable named **buildConfiguration** and set its value to `Release`.
 
 1. Save the variable group.
 
-    ![Screenshot of the variable group with BuildConfigurations.](media/eshop-variable-group.png)
+   ![Screenshot of the variable group with BuildConfigurations.](media/eshop-variable-group.png)
 
 1. Select the **Pipeline permissions** button and select the **+** button to add a new pipeline.
 
 1. Select the **eshoponweb-ci-parameters** pipeline to allow the pipeline to use the variable group.
 
-    ![Screenshot of the pipeline permissions.](media/pipeline-permissions.png)
+   ![Screenshot of the pipeline permissions.](media/pipeline-permissions.png)
 
-1. (Optional) You can also set specific users or groups to be able to edit the variable group by clicking on the **Security** button.
+   > [!NOTE]
+   > You can also set specific users or groups to be able to edit the variable group by clicking on the **Security** button.
 
-1. Go back to the YAML file and at the top of the file, right under the parameters, reference the variable group by adding the following:
+1. Go to **Pipelines > Pipelines**.
 
-    ```YAML
-    variables:
-      - group: BuildConfigurations
-    
-    ```
+1. Open **eshoponweb-ci-parameters** pipeline and select **Edit**.
+
+1. At the top of the yml file, right under the parameters, reference the variable group by adding the following:
+
+   ```yaml
+   variables:
+     - group: BuildConfigurations
+   ```
 
 1. In the 'Build' task, replace command: 'build' with the following lines to utilize the build configuration from the variable group.
 
-    ```YAML
-    command: 'build'
-    projects: ${{ parameters.dotNetProjects }}
-    configuration: $(buildConfiguration)
-    
-    ```
+   ```yaml
+           command: 'build'
+           projects: ${{ parameters.dotNetProjects }}
+           configuration: $(buildConfiguration)
+   ```
 
 1. Save the pipeline and run it. It should run successfully with the build configuration set to `Release`. You can verify this by looking at the logs of the 'Build' task.
 
-Following this approach, you can secure your variables and parameters by using variable groups without having to hardcode them in your YAML file.
+> [!NOTE]
+> Following this approach, you can secure your variables and parameters by using variable groups without having to hardcode them in YAML files.
 
-#### Task 3: Validating mandatory variables and parameters
+#### Task 4: Validating mandatory variables and parameters
 
 In this task, you will validate the mandatory variables before the pipeline executes.
 
@@ -161,49 +164,44 @@ In this task, you will validate the mandatory variables before the pipeline exec
 
 1. Open **eshoponweb-ci-parameters** pipeline and select **Edit**.
 
-1. Add a new stage as the first stage named **Validate** to validate the mandatory variables before the pipeline executes.
+1. In the stages section, at its very beginning (following the `stage:` line), add a new stage named **Validate** to validate the mandatory variables before the pipeline executes.
 
-    ```YAML
-    - stage: Validate
-      displayName: Validate mandatory variables
-      jobs:
-      - job: ValidateVariables
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-        - script: |
-            if [ -z "$(buildConfiguration)" ]; then
-              echo "Error: buildConfiguration variable is not set"
-              exit 1
-            fi
-          displayName: 'Validate Variables'
-    
+   ```yaml
+   - stage: Validate
+     displayName: Validate mandatory variables
+     jobs:
+     - job: ValidateVariables
+       pool:
+         vmImage: ubuntu-latest
+       steps:
+       - script: |
+           if [ -z "$(buildConfiguration)" ]; then
+             echo "Error: buildConfiguration variable is not set"
+             exit 1
+           fi
+         displayName: 'Validate Variables'
     ```
 
-    > [!NOTE]
-    > This stage will run a script to validate the buildConfiguration variable. If the variable is not set, the script will fail and the pipeline will stop.
+   > [!NOTE]
+   > This stage will run a script to validate the buildConfiguration variable. If the variable is not set, the script will fail and the pipeline will stop.
 
-1. Make the **Build** stage depend on the **Validate** stage by adding dependsOn: Validate under the Build stage:
+1. Make the **Build** stage depend on the **Validate** stage by adding `dependsOn: Validate` at the beginning of the **Build** stage:
 
-    ```YAML
-    - stage: Build
-      displayName: Build .Net Core Solution
-      dependsOn: Validate
-    
-    ```
+   ```yaml
+   - stage: Build
+     displayName: Build .Net Core Solution
+     dependsOn: Validate
+      ```
 
 1. Save the pipeline and run it. It will run successfully because the buildConfiguration variable is set in the variable group.
 
 1. To test the validation, remove the buildConfiguration variable from the variable group, or delete the variable group, and run the pipeline again. It should fail with the following error:
 
-    You should see the following error in the logs:
+   ```yaml
+   Error: buildConfiguration variable is not set   
+   ```
 
-    ```YAML
-    Error: buildConfiguration variable is not set
-    
-    ```
-
-    ![Screenshot of the pipeline run with validation failing.](media/pipeline-validation-fail.png)
+   ![Screenshot of the pipeline run with validation failing.](media/pipeline-validation-fail.png)
 
 1. Add the variable group and the buildConfiguration variable back to the variable group and run the pipeline again. It should run successfully.
 
