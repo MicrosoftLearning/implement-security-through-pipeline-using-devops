@@ -197,11 +197,15 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    > For more details on Windows agents, see: [Self-hosted Windows agents](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent)
 
    > [!IMPORTANT]
-   > In order for the agent to be able to deploy Azure resources from the Azure DevOps pipelines (which you will step through in the next lab), you need to install Azure CLI within the operating system of the Azure VM that is hosting the agent.
+   > In order for the agent to be able to build and deploy Azure resources from the Azure DevOps pipelines (which you will step through in the upcoming labs), you need to install Azure CLI within the operating system of the Azure VM that is hosting the agent.
 
 1. Start a web browser and navigate to the page [Install Azure CLI on Windows](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update).
 
 1. Download and install Azure CLI. 
+
+1. In the web browser navigate to the page Microsoft .NET 7.0 SDK installer page at `https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.404-windows-x64-installer`.
+
+1. Download and install Microsoft .NET 7.0 SDK.
 
 ### Exercise 2: Create and configure a new security group for the agent pool
 

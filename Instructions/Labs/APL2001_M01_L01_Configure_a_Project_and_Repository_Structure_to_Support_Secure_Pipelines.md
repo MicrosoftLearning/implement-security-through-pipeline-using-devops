@@ -120,7 +120,7 @@ Now only the user you assigned permissions and the administrators can access the
    - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb-secure**.
    - **Location** with the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
    - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
-   - **az400eshop-NAME**, with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-secure-** followed by a random six-digit number. 
+   - **az400-webapp-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-secure-** followed by a random six-digit number. 
 
 1. Select **Save and Run** and choose to commit directly to the main branch.
 

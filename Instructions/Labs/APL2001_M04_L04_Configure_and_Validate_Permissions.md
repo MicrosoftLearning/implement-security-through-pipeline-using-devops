@@ -23,12 +23,10 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 In this exercise, you will import and run the CI pipeline for the eShopOnWeb application, and configure pipeline specific permissions.
 
-#### Task 1: (If done, skip) Import and run the CI pipeline
+#### Task 1:  Import and run the CI pipeline
 
 > [!NOTE]
-> Skip the import if already done in another lab.
-
-Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
+> Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
 1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
 
@@ -36,7 +34,7 @@ Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/
 
 1. Go to **Pipelines > Pipelines**.
 
-1. Select **New Pipeline** button.
+1. Select **New Pipeline**.
 
 1. Select **Azure Repos Git (Yaml)**.
 
@@ -48,7 +46,8 @@ Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/
 
 1. Select the **Run** button to run the pipeline.
 
-1. Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
+   > [!NOTE]
+   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
@@ -56,37 +55,58 @@ Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/
 
 ### Task 2: Configure and run the pipeline with specific permissions
 
-In this task, you will configure the CI pipeline to run with a specific agent pool, and validate the permissions to run the pipeline. You need to have permissions to edit the pipeline and to add permissions to the agent pool.
+> [!NOTE]
+> In order to use the agent pool configured in this task, you will first need to start the Azure VM hosting the agent. 
+
+1. In your browser, open the Azure Portal at `https://portal.azure.com`.
+
+1. In the Azure portal, navigate to the page displaying the Azure VM **eshoponweb-vm** you deployed in this lab
+
+1. On the **eshoponweb-vm** Azure VM page, in the toolbar, select **Start** to start it.
+
+> [!NOTE]
+> Next, you will configure the CI pipeline to run with the corresponding  agent pool, and validate the permissions to run the pipeline. You need to have permissions to edit the pipeline and to add permissions to the agent pool.
 
 1. Go to Project Settings, and select **Agent Pools** under **Pipelines**.
 
-1. Open the **Default** agent pool.
+1. Open the **eShopOnWebSelfPool** agent pool.
 
 1. Select **Security** tab.
 
-1. If there is no restriction on the agent pool, select **Restrict permissions** button.
+1. In the **Pipeline permissions** section, select the **+** button and then select the **eshoponweb-ci** pipeline to add it to the list of pipelines with access to the agent pool.
 
-   ![Screenshot of the agent pool security tab with no restrictions.](media/agent-pool-security-no-restriction.png)
+1. Navigate to the **eShopOnWeb** project page.
 
-1. Select **Add** button and select the **eshoponweb-ci** pipeline to add it to the list of pipelines with access to the agent pool.
+1. On the **eShopOnWeb** project page, navigate to **Pipelines > Pipelines**.
 
-1. Select **Run** button to run the pipeline.
+1. Select the **eshoponweb-ci** pipeline and select **Edit**.
 
-1. Open the in progress pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Build .Net Core Solution", select **View**, **Permit** and **Permit** again.
+1. In the **jobs** subsection of the **stages** section, update the value of the **pool** property to reference the self-hosted agent pool **eShopOnWebSelfPool** you configured in this task, so it has the following format:
 
-The should be able to run the pipeline successfully.
+   ```yaml
+     jobs:
+     - job: Build
+       pool: eShopOnWebSelfPool
+       steps:
+       - task: DotNetCoreCLI@2
+   ```
 
-#### Task 3: (If done, skip) Configure the CD pipeline and validate permissions
+1. Select **Save** and choose to commit directly to the main branch.
+
+1. Select **Save** again.
+
+1. Select to **Run** the pipeline, and then click on **Run** again.
+
+1. Verify that the build jobs is running on the **eShopOnWebSelfAgent** agent. 
 
 > [!NOTE]
-> Skip the import if already done in another lab.
+> The should be able to run the pipeline successfully.
 
-> [!IMPORTANT]
-> If you have permissions, you will be able to **Permit** the pipeline to run directly from the executing pipeline. If you don't have permissions, you will need to use another account with administration permissions to enable your pipeline to run using the specific agent as described in the previous Task 2, or to add user permissions to the agent pool.
+#### Task 3: Configure the CD pipeline and validate permissions
 
-1. Go to **Pipelines > Pipelines**.
+1. In the Azure DevOps portal, on the **eShopOnWeb** project page, go to **Pipelines > Pipelines**.
 
-1. Select **New pipeline** button.
+1. Select **New pipeline**.
 
 1. Select **Azure Repos Git (Yaml)**.
 
@@ -98,20 +118,26 @@ The should be able to run the pipeline successfully.
 
 1. In the YAML pipeline definition, in the variables section, customize:
 
+   - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb-perm**.
+   - **Location** with the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
    - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
-   - **az400eshop-NAME**, with a web app name to be deployed with a global unique name, for example, **eshoponweb-lab-YOURNAME**.
-   - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb**.
+   - **azure subs** with **azure subs managed**
+   - **az400-webapp-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-perm-** followed by a random six-digit number. 
 
-1. Update the YAML file to use the **windows-latest** image in the **Default** Microsoft-hosted agent pool. To accopmlish this, set the **pool** section to the following value:
+1. Update the YAML file to use the **eShopOnWebSelfPool** agent pool. To accopmlish this, set the **pool** section to the following value:
 
    ```yaml
-   pool: 
-     vmImage: windows-latest
+     jobs:
+     - job: Deploy
+       pool: eShopOnWebSelfPool
+       steps:
+       #download artifacts
+       - download: eshoponweb-ci
    ```
 
-1. Select **Save** and then select **Run**.
+1. Select **Save and run** and then select **Save and run** again.
 
-1. Open the pipeline, and you will see the message "This pipeline needs permission to access a resource before this run can continue to Deploy Web App". Select **View** and then select **Permit** to allow the pipeline to run.
+1. Open the pipeline, and you will see the message "This pipeline needs permission to access resources before this run can continue to Deploy to WebApp". Select **View** and then select **Permit** to allow the pipeline to run.
 
    ![Screenshot of the pipeline with permit buttons".](media/pipeline-permission-permit.png)
 

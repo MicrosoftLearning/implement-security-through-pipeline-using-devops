@@ -208,14 +208,16 @@ In this exercise, you will use a managed identity to configure a new service con
 
 In this exercise, you will perform post-lab cleanup of the Azure and Azure DevOps resources created in this lab.
 
-#### Task 1: Stop and deallocate Azure VM
-
-1. In the Azure portal, navigate to the page displaying the resource group **rg-eshoponweb-agentpool** and select **Delete resource group** to delete all of its resources.
+#### Task 1: Minimize the cost of Azure resources
 
 1. Navigate to the page displaying the resource group **rg-eshoponweb** and select **Delete resource group** to delete all of its resources.
 
-   > [!WARNING]
-   > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
+   > [!IMPORTANT]
+   > Do not delete the resource group **rg-eshoponweb-agentpool** which contains the self-hosted agent resources. You will need it in the next lab.
+
+1. In the Azure portal, navigate to the page displaying the Azure VM **eshoponweb-vm** you deployed in this lab
+
+1. On the **eshoponweb-vm** Azure VM page, in the toolbar, select **Stop** to stop and deallocate it.
 
 #### Task 2: Remove Azure DevOps pipelines
 
@@ -226,6 +228,9 @@ In this exercise, you will perform post-lab cleanup of the Azure and Azure DevOp
 1. Go to **Pipelines > Pipelines**.
 
 1. Go to **Pipelines > Pipelines** and delete the existing pipelines.
+
+   > [!IMPORTANT]
+   > Do not delete the service connection and the agent pool you created in this lab. You will need both in the next one.
 
 #### Task 3: Recreate the Azure DevOps repo
 
