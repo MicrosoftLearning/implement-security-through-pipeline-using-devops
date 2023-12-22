@@ -190,7 +190,7 @@ In this task, you will import a CD pipeline, customize it and run it for deployi
 
    - set the value of the location variable to the name of an Azure region you used earlier in this lab
    - replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription Id
-   - replace **az400eshop-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-docker-** followed by a random six-digit number. 
+   - replace **az400eshop-NAME** with a globally unique name of the Azure Container instance to be deployed, for example, the string **eshoponweb-lab-docker-** followed by a random six-digit number. 
    - replace **YOUR-ACR** and **ACR-USERNAME** with your ACR registry name you recorded earlier in this lab.
    - replace **AZ400-EWebShop-NAME** with the name of the resource group you created earlier in this lab (**rg-eshoponweb-docker**).
 
