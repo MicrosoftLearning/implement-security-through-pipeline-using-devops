@@ -55,12 +55,6 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 1. Name it **eshoponweb-ci** and select **Save**.
 
-> [!NOTE]
-> Before you proceed, verify that you already have a service connection to your Azure subscription named **azure subs**. If not, rerun exercise 2, task 2 of the previous lab of this course **Configure a project and repository structure to support secure pipelines**.
-
-> [!NOTE]
-> You will also need the value of your subscription ID, which you retrieved as part of validating your lab environment.
-
 #### Task 2: Import and run the CD pipeline
 
 > [!NOTE]
@@ -108,10 +102,11 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
    - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web app using bicep template.
    - **AzureRmWebAppDeployment**: Publishes the Web site to the Azure App Service web app.
 
-> [!NOTE]
-> In case the deployment fails, navigate to the pipeline run page and select **Rerun failed jobs** to invoke another pipeline run.
+   > [!NOTE]
+   > In case the deployment fails, navigate to the pipeline run page and select **Rerun failed jobs** to invoke another pipeline run.
 
-1. Your pipeline will take a name based on the project name. Let's **rename** it for identifying the pipeline better.
+   > [!NOTE]
+   > Your pipeline will take a name based on the project name. Let's **rename** it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
@@ -141,8 +136,8 @@ In this exercise, you will use a managed identity to configure a new service con
    | **Subscription** drop-down list | Select your Azure subscription. |
    | **Role** drop-down list | Select the **Contributor** role. |
 
-> [!NOTE]
-> The subscription scope is necessary to accommodate deployments in the subsequent labs.
+   > [!NOTE]
+   > The subscription scope is necessary to accommodate deployments in the subsequent labs.
 
 1. Select the **Save** button.
 
@@ -210,7 +205,7 @@ In this exercise, you will use a managed identity to configure a new service con
 
 In this exercise, you will perform post-lab cleanup of the Azure and Azure DevOps resources created in this lab.
 
-#### Task 1: Minimize the cost of Azure resources
+#### Task 1: Stop and deallocate the Azure VM
 
 1. Navigate to the page displaying the resource group **rg-eshoponweb** and select **Delete resource group** to delete all of its resources.
 

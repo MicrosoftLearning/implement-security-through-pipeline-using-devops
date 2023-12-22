@@ -53,7 +53,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 1. Name it **eshoponweb-ci** and select **Save**.
 
-### Task 2: Configure and run the pipeline with specific permissions
+#### Task 2: Configure and run the pipeline with specific permissions
 
 > [!NOTE]
 > In order to use the agent pool configured in this task, you will first need to start the Azure VM hosting the agent. 

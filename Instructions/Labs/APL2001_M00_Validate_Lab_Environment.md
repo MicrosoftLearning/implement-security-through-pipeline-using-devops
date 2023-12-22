@@ -54,13 +54,13 @@ In preparation for the labs, it is crucial to have your environment correctly se
 
 1. You may **wait at least 3 hours before using the CI/CD capabilities** so that the new settings are reflected in the backend. Otherwise, you will still see the message *"No hosted parallelism has been purchased or granted"*.
 
-## Instructions to create the sample Azure DevOps project (you only have to do this once)
+## Instructions to create and configure the Azure DevOps project (you only have to do this once)
 
 > **Note**: make sure you completed the steps to create your Azure DevOps Organization before continuing with these steps.
 
 To follow all lab instructions, you'll need set up a new Azure DevOps project, create a repository that's based on the [eShopOnWeb](https://github.com/MicrosoftLearning/eShopOnWeb) application, and create a service connection to your Azure subscription.
 
-### Create and configure the team project
+### Create the team project
 
 First, you'll create an **eShopOnWeb** Azure DevOps project to be used by several labs.
 
@@ -100,9 +100,9 @@ Now, you'll import the eShopOnWeb into your git repository.
 
 1. Leave the web browser window open.  
 
-### Create a Service Principal and Service Connection to access Azure resources
+### Create a service principal and service connection to access Azure resources
 
-Next, you will create a Service Principal by using the Azure CLI, and Service Connection in Azure DevOps which will allow you to deploy resources to your Azure subscription.
+Next, you will create a service principal by using the Azure CLI, and a service connection in Azure DevOps which will allow you to deploy and access resources in your Azure subscription.
 
 1. Start a web browser, navigate to the Azure Portal at `https://portal.azure.com`, and sign in with the user account that has the Owner role in the Azure subscription you will be using in the labs of this course and has the role of the Global Administrator in the Microsoft Entra tenant associated with this subscription.
 
@@ -151,7 +151,7 @@ Next, you will create a Service Principal by using the Azure CLI, and Service Co
 
    - Subscription Id and Name.
    - Service Principal Id (or clientId/AppId), Service Principal Key (or Password) and TenantId.
-   - In **Service connection name** type **azure subs**. This name will be referenced in YAML pipelines when needing an Azure DevOps Service Connection to communicate with your Azure subscription.
+   - In **Service connection name** type **azure subs**. This name will be referenced in YAML pipelines to reference the service connection in order to access your Azure subscription.
 
    ![Screenshot of the Azure service connection configuration.](media/azure-service-connection.png)
 

@@ -121,7 +121,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    > [!NOTE]
    > If you downloaded the agent to a different location (or the downloaded version differs), adjust the above command accordingly.
 
-#### Task 3: Create a PAT token
+#### Task 4: Create a PAT token
 
 > [!NOTE]
 > Before configuring the agent, you need to create a PAT token (unless you have an existing one). To create a PAT token, follow the steps below:
@@ -157,7 +157,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    > [!IMPORTANT]
    > Use the least privilege option, **Agent Pools (Read & Manage)**, only for the agent configuration. Also, make sure you set the minimum expiration date for the token if that is the only purpose of the token. You can create another token with the same privileges if you need to configure the agent again.
 
-#### Task 4: Configure the agent
+#### Task 5: Configure the agent
 
 1. Within the Remote Desktop session to the Azure VM, switch back to the PowerShell window. If necessary, change the current directory to the one into which you extracted the agent installation files earlier in this exercise. 
 
@@ -207,9 +207,9 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 1. Download and install Microsoft .NET 7.0 SDK.
 
-### Exercise 2: Create and configure a new security group for the agent pool
+### Exercise 2: Create and configure agent pool security
 
-In this exercise, you will create a new security group for the agent pool.
+In this exercise, you will configure security for the agent pool.
 
 #### Task 1: Create a new security group
 
@@ -234,9 +234,9 @@ In this exercise, you will create a new security group for the agent pool.
    > [!IMPORTANT]
    > If you leave permissions you don't want the group to have, scripts or tasks running on the agent can use the group permissions to perform actions you don't want them to perform.
 
-### Exercise 3: Manage agent pool permissions
+#### Task 3: Manage agent pool permissions
 
-In this exercise, you will manage permissions for the agent pool.
+In this task, you will manage permissions for the agent pool.
 
 1. In the web browser window displaying the Azure Devops portal, in the **Project settings** of the **eShopOnWeb** project, in the **Pipelines** section, select **Agent pools**.
 
@@ -258,7 +258,7 @@ You are now ready to securely use the agent pool in your pipelines. For more det
 
 In this exercise, you will perform post-lab cleanup of some of the Azure DevOps resources created in this lab.
 
-#### Task 1: Stop and deallocate Azure VM
+#### Task 1: Stop and deallocate the Azure VM
 
 > [!NOTE]
 > You will be using the Azure VM you created in this lab in the next lab, so rather than deleting it, you will stop and deallocate it to eliminate its compute charges.

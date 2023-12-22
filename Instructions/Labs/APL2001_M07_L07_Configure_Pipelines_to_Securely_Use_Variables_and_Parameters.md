@@ -109,7 +109,7 @@ In this task, you will set parameter and parameter types for the pipeline.
 
    ![Screenshot of the pipeline run with parameters.](media/pipeline-parameters-run.png)
 
-#### Task 2: Securing variables and parameters
+#### Task 3: Securing variables and parameters
 
 In this task, you will secure the variables and parameters from your pipeline by using variable groups.
 
@@ -156,7 +156,7 @@ In this task, you will secure the variables and parameters from your pipeline by
 > [!NOTE]
 > Following this approach, you can secure your variables and parameters by using variable groups without having to hardcode them in YAML files.
 
-#### Task 3: Validating mandatory variables and parameters
+#### Task 4: Validating mandatory variables and parameters
 
 In this task, you will validate the mandatory variables before the pipeline executes.
 
