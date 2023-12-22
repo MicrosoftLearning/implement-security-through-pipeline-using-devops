@@ -64,8 +64,8 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 1. On the **eshoponweb-vm** Azure VM page, in the toolbar, select **Start** to start it.
 
-> [!NOTE]
-> Next, you will configure the CI pipeline to run with the corresponding  agent pool, and validate the permissions to run the pipeline. You need to have permissions to edit the pipeline and to add permissions to the agent pool.
+   > [!NOTE]
+   > Next, you will configure the CI pipeline to run with the corresponding  agent pool, and validate the permissions to run the pipeline. You need to have permissions to edit the pipeline and to add permissions to the agent pool.
 
 1. Go to Project Settings, and select **Agent Pools** under **Pipelines**.
 
@@ -97,10 +97,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 1. Select to **Run** the pipeline, and then click on **Run** again.
 
-1. Verify that the build jobs is running on the **eShopOnWebSelfAgent** agent. 
-
-> [!NOTE]
-> The should be able to run the pipeline successfully.
+1. Verify that the build jobs is running on the **eShopOnWebSelfAgent** agent and it completes successfully.
 
 #### Task 3: Configure the CD pipeline and validate permissions
 
@@ -137,31 +134,33 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 1. Select **Save and run** and then select **Save and run** again.
 
-1. Open the pipeline, and you will see the message "This pipeline needs permission to access resources before this run can continue to Deploy to WebApp". Select **View** and then select **Permit** to allow the pipeline to run.
+1. Open the pipeline and note the message "This pipeline needs permission to access 2 resources before this run can continue to Deploy to WebApp". Select **View** and then select **Permit** to allow the pipeline to run.
 
    ![Screenshot of the pipeline with permit buttons".](media/pipeline-permission-permit.png)
+
+1. Rename the pipeline to **eshoponweb-cd-webapp-code**.
 
 ### Exercise 2: Configure and validate approval and branch checks
 
 In this exercise, you will configure and validate approval and branch checks for the CD pipeline.
 
-#### Task 1: Create a new Environment and add approvals and checks
+#### Task 1: Create an environment and add approvals and checks
 
-1. Go to **Pipelines > Environments**.
+1. In the Azure DevOps portal, from the **eShopOnWeb** project page, select **Pipelines > Environments**.
 
-1. Select **Create environment** button.
+1. Select **Create environment**.
 
 1. Name the environment **Test**, select **None** as the resource, and select **Create**.
 
-1. Select **New environment**, create a new environment **Production**, select **None** as the resource and select **Create**.
+1. Select **New environment**, create a new environment **Production**, ensure that **None** is selected as the resource and select **Create**.
 
-1. Open the **Test** environment, select ***...*** and select **Approvals and checks**.
+1. Open the **Test** environment, select the **Approvals and checks** tab.
 
 1. Select **Approvals**.
 
-1. In the **Approvers** text box, enter your user name and, if you have another user, add it to validate the approval process.
+1. In the **Approvers** text box, enter your user name.
 
-1. Give the instructions **Please approve the deployment to Test** and select **Create**.
+1. Give the instructions **Approve the deployment to Test** and select **Create**.
 
    ![Screenshot of the environment approvals with instructions.](media/add-environment-approvals.png)
 
@@ -171,24 +170,20 @@ In this exercise, you will configure and validate approval and branch checks for
 
    ![Screenshot of the environment branch control with the main branch.](media/add-environment-branch-control.png)
 
-1. Open the **Production** environment, and perform the same steps to add approvals and branch control. To differentiate the environments, add the instructions **Please approve the deployment to Production** and add the **refs/heads/main** branch to the allowed branches.
+1. Create another environment named **Production** and perform the same steps to add approvals and branch control. To differentiate the environments, add the instructions **Approve the deployment to Production** and set the allowed branches to **refs/heads/main**.
 
-1. (Optional) You can add more environments and configure approvals and branch control for them. Additionally, you can configure **Security** to add users or groups to the environment.
-
-   - Open the **Test** environment, select ***...*** and select **Security**.
-   - Select **Add** and select the user that is running the pipeline, and the role *User*, *Creator* or *Reader*.
-   - Select **Add**.
-   - Select **Save**.
+> [!NOTE]
+> You could add more environments and configure approvals and branch control for them. Additionally, you could configure **Security** to add users or groups to the environment with such roles as *User*, *Creator* or *Reader*.
 
 #### Task 2: Configure the CD pipeline to use the new environment
 
-1. Go to **Pipelines > Pipelines**.
+1. In the Azure DevOps portal, from the **eShopOnWeb** project page, select **Pipelines > Pipelines**.
 
 1. Open the **eshoponweb-cd-webapp-code** pipeline.
 
 1. Select **Edit**.
 
-1. Above the **#download artifacts** comment, add:
+1. Replace the lines 21-27 (directly above the **#download artifacts** comment) with the following content:
 
    ```yaml
    stages:
@@ -196,8 +191,7 @@ In this exercise, you will configure and validate approval and branch checks for
      displayName: Testing WebApp
      jobs:
      - deployment: Test
-       pool:
-         vmImage: 'windows-latest'
+       pool: eShopOnWebSelfPool
        environment: Test
        strategy:
          runOnce:
@@ -205,11 +199,10 @@ In this exercise, you will configure and validate approval and branch checks for
              steps:
              - script: echo Hello world! Testing environments!
    - stage: Deploy
-   displayName: Deploy to WebApp
+     displayName: Deploy to WebApp
      jobs:
      - deployment: Deploy
-       pool: 
-         vmImage: windows-latest
+       pool: eShopOnWebSelfPool
        environment: Production
        strategy:
          runOnce:
@@ -219,19 +212,15 @@ In this exercise, you will configure and validate approval and branch checks for
    ```
 
    > [!NOTE]
-   > You will need to shift the lines following the code above six spaces to the right to ensure that YAML indentation rules are satisfied.
+   > You will need to shift all the lines following the code above six spaces to the right to ensure that YAML indentation rules are satisfied.
 
    Your pipeline should look like this:
 
    ![Screenshot of the pipeline with the new deployment.](media/pipeline-add-yaml-deployment.png)
 
-1. Select **Save** and **Run**.
+1. Select **Save** (twice) and **Run** (twice).
 
-1. Open the pipeline, and you will see the message "This pipeline needs permission to access a resource before this run can continue to Testing WebApp". Select **View**, **Permit** and **Permit** again.
-
-   ![Screenshot of the pipeline with the permit button to approve the pipeline execution".](media/pipeline-environment-permit.png)
-
-1. Open the **Testing WebApp** stage, and you will see the message **1 approval needs your review before this run can continue to Testing WebApp**. Select **Review** and select **Approve**.
+1. Open the **Testing WebApp** stage of the pipeline and note the message **1 approval needs your review before this run can continue to Testing WebApp**. Select **Review** and select **Approve**.
 
    ![Screenshot of the pipeline with the Test stage to be approved".](media/pipeline-test-environment-approve.png)
 
@@ -245,9 +234,56 @@ In this exercise, you will configure and validate approval and branch checks for
 
    ![Screenshot of the pipeline with the Deploy to WebApp stage to be approved".](media/pipeline-deploy-environment-success.png)
 
-You should be able to run the pipeline successfully with the approvals and branch checks in both environments, Test and Production.
+> [!NOTE]
+> You should be able to run the pipeline successfully with the approvals and branch checks in both environments, Test and Production.
 
-### Exercise 3: Remove the resources used in the lab
+### Exercise 3: Perform cleanup of Azure and Azure DevOps resources
+
+In this exercise, you will remove Azure and Azure DevOps resources created in this lab.
+
+#### Task 1: Remove Azure resources
+
+1. In the Azure portal, navigate to the resource group **rg-eshoponweb-perm** containing deployed resources and select **Delete resource group** to delete all resources created in this lab.
+
+#### Task 2: Remove Azure DevOps pipelines
+
+1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+
+1. Open the **eShopOnWeb** project.
+
+1. Go to **Pipelines > Pipelines**.
+
+1. Go to **Pipelines > Pipelines** and delete the existing pipelines.
+
+#### Task 3: Recreate the Azure DevOps repo
+
+1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
+
+1. In the **Project setttings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
+
+1. In the **All Repositories** pane, hover over the far right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
+
+1. In the **Rename the eShopOnWeb repository** window, in the **Repository name** text box, enter **eShopOnWeb_old** and select **Rename**.
+
+1. Back in the **All Repositories** pane, select **+ Create**.
+
+1. In the **Create a repository** pane, in the **Repository name** text box, enter **eShopOnWeb**, uncheck the **Add a README** checkbox, and select **Create**.
+
+1. Back in the **All Repositories** pane, hover over the far right end of the **eShopOnWeb_old** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Delete**.  
+
+1. In the **Delete eShopOnWeb_old repository** window, enter **eShopOnWeb_old** and select **Delete**.
+
+1. In the left navigational menu of the Azure DevOps portal, select **Repos**.
+
+1. In the **eShopOnWeb is empty. Add some code!** pane, select **Import a repository**.
+
+1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
+
+
+
+
+
+Remove the resources used in the lab
 
 1. In the Azure portal, open the created Resource Group and click on **Delete resource group** for all created resources in this lab.
 

@@ -137,10 +137,12 @@ In this exercise, you will use a managed identity to configure a new service con
 
    | Setting | Action |
    | -- | -- |
-   | **Scope** drop-down list | Select **Resource Group**. |
+   | **Scope** drop-down list | Select **Subscription**. |
    | **Subscription** drop-down list | Select your Azure subscription. |
-   | **Resource group** drop-down list | Select the resource group where you deployed the web app in the previous exercise of this lab (**rg-eshoponweb**). |
    | **Role** drop-down list | Select the **Contributor** role. |
+
+> [!NOTE]
+> The subscription scope is necessary to accommodate deployments in the subsequent labs.
 
 1. Select the **Save** button.
 

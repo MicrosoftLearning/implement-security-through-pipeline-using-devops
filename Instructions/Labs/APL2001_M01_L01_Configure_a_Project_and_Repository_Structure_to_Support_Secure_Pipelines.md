@@ -234,7 +234,7 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 #### Task 1: Remove Azure resources
 
-1. In the Azure portal, navigate to the resource group containing deployed resources and select **Delete resource group** to delete all resources created in this lab.
+1. In the Azure portal, navigate to the resource group **rg-eshoponweb-secure** containing deployed resources and select **Delete resource group** to delete all resources created in this lab.
 
    ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
 
