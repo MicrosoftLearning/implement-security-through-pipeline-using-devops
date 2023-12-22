@@ -15,7 +15,6 @@ These exercises take approximately **25** minutes.
 You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb application to follow the labs.
 
 - Follow the steps to [validate your lab environment](APL2001_M00_Validate_Lab_Environment.md).
-- PAT token for the agent configuration.
 
 ## Instructions
 
@@ -47,7 +46,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 1. Select the **Dev/Test** as the workload environment and the **General purpose** as the workload type.
 
-1. Select the **Continue to create a VM** button, on the **Basics** tab perform the following actions and then select **Review + create**:
+1. Select the **Continue to create a VM** button, on the **Basics** tab perform the following actions and then select **Management**:
 
    | Setting | Action |
    | -- | -- |
@@ -63,6 +62,8 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    | **Password** text box | Enter the password of your preference |
    | **Public inbound ports** section | Select **Allow selected ports**. |
    | **Select inbound ports** drop-down list | Select **RDP (3389)**. |
+
+1. On the **Management** tab, in the **Identity** section, select the **Enable system assigned managed identity** checkbox and then select **Review + create**:
 
 1. On the **Review + create** tab, select **Create**.
 
@@ -194,6 +195,13 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
    > [!NOTE]
    > For more details on Windows agents, see: [Self-hosted Windows agents](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent)
+
+   > [!IMPORTANT]
+   > In order for the agent to be able to deploy Azure resources from the Azure DevOps pipelines (which you will step through in the next lab), you need to install Azure CLI within the operating system of the Azure VM that is hosting the agent.
+
+1. Start a web browser and navigate to the page [Install Azure CLI on Windows](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update).
+
+1. Download and install Azure CLI. 
 
 ### Exercise 2: Create and configure a new security group for the agent pool
 

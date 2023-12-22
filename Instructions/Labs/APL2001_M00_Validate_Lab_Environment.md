@@ -134,6 +134,9 @@ Next, you will create a Service Principal by using the Azure CLI, and Service Co
    > [!NOTE]
    > The command will generate a JSON output. Copy the output to text file. You will need it shortly.
 
+   > [!NOTE]
+   > Record the value of tenant Id included in the JSON output. You will need it in the labs of this course.
+
 1. Switch back to the web browser window displaying the Azure DevOps portal with the **eShopOnWeb** project open and select **Project settings** in the bottom left corner of the portal.
 
 1. Select the **Service connections** under Pipelines, and then select **Create service connection** button.
