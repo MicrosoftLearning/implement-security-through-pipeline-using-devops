@@ -97,7 +97,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 1. Select to **Run** the pipeline, and then click on **Run** again.
 
-1. Verify that the build jobs is running on the **eShopOnWebSelfAgent** agent and it completes successfully.
+1. Verify that the build job is running on the **eShopOnWebSelfAgent** agent and it completes successfully.
 
 #### Task 3: Configure the CD pipeline and validate permissions
 
@@ -121,7 +121,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
    - **azure subs** with **azure subs managed**
    - **az400-webapp-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-perm-** followed by a random six-digit number. 
 
-1. Update the YAML file to use the **eShopOnWebSelfPool** agent pool. To accopmlish this, set the **pool** section to the following value:
+1. Update the YAML file to use the **eShopOnWebSelfPool** agent pool. To accomplish this, set the **pool** section to the following value:
 
    ```yaml
      jobs:
@@ -230,7 +230,7 @@ In this exercise, you will configure and validate approval and branch checks for
 
 1. Back to the pipeline and you will see the stage **Deploy to WebApp** waiting for approval. Select **Review** and **Approve** as you did before for the **Testing WebApp** stage.
 
-1. Wait for the pipeline to finish amd check that the **Deploy to WebApp** stage was executed successfully.
+1. Wait for the pipeline to finish and check that the **Deploy to WebApp** stage was executed successfully.
 
    ![Screenshot of the pipeline with the Deploy to WebApp stage to be approved".](media/pipeline-deploy-environment-success.png)
 
@@ -259,7 +259,7 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
 
-1. In the **Project setttings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
+1. In the **Project settings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
 
 1. In the **All Repositories** pane, hover over the far right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
 

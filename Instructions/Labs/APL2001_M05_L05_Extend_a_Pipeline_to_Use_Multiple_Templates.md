@@ -241,7 +241,7 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
 
-1. In the **Project setttings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
+1. In the **Project settings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
 
 1. In the **All Repositories** pane, hover over the far right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
 

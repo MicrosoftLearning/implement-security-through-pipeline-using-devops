@@ -159,7 +159,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 #### Task 4: Configure the agent
 
-1. Within the Remote Desktop session to the Azure VM, switch back to the Powershell window. If necessary, change the current directory to the one into which you extracted the agent installation files earlier in this exercise. 
+1. Within the Remote Desktop session to the Azure VM, switch back to the PowerShell window. If necessary, change the current directory to the one into which you extracted the agent installation files earlier in this exercise. 
 
 1. To configure your agent to run unattended, invoke the following command:
 

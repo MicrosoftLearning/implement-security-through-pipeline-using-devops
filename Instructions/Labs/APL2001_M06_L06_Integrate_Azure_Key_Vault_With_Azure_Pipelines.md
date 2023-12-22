@@ -104,7 +104,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
 In this task, you will create an Azure Key vault by using the Azure portal.
 
-For this lab scenario, we will have a Azure Container Instance (ACI) that pull and runs a container image stored in Azure Container Registry (ACR). We intend to store the password for the ACR as a secret in the Azure Key vault.
+For this lab scenario, we will have an Azure Container Instance (ACI) that pull and runs a container image stored in Azure Container Registry (ACR). We intend to store the password for the ACR as a secret in the Azure Key vault.
 
 1. In the Azure portal, in the **Search resources, services, and docs** text box, type **Key vault** and press the **Enter** key.
 
@@ -168,7 +168,7 @@ In this task, you will create a Variable Group in Azure DevOps that will retriev
    | Variable Group Name | **eshopweb-vg** |
    | Link secrets from Azure key vault as variables | **enable** |
    | Azure subscription | **Available Azure service connection > azure subs** |
-   | Key vault name | the name you assiged to the Azure Key vault in the previous task |
+   | Key vault name | the name you assigned to the Azure Key vault in the previous task |
 
 1. Under **Variables**, select **+ Add** and select the **acr-secret** secret. Select **OK**.
 
@@ -178,7 +178,7 @@ In this task, you will create a Variable Group in Azure DevOps that will retriev
 
 #### Task 4: Setup CD pipeline to deploy container in Azure Container Instance(ACI)
 
-In this task, you will import a CD pipeline, customize it and run it for deploying the container image created before in a Azure Container Instance.
+In this task, you will import a CD pipeline, customize it and run it for deploying the container image created before in an Azure Container Instance.
 
 1. In the Azure DevOps portal displaying the **eShopOnWeb** project, select **Pipelines > Pipelines** and then select **New Pipeline**.
 
@@ -224,7 +224,7 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
 
-1. In the **Project setttings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
+1. In the **Project settings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
 
 1. In the **All Repositories** pane, hover over the far right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
 

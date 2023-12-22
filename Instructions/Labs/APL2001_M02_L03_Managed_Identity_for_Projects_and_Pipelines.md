@@ -99,13 +99,13 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 1. Select **Save and Run** again.
 
-1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", selet **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
+1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", select **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
 
    ![Screenshot of the permit access from the YAML pipeline.](media/pipeline-deploy-permit-resource.png)
 
 1. The deployment may take a few minutes to complete, wait for the pipeline to execute. The CD definition consists of the following tasks:
 
-   - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web ppp using bicep template.
+   - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web app using bicep template.
    - **AzureRmWebAppDeployment**: Publishes the Web site to the Azure App Service web app.
 
 > [!NOTE]
@@ -238,7 +238,7 @@ In this exercise, you will perform post-lab cleanup of the Azure and Azure DevOp
 
 1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
 
-1. In the **Project setttings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
+1. In the **Project settings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
 
 1. In the **All Repositories** pane, hover over the far right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
 

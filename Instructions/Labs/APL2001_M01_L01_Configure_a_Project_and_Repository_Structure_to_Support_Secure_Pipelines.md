@@ -132,7 +132,7 @@ Now only the user you assigned permissions and the administrators can access the
 
 1. The deployment may take a few minutes to complete, wait for the pipeline to execute. The pipeline is triggered following the completion of the CI pipeline and it includes the following tasks:
 
-   - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web ppp using bicep template.
+   - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web app using bicep template.
    - **AzureRmWebAppDeployment**: Publishes the Web site to the Azure App Service web app.
 
 1. Your pipeline will take a name based on the project name. Let's rename it for identifying the pipeline better.
@@ -186,7 +186,7 @@ In this task, you will create a YAML template to store the variables used in the
 
 1. Verify that the pipeline run completed successfully. 
 
-Now you have a YAML template with the variables used in the CD pipeline. You can reuse this template in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can controls the resource group and location where the resources are deployed and other information in your template values and you don't need to make any changes to your pipeline definition.
+Now you have a YAML template with the variables used in the CD pipeline. You can reuse this template in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can control the resource group and location where the resources are deployed and other information in your template values and you don't need to make any changes to your pipeline definition.
 
 #### Task 4: Move the YAML templates to a separate repository and project
 
@@ -255,9 +255,9 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
 
-1. In the **Project setttings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
+1. In the **Project settings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
 
-1. In the **All Repositories** pane, hover over the far right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
+1. In the **All Repositories** pane, hover over the far-right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
 
 1. In the **Rename the eShopOnWeb repository** window, in the **Repository name** text box, enter **eShopOnWeb_old** and select **Rename**.
 
