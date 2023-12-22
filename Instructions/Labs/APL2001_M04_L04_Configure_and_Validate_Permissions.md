@@ -279,21 +279,6 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
 
-
-
-
-
-Remove the resources used in the lab
-
-1. In the Azure portal, open the created Resource Group and click on **Delete resource group** for all created resources in this lab.
-
-   ![Screenshot of the delete resource group button.](media/delete-resource-group.png)
-
-   > [!WARNING]
-   > Always remember to remove any created Azure resources that you no longer use. Removing unused resources ensures you will not see unexpected charges.
-
-1. Reset the specific permissions you added to the Azure DevOps organization and project in this lab.
-
 ## Review
 
 In this lab, you have learned how to set up a secure environment that adheres to the principle of least privilege, ensuring that members can access only the resources they need to perform their tasks and minimize potential security risks. You configured and validated user and pipeline permissions and set up approval and branch checks in Azure DevOps.
