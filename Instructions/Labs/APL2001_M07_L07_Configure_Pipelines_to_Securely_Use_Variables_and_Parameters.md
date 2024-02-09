@@ -77,31 +77,31 @@ In this task, you will set parameter and parameter types for the pipeline.
 
 1. Replace the hardcoded paths in the `Restore`, `Build`, and `Test` tasks with the parameters you just created.
 
-   - **Replace projects**: `**/*.sln` with projects: ${{ parameters.dotNetProjects }} in the `Restore` and `Build` tasks.
-   - **Replace projects**: `tests/UnitTests/*.csproj` with projects: ${{ parameters.testProjects }} in the `Test` task.
+   - **Replace projects**: `**/*.sln` with projects: $\{{ parameters.dotNetProjects }} in the `Restore` and `Build` tasks.
+   - **Replace projects**: `tests/UnitTests/*.csproj` with projects: $\{{ parameters.testProjects }} in the `Test` task.
 
    The `Restore`, `Build`, and `Test` tasks in the steps section of the YAML file should look like this:
 
-   ```yaml
+   ```yml
        steps:
        - task: DotNetCoreCLI@2
          displayName: Restore
          inputs:
            command: 'restore'
-           projects: ${{ parameters.dotNetProjects }}
+           projects: $\{{ parameters.dotNetProjects }}
            feedsToUse: 'select'
    
        - task: DotNetCoreCLI@2
          displayName: Build
          inputs:
            command: 'build'
-           projects: ${{ parameters.dotNetProjects }}
+           projects: $\{{ parameters.dotNetProjects }}
    
        - task: DotNetCoreCLI@2
          displayName: Test
          inputs:
            command: 'test'
-           projects: ${{ parameters.testProjects }}
+           projects: $\{{ parameters.testProjects }}
 
    ```
 
@@ -147,7 +147,7 @@ In this task, you will secure the variables and parameters from your pipeline by
 
    ```yaml
            command: 'build'
-           projects: ${{ parameters.dotNetProjects }}
+           projects: $\{{ parameters.dotNetProjects }}
            configuration: $(buildConfiguration)
    ```
 
