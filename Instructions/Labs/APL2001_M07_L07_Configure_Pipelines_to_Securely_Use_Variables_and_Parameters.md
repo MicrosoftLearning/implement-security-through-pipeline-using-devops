@@ -77,33 +77,33 @@ In this task, you will set parameter and parameter types for the pipeline.
 
 1. Replace the hardcoded paths in the `Restore`, `Build`, and `Test` tasks with the parameters you just created.
 
-   - **Replace projects**: `**/*.sln` with projects: $\{{ parameters.dotNetProjects }} in the `Restore` and `Build` tasks.
-   - **Replace projects**: `tests/UnitTests/*.csproj` with projects: $\{{ parameters.testProjects }} in the `Test` task.
+   - **Replace projects**: `**/*.sln` with projects: `${{ parameters.dotNetProjects }}` in the `Restore` and `Build` tasks.
+   - **Replace projects**: `tests/UnitTests/*.csproj` with projects: `${{ parametertestProjects }}` in the `Test` task
 
-   The `Restore`, `Build`, and `Test` tasks in the steps section of the YAML file should look like this:
+    The `Restore`, `Build`, and `Test` tasks in the steps section of the YAML file should look like this:
 
-   ```yml
-       steps:
-       - task: DotNetCoreCLI@2
-         displayName: Restore
-         inputs:
-           command: 'restore'
-           projects: $\{{ parameters.dotNetProjects }}
-           feedsToUse: 'select'
-   
-       - task: DotNetCoreCLI@2
-         displayName: Build
-         inputs:
-           command: 'build'
-           projects: $\{{ parameters.dotNetProjects }}
-   
-       - task: DotNetCoreCLI@2
-         displayName: Test
-         inputs:
-           command: 'test'
-           projects: $\{{ parameters.testProjects }}
-
-   ```
+    ```yaml
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Restore
+      inputs:
+        command: 'restore'
+        projects: ${{ parameters.dotNetProjects }}
+        feedsToUse: 'select'
+    
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: 'build'
+        projects: ${{ parameters.dotNetProjects }}
+    
+    - task: DotNetCoreCLI@2
+      displayName: Test
+      inputs:
+        command: 'test'
+        projects: ${{ parameters.testProjects }}
+    
+    ```
 
 1. Save the pipeline and run it. Verify that the pipeline run completes successfully.
 
@@ -145,11 +145,11 @@ In this task, you will secure the variables and parameters from your pipeline by
 
 1. In the 'Build' task, replace command: 'build' with the following lines to utilize the build configuration from the variable group.
 
-   ```yaml
-           command: 'build'
-           projects: $\{{ parameters.dotNetProjects }}
-           configuration: $(buildConfiguration)
-   ```
+    ```yaml
+            command: 'build'
+            projects: ${{ parameters.dotNetProjects }}
+            configuration: $(buildConfiguration)
+    ```
 
 1. Save the pipeline and run it. It should run successfully with the build configuration set to `Release`. You can verify this by looking at the logs of the 'Build' task.
 
@@ -166,42 +166,42 @@ In this task, you will validate the mandatory variables before the pipeline exec
 
 1. In the stages section, at its very beginning (following the `stage:` line), add a new stage named **Validate** to validate the mandatory variables before the pipeline executes.
 
-   ```yaml
-   - stage: Validate
-     displayName: Validate mandatory variables
-     jobs:
-     - job: ValidateVariables
-       pool:
-         vmImage: ubuntu-latest
-       steps:
-       - script: |
-           if [ -z "$(buildConfiguration)" ]; then
-             echo "Error: buildConfiguration variable is not set"
-             exit 1
-           fi
-         displayName: 'Validate Variables'
-    ```
+    ```yaml
+    - stage: Validate
+      displayName: Validate mandatory variables
+      jobs:
+      - job: ValidateVariables
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+        - script: |
+            if [ -z "$(buildConfiguration)" ]; then
+              echo "Error: buildConfiguration variable is not set"
+              exit 1
+            fi
+          displayName: 'Validate Variables'
+     ```
 
-   > [!NOTE]
-   > This stage will run a script to validate the buildConfiguration variable. If the variable is not set, the script will fail and the pipeline will stop.
+    > [!NOTE]
+    > This stage will run a script to validate the buildConfiguration variable. If the variables not set, the script will fail and the pipeline will stop.
 
 1. Make the **Build** stage depend on the **Validate** stage by adding `dependsOn: Validate` at the beginning of the **Build** stage:
 
-   ```yaml
-   - stage: Build
-     displayName: Build .Net Core Solution
-     dependsOn: Validate
-      ```
+    ```yaml
+    - stage: Build
+      displayName: Build .Net Core Solution
+      dependsOn: Validate
+    ```
 
 1. Save the pipeline and run it. It will run successfully because the buildConfiguration variable is set in the variable group.
 
 1. To test the validation, remove the buildConfiguration variable from the variable group, or delete the variable group, and run the pipeline again. It should fail with the following error:
 
-   ```yaml
-   Error: buildConfiguration variable is not set   
-   ```
+    ```yaml
+    Error: buildConfiguration variable is not set   
+    ```
 
-   ![Screenshot of the pipeline run with validation failing.](media/pipeline-validation-fail.png)
+    ![Screenshot of the pipeline run with validation failing.](media/pipeline-validation-fail.png)
 
 1. Add the variable group and the buildConfiguration variable back to the variable group and run the pipeline again. It should run successfully.
 
