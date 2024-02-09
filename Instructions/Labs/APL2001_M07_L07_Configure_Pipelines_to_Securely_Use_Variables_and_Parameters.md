@@ -77,7 +77,7 @@ In this task, you will set parameter and parameter types for the pipeline.
 
 1. Replace the hardcoded paths in the `Restore`, `Build`, and `Test` tasks with the parameters you just created.
 
-   - **Replace projects**: `**/*.sln` with projects: `${{ parameters.dotNetProjects }}` in th`Restore` and `Build` tasks.
+   - **Replace projects**: `**/*.sln` with projects: `${{ parameters.dotNetProjects }}` in the `Restore` and `Build` tasks.
    - **Replace projects**: `tests/UnitTests/*.csproj` with projects: `${{ parametertestProjects }}` in the `Test` task
 
     The `Restore`, `Build`, and `Test` tasks in the steps section of the YAML file should look like this:
@@ -183,7 +183,7 @@ In this task, you will validate the mandatory variables before the pipeline exec
      ```
 
     > [!NOTE]
-    > This stage will run a script to validate the buildConfiguration variable. If the variablis not set, the script will fail and the pipeline will stop.
+    > This stage will run a script to validate the buildConfiguration variable. If the variables not set, the script will fail and the pipeline will stop.
 
 1. Make the **Build** stage depend on the **Validate** stage by adding `dependsOn: Validate` at the beginning of the **Build** stage:
 
