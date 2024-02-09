@@ -82,28 +82,32 @@ In this task, you will set parameter and parameter types for the pipeline.
 
    The `Restore`, `Build`, and `Test` tasks in the steps section of the YAML file should look like this:
 
-   ```yml
-       steps:
-       - task: DotNetCoreCLI@2
-         displayName: Restore
-         inputs:
-           command: 'restore'
-           projects: $\{{ parameters.dotNetProjects }}
-           feedsToUse: 'select'
-   
-       - task: DotNetCoreCLI@2
-         displayName: Build
-         inputs:
-           command: 'build'
-           projects: $\{{ parameters.dotNetProjects }}
-   
-       - task: DotNetCoreCLI@2
-         displayName: Test
-         inputs:
-           command: 'test'
-           projects: $\{{ parameters.testProjects }}
+    {% raw %}
 
-   ```
+    ```yaml
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Restore
+      inputs:
+        command: 'restore'
+        projects: ${{ parameters.dotNetProjects }}
+        feedsToUse: 'select'
+    
+    - task: DotNetCoreCLI@2
+      displayName: Build
+      inputs:
+        command: 'build'
+        projects: ${{ parameters.dotNetProjects }}
+    
+    - task: DotNetCoreCLI@2
+      displayName: Test
+      inputs:
+        command: 'test'
+        projects: ${{ parameters.testProjects }}
+    
+    ```
+
+    {% endraw %}
 
 1. Save the pipeline and run it. Verify that the pipeline run completes successfully.
 
@@ -145,11 +149,15 @@ In this task, you will secure the variables and parameters from your pipeline by
 
 1. In the 'Build' task, replace command: 'build' with the following lines to utilize the build configuration from the variable group.
 
-   ```yaml
-           command: 'build'
-           projects: $\{{ parameters.dotNetProjects }}
-           configuration: $(buildConfiguration)
-   ```
+    {% raw %}
+
+    ```yaml
+            command: 'build'
+            projects: ${{ parameters.dotNetProjects }}
+            configuration: $(buildConfiguration)
+    ```
+
+    {% endraw %}
 
 1. Save the pipeline and run it. It should run successfully with the build configuration set to `Release`. You can verify this by looking at the logs of the 'Build' task.
 
