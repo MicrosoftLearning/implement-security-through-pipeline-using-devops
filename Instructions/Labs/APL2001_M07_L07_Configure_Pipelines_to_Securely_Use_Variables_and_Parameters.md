@@ -77,8 +77,8 @@ In this task, you will set parameter and parameter types for the pipeline.
 
 1. Replace the hardcoded paths in the `Restore`, `Build`, and `Test` tasks with the parameters you just created.
 
-   - **Replace projects**: `**/*.sln` with projects: `$\{{ parameters.dotNetProjects }}` in the `Restore` and `Build` tasks.
-   - **Replace projects**: `tests/UnitTests/*.csproj` with projects: `$\{{ parametertestProjects }}` in the `Test` task
+   - **Replace projects**: `**/*.sln` with projects: $\{{ parameters.dotNetProjects }} in the `Restore` and `Build` tasks.
+   - **Replace projects**: `tests/UnitTests/*.csproj` with projects: $\{{ parametertestProjects }} in the `Test` task
 
     The `Restore`, `Build`, and `Test` tasks in the steps section of the YAML file should look like this:
 
