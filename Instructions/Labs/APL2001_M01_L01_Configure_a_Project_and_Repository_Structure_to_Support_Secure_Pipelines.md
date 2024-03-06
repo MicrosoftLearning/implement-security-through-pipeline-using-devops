@@ -161,7 +161,7 @@ In this task, you will create a YAML template to store the variables used in the
    variables:
      resource-group: 'rg-eshoponweb-secure'
      location: 'southcentralus' #the name of the Azure region you want to deploy your resources
-     templateFile: '.azure/bicep/webapp.bicep'
+     templateFile: 'infra/webapp.bicep'
      subscriptionid: 'YOUR-SUBSCRIPTION-ID'
      azureserviceconnection: 'azure subs' #the name of the service connection to your Azure subscription
      webappname: 'eshoponweb-lab-secure-XXXXXX' #the globally unique name of the web app
