@@ -254,7 +254,7 @@ In this task, you will manage permissions for the agent pool.
 
 You are now ready to securely use the agent pool in your pipelines. For more details on agent pools, see: [Agent pools](https://learn.microsoft.com/azure/devops/pipelines/agents/pools-queues).
 
-### Exercise 4: Perform cleanup of Azure and Azure DevOps resources
+### Exercise 3: Perform cleanup of Azure and Azure DevOps resources
 
 In this exercise, you will perform post-lab cleanup of some of the Azure DevOps resources created in this lab.
 

@@ -18,7 +18,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 - Follow the steps to [validate your lab environment](APL2001_M00_Validate_Lab_Environment.md).
 - Verify that you have a Microsoft account or a Microsoft Entra account with the Contributor or the Owner role in the Azure subscription. For details, refer to [List Azure role assignments using the Azure portal](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-list-portal) and [View and assign administrator roles in Azure Active Directory](https://learn.microsoft.com/azure/active-directory/roles/manage-roles-portal).
-- Complete the lab [Configure agents and agent pools for secure pipelines](APL2001_M03_L02_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md).
+- Complete the lab [Configure agents and agent pools for secure pipelines](APL2001_M02_L02_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md).
 
 ## Instructions
 
