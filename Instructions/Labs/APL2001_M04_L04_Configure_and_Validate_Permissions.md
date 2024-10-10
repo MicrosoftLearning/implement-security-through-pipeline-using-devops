@@ -160,6 +160,8 @@ In this exercise, you will configure and validate approval and branch checks for
 
 1. In the **Approvers** text box, enter your user name.
 
+1. If not enabled, check the box labeled "Allow approvers to approve their own runs."
+
 1. Give the instructions **Approve the deployment to Test** and select **Create**.
 
    ![Screenshot of the environment approvals with instructions.](media/add-environment-approvals.png)
