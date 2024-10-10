@@ -18,7 +18,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 - Follow the steps to [validate your lab environment](APL2001_M00_Validate_Lab_Environment.md).
 - Verify that you have a Microsoft account or a Microsoft Entra account with the Contributor or the Owner role in the Azure subscription. For details, refer to [List Azure role assignments using the Azure portal](https://learn.microsoft.com/azure/role-based-access-control/role-assignments-list-portal) and [View and assign administrator roles in Azure Active Directory](https://learn.microsoft.com/azure/active-directory/roles/manage-roles-portal).
-- Complete the lab [Configure agents and agent pools for secure pipelines](APL2001_M03_L02_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md).
+- Complete the lab [Configure agents and agent pools for secure pipelines](APL2001_M02_L02_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md).
 
 ## Instructions
 
@@ -188,7 +188,10 @@ In this exercise, you will use a managed identity to configure a new service con
 
 1. Select **Save** again.
 
-1. Select to **Run** the pipeline, and then click on **Run** again.
+1. Select to **Run** the pipeline, check the "Enable system diagnostics" checkbox to enable the system diagnostics and select **Run**.
+
+   > [!NOTE]
+   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", select on **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
 

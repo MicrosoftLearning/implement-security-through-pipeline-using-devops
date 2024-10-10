@@ -228,7 +228,7 @@ In this task, you will move the YAML templates to a separate repository and proj
 
 Now you have the YAML file in a separate repository and project. You can reuse this file in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can control the resource group, location, security and where the resources are deployed and other information by modifying values in the YAML file and you don't need to make any changes to your pipeline definition.
 
-### Exercise 2: Perform cleanup of Azure and Azure DevOps resources
+### Exercise 3: Perform cleanup of Azure and Azure DevOps resources
 
 In this exercise, you will remove Azure and Azure DevOps resources created in this lab.
 

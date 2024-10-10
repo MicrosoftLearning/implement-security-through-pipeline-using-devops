@@ -108,7 +108,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 #### Task 3: Prepare the pipeline to use templates
 
-1. In the Azure DevOps portal, on the **eShopOnWeb** project page, go to **Repos**. 
+1. In the Azure DevOps portal, on the **eShopOnWeb** project page, go to **Repos**.
 
 1. In the root directory of the repo, select **azure-pipelines.yml** which contains the definition of the **eShopOnWeb-MultiStage-Main** pipeline.
 

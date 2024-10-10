@@ -15,7 +15,7 @@ These exercises take approximately **30** minutes.
 You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb application to follow the labs.
 
 - Follow the steps to [validate your lab environment](APL2001_M00_Validate_Lab_Environment.md).
-- Install a self-hosted agent following the lab [Configure agents and agent pools for secure pipelines](/Instructions/Labs/APL2001_M02_L02_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md) or the steps in [Install a self-hosted agent](https://docs.microsoft.com/azure/devops/pipelines/agents/v2-windows?view=azure-devops#install).
+- Install a self-hosted agent following the lab [Configure agents and agent pools for secure pipelines](APL2001_M02_L02_Configure_Agents_And_Agent_Pools_for_Secure_Pipelines.md) or the steps in [Install a self-hosted agent](https://docs.microsoft.com/azure/devops/pipelines/agents/v2-windows?view=azure-devops#install).
 
 ## Instructions
 
@@ -159,6 +159,8 @@ In this exercise, you will configure and validate approval and branch checks for
 1. Select **Approvals**.
 
 1. In the **Approvers** text box, enter your user name.
+
+1. If not enabled, check the box labeled "Allow approvers to approve their own runs."
 
 1. Give the instructions **Approve the deployment to Test** and select **Create**.
 
