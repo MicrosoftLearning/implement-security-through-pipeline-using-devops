@@ -188,7 +188,10 @@ In this exercise, you will use a managed identity to configure a new service con
 
 1. Select **Save** again.
 
-1. Select to **Run** the pipeline, and then click on **Run** again.
+1. Select to **Run** the pipeline, check the "Enable system diagnostics" checkbox to enable the system diagnostics and select **Run**.
+
+   > [!NOTE]
+   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", select on **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
 
