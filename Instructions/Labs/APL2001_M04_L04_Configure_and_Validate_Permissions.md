@@ -25,8 +25,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 #### Task 1:  Import and run the CI pipeline
 
-> [!NOTE]
-> Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
+> **Note**: Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
 1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
 
@@ -46,8 +45,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 1. Select the **Run** button to run the pipeline.
 
-   > [!NOTE]
-   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
+   > **Note**: Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
@@ -55,8 +53,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 #### Task 2: Configure and run the pipeline with specific permissions
 
-> [!NOTE]
-> In order to use the agent pool configured in this task, you will first need to start the Azure VM hosting the agent. 
+> **Note**: In order to use the agent pool configured in this task, you will first need to start the Azure VM hosting the agent. 
 
 1. In your browser, open the Azure Portal at `https://portal.azure.com`.
 
@@ -64,8 +61,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 1. On the **eshoponweb-vm** Azure VM page, in the toolbar, select **Start** to start it.
 
-   > [!NOTE]
-   > Next, you will configure the CI pipeline to run with the corresponding  agent pool, and validate the permissions to run the pipeline. You need to have permissions to edit the pipeline and to add permissions to the agent pool.
+   > **Note**: Next, you will configure the CI pipeline to run with the corresponding  agent pool, and validate the permissions to run the pipeline. You need to have permissions to edit the pipeline and to add permissions to the agent pool.
 
 1. Go to Project Settings, and select **Agent Pools** under **Pipelines**.
 
@@ -174,8 +170,7 @@ In this exercise, you will configure and validate approval and branch checks for
 
 1. Create another environment named **Production** and perform the same steps to add approvals and branch control. To differentiate the environments, add the instructions **Approve the deployment to Production** and set the allowed branches to **refs/heads/main**.
 
-> [!NOTE]
-> You could add more environments and configure approvals and branch control for them. Additionally, you could configure **Security** to add users or groups to the environment with such roles as *User*, *Creator* or *Reader*.
+> **Note**: You could add more environments and configure approvals and branch control for them. Additionally, you could configure **Security** to add users or groups to the environment with such roles as *User*, *Creator* or *Reader*.
 
 #### Task 2: Configure the CD pipeline to use the new environment
 
@@ -213,8 +208,7 @@ In this exercise, you will configure and validate approval and branch checks for
              - checkout: self
    ```
 
-   > [!NOTE]
-   > You will need to shift all the lines following the code above six spaces to the right to ensure that YAML indentation rules are satisfied.
+   > **Note**: You will need to shift all the lines following the code above six spaces to the right to ensure that YAML indentation rules are satisfied.
 
    Your pipeline should look like this:
 
@@ -236,8 +230,7 @@ In this exercise, you will configure and validate approval and branch checks for
 
    ![Screenshot of the pipeline with the Deploy to WebApp stage to be approved".](media/pipeline-deploy-environment-success.png)
 
-> [!NOTE]
-> You should be able to run the pipeline successfully with the approvals and branch checks in both environments, Test and Production.
+> **Note**: You should be able to run the pipeline successfully with the approvals and branch checks in both environments, Test and Production.
 
 ### Exercise 3: Perform cleanup of Azure and Azure DevOps resources
 

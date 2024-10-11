@@ -60,8 +60,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
 1. Select **Save and Run** again.
 
-   > [!NOTE]
-   > If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
+   > **Note**: If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
 
 1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Docker Compose to WebApp", select **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure resources.
 
@@ -77,8 +76,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
 1. Once the pipeline run completes, use the web browser to navigate to the Azure Portal, open the **rg-eshoponweb-docker** resource group, and select the entry representing the Azure Container Registry (ACR) deployed by the pipeline.
 
-   > [!NOTE]
-   > In order to view repositories in the registry, you need to grant to your user account a role that provides such access. You will use for this purpose the AcrPull role.
+   > **Note**: In order to view repositories in the registry, you need to grant to your user account a role that provides such access. You will use for this purpose the AcrPull role.
 
 1. On the Container registry page, select **Access control (IAM)**, select **+ Add** and, in the drop-down list, select **Add role assignment**.
 
@@ -134,8 +132,7 @@ For this lab scenario, we will have an Azure Container Instance (ACI) that pull 
 
 1. Back on the **Create a Key Vault** blade, select **Review + Create > Create**
 
-   > [!NOTE]
-   > Wait for the Azure Key vault to be provisioned. This should take less than 1 minute.
+   > **Note**: Wait for the Azure Key vault to be provisioned. This should take less than 1 minute.
 
 1. On the **Your deployment is complete** blade, select **Go to resource**.
 

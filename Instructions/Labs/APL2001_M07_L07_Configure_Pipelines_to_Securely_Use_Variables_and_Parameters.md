@@ -42,8 +42,7 @@ Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/
 
 1. Select the **Run** button to run the pipeline.
 
-   > [!NOTE]
-   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
+   > **Note**: Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines** and select the recently created pipeline. select the ellipsis and **Rename/move** option.
 
@@ -133,8 +132,7 @@ In this task, you will secure the variables and parameters from your pipeline by
 
    ![Screenshot of the pipeline permissions.](media/pipeline-permissions.png)
 
-   > [!NOTE]
-   > You can also set specific users or groups to be able to edit the variable group by clicking on the **Security** button.
+   > **Note**: You can also set specific users or groups to be able to edit the variable group by clicking on the **Security** button.
 
 1. Go to **Pipelines > Pipelines**.
 
@@ -161,8 +159,7 @@ In this task, you will secure the variables and parameters from your pipeline by
 
 1. Save the pipeline and run it. It should run successfully with the build configuration set to `Release`. You can verify this by looking at the logs of the 'Build' task.
 
-> [!NOTE]
-> Following this approach, you can secure your variables and parameters by using variable groups without having to hardcode them in YAML files.
+> **Note**: Following this approach, you can secure your variables and parameters by using variable groups without having to hardcode them in YAML files.
 
 #### Task 4: Validating mandatory variables and parameters
 
@@ -190,8 +187,7 @@ In this task, you will validate the mandatory variables before the pipeline exec
           displayName: 'Validate Variables'
      ```
 
-    > [!NOTE]
-    > This stage will run a script to validate the buildConfiguration variable. If the variables not set, the script will fail and the pipeline will stop.
+    > **Note**: This stage will run a script to validate the buildConfiguration variable. If the variables not set, the script will fail and the pipeline will stop.
 
 1. Make the **Build** stage depend on the **Validate** stage by adding `dependsOn: Validate` at the beginning of the **Build** stage:
 

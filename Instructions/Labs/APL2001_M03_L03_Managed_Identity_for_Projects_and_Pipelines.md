@@ -48,8 +48,7 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 1. Select the **Run** button to run the pipeline.
 
-   > [!NOTE]
-   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
+   > **Note**: Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
@@ -57,8 +56,7 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 #### Task 2: Import and run the CD pipeline
 
-> [!NOTE]
-> In this task, you will import and run the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml).
+> **Note**: In this task, you will import and run the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml).
 
 1. On the **Pipelines** pane of the **eShopOnWeb** project, select the **New pipeline** button.
 
@@ -102,11 +100,9 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
    - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web app using bicep template.
    - **AzureRmWebAppDeployment**: Publishes the Web site to the Azure App Service web app.
 
-   > [!NOTE]
-   > In case the deployment fails, navigate to the pipeline run page and select **Rerun failed jobs** to invoke another pipeline run.
+   > **Note**: In case the deployment fails, navigate to the pipeline run page and select **Rerun failed jobs** to invoke another pipeline run.
 
-   > [!NOTE]
-   > Your pipeline will take a name based on the project name. Let's **rename** it for identifying the pipeline better.
+   > **Note**: Your pipeline will take a name based on the project name. Let's **rename** it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines**, select the recently created pipeline, select the ellipsis and then select **Rename/move** option.
 
@@ -136,8 +132,7 @@ In this exercise, you will use a managed identity to configure a new service con
    | **Subscription** drop-down list | Select your Azure subscription. |
    | **Role** drop-down list | Select the **Contributor** role. |
 
-   > [!NOTE]
-   > The subscription scope is necessary to accommodate deployments in the subsequent labs.
+   > **Note**: The subscription scope is necessary to accommodate deployments in the subsequent labs.
 
 1. Select the **Save** button.
 
@@ -190,8 +185,7 @@ In this exercise, you will use a managed identity to configure a new service con
 
 1. Select to **Run** the pipeline, check the "Enable system diagnostics" checkbox to enable the system diagnostics and select **Run**.
 
-   > [!NOTE]
-   > Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
+   > **Note**: Your pipeline will take a name based on the project name. Rename it for identifying the pipeline better.
 
 1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", select on **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
 
@@ -201,8 +195,7 @@ In this exercise, you will use a managed identity to configure a new service con
 
    ![Screenshot of the pipeline logs using the Managed Identity.](media/pipeline-logs-managed-identity.png)
 
-   > [!NOTE]
-   > After the pipeline finishes, you can use the Azure portal to verify the state of the App Service web app resources.
+   > **Note**: After the pipeline finishes, you can use the Azure portal to verify the state of the App Service web app resources.
 
 ### Exercise 3: Perform cleanup of Azure and Azure DevOps resources
 

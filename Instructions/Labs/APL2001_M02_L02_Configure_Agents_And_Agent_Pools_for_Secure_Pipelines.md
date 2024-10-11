@@ -67,10 +67,9 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 1. On the **Review + create** tab, select **Create**.
 
-   > [!NOTE]
-   > Wait for the provisioning process to complete. This should take about 2 minutes.
+   > **Note**: Wait for the provisioning process to complete. This should take about 2 minutes.
 
-1. In the Azure portal, navigate to the page displaying configuration of the newly created Azure VM. 
+1. In the Azure portal, navigate to the page displaying configuration of the newly created Azure VM.
 
 1. On the Azure VM page, select **Connect**, in the drop-down menu, select **Connect**, then select **Download RDP file**, and use the downloaded RDP file to establish a Remote Desktop session to the operating system running in the Azure VM.
 
@@ -100,8 +99,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 1. Select the **New agent** button and then **Download** button from the **Download agent** in the new pop-up window.
 
-   > [!NOTE]
-   > Follow the installation instructions to install the agent.
+   > **Note**: Follow the installation instructions to install the agent.
 
 1. Start a PowerShell session and run the following commands to create a folder named **agent**.
 
@@ -109,8 +107,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    mkdir agent ; cd agent        
    ```
 
-   > [!NOTE]
-   > Make sure you are in the root folder of your user profile or the folder where you want to install the agent.
+   > **Note**: Make sure you are in the root folder of your user profile or the folder where you want to install the agent.
 
 1. Run the following command to extract the content of the downloaded agent installer files:
 
@@ -118,13 +115,11 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-3.232.0.zip", "$PWD")
    ```
 
-   > [!NOTE]
-   > If you downloaded the agent to a different location (or the downloaded version differs), adjust the above command accordingly.
+   > **Note**: If you downloaded the agent to a different location (or the downloaded version differs), adjust the above command accordingly.
 
 #### Task 4: Create a PAT token
 
-> [!NOTE]
-> Before configuring the agent, you need to create a PAT token (unless you have an existing one). To create a PAT token, follow the steps below:
+> **Note**: Before configuring the agent, you need to create a PAT token (unless you have an existing one). To create a PAT token, follow the steps below:
 
 1. Within the Remote Desktop session to the Azure VM, open another browser window, navigate to the Azure DevOps portal at `https://dev.azure.com`, and access your organization.
 
@@ -159,7 +154,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 #### Task 5: Configure the agent
 
-1. Within the Remote Desktop session to the Azure VM, switch back to the PowerShell window. If necessary, change the current directory to the one into which you extracted the agent installation files earlier in this exercise. 
+1. Within the Remote Desktop session to the Azure VM, switch back to the PowerShell window. If necessary, change the current directory to the one into which you extracted the agent installation files earlier in this exercise.
 
 1. To configure your agent to run unattended, invoke the following command:
 
@@ -167,8 +162,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    .\config.cmd
    ```
 
-   > [!NOTE]
-   > If you want to run the agent interactively, use `.\run.cmd` instead. 
+   > **Note**: If you want to run the agent interactively, use `.\run.cmd` instead.
 
 1. To configure the agent, perform the following actions when prompted:
 
@@ -193,8 +187,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
    ![Screenshot showing the agent status.](media/agent-status.png)
 
-   > [!NOTE]
-   > For more details on Windows agents, see: [Self-hosted Windows agents](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent)
+   > **Note**: For more details on Windows agents, see: [Self-hosted Windows agents](https://learn.microsoft.com/azure/devops/pipelines/agents/windows-agent)
 
    > [!IMPORTANT]
    > In order for the agent to be able to build and deploy Azure resources from the Azure DevOps pipelines (which you will step through in the upcoming labs), you need to install Azure CLI within the operating system of the Azure VM that is hosting the agent.
@@ -260,8 +253,7 @@ In this exercise, you will perform post-lab cleanup of some of the Azure DevOps 
 
 #### Task 1: Stop and deallocate the Azure VM
 
-> [!NOTE]
-> You will be using the Azure VM you created in this lab in the next lab, so rather than deleting it, you will stop and deallocate it to eliminate its compute charges.
+> **Note**: You will be using the Azure VM you created in this lab in the next lab, so rather than deleting it, you will stop and deallocate it to eliminate its compute charges.
 
 1. In the Azure portal, navigate to the page displaying the Azure VM **eshoponweb-vm** you deployed in this lab
 
@@ -269,8 +261,7 @@ In this exercise, you will perform post-lab cleanup of some of the Azure DevOps 
 
 #### Task 2: Remove Azure DevOps resources
 
-> [!NOTE]
-> You will be using the self-hosted agent you created in this lab in the next lab, so rather than deleting it, you will only revoke the Personal Access Token used to configure it. This will not prevent it from running later.
+> **Note**: You will be using the self-hosted agent you created in this lab in the next lab, so rather than deleting it, you will only revoke the Personal Access Token used to configure it. This will not prevent it from running later.
 
 1. In the Azure DevOps portal, select **User settings** from the right-side top menu (directly to the left of your user's avatar icon).
 

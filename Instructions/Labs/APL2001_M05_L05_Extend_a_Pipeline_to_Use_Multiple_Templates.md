@@ -103,8 +103,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Select **Commit**, in the commit comment text box, enter `[skip ci]`, and then select **Commit**.
 
-   > [!NOTE]
-   > By adding the `[skip ci]` comment to the commit, you will prevent automatic pipeline execution, which, at this point, runs by default following every change to the repo. 
+   > **Note**: By adding the `[skip ci]` comment to the commit, you will prevent automatic pipeline execution, which, at this point, runs by default following every change to the repo. 
 
 #### Task 3: Prepare the pipeline to use templates
 
@@ -210,8 +209,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Once the pipeline reaches the **Deploy** stage in the **Test** environment, open the pipeline and note the message "This pipeline needs permission to access a resource before this run can continue Test". Select **View** and then select **Permit** to allow the pipeline to run.
 
-   > [!NOTE]
-   > If any jobs in the Deploy stage fail, navigate to the pipeline run page and select **Rerun failed jobs***.
+   > **Note**: If any jobs in the Deploy stage fail, navigate to the pipeline run page and select **Rerun failed jobs***.
 
 1. Once the pipeline reaches the **Deploy** stage in the **Production** environment, open the pipeline and note the message "This pipeline needs permission to access a resource before this run can continue Production". Select **View** and then select **Permit** to allow the pipeline to run.
 
