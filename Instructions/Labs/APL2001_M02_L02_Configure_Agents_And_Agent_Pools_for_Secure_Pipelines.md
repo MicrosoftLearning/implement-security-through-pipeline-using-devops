@@ -53,7 +53,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    | **Subscription** drop-down list | Select your Azure subscription. |
    | **Resource group** section | Create a new resource group named **rg-eshoponweb-agentpool**. |
    | **Virtual machine name** text box | Enter name of your preference, for example, **eshoponweb-vm**. |
-   | **Region** drop-down list | Select the same Azure region you used earlier in this lab. |
+   | **Region** drop-down list | You can choose your closest [azure](https://azure.microsoft.com/explore/global-infrastructure/geographies) region. For example, “eastus”, “eastasia”, “westus”, etc. |
    | **Availability options** drop-down list | Select **No infrastructure redundancy required**. |
    | **Security type** drop-down list | Select with the **Trusted launch virtual machines** option. |
    | **Image** drop-down list | Select the **Windows Server 2022 Datacenter: Azure Edition - x64 Gen2** image. |
@@ -71,13 +71,17 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 1. In the Azure portal, navigate to the page displaying configuration of the newly created Azure VM.
 
-1. On the Azure VM page, select **Connect**, in the drop-down menu, select **Connect**, then select **Download RDP file**, and use the downloaded RDP file to establish a Remote Desktop session to the operating system running in the Azure VM.
+1. On the Azure VM page, select **Connect**, in the drop-down menu, select **Connect**, then select **Download RDP file**.
+
+1. Use the downloaded RDP file to establish a Remote Desktop session to the operating system running in the Azure VM.
 
 #### Task 2: Create an agent pool
 
 1. In the Remote Desktop session to the Azure VM, start Microsoft Edge web browser.
 
-1. In the web browser, navigate to the Azure DevOps portal at `https://dev.azure.com` and sign in to access your organization.
+1. In the web browser, navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and sign in to access your organization.
+
+   > **Note**: If it is your first time accessing the Azure DevOps portal, you may need to create your profile.
 
 1. Open the **eShopOnWeb** project, and select **Project settings** from the left-side bottom menu.
 
@@ -90,6 +94,8 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 1. Leave the **Grant access permission to all pipelines** option unchecked.
 
    ![Screenshot showing add agent pool options with self-hosted type.](media/create-new-agent-pool-self-hosted-agent.png)
+
+   > **Note**: Granting access permission to all pipelines is not recommended for production environments. It is only used in this lab to simplify the configuration of the pipeline.
 
 1. Select **Create** button to create the agent pool.
 
@@ -107,12 +113,12 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    mkdir agent ; cd agent        
    ```
 
-   > **Note**: Make sure you are in the root folder of your user profile or the folder where you want to install the agent.
+   > **Note**: Make sure you are in the folder where you want to install the agent, for example, C:\agent.
 
 1. Run the following command to extract the content of the downloaded agent installer files:
 
    ```powershell
-   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-3.232.0.zip", "$PWD")
+   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-3.245.0.zip", "$PWD")
    ```
 
    > **Note**: If you downloaded the agent to a different location (or the downloaded version differs), adjust the above command accordingly.
@@ -121,7 +127,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 > **Note**: Before configuring the agent, you need to create a PAT token (unless you have an existing one). To create a PAT token, follow the steps below:
 
-1. Within the Remote Desktop session to the Azure VM, open another browser window, navigate to the Azure DevOps portal at `https://dev.azure.com`, and access your organization.
+1. Within the Remote Desktop session to the Azure VM, open another browser window, navigate to the Azure DevOps portal at `https://aex.dev.azure.com`, and access your organization and project.
 
 1. Select **User settings** from the right-side top menu (directly to the left of your user's avatar icon).
 
@@ -183,6 +189,12 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
    ![Screenshot showing the agent configuration.](media/agent-configuration.png)
 
+   > **Note**: The agent configuration process will take a few minutes to complete. Once it is done, you will see a message indicating that the agent is running as a service.
+
+   > [!IMPORTANT] If you see an error message indicating that the agent is not running, you may need to start the service manually. To do this, open the **Services** applet in the Windows Control Panel, locate the service named **Azure DevOps Agent (eShopOnWebSelfAgent)**, and start it.
+
+   > [!IMPORTANT] If your agent fails to start, you may need to choose a different folder for the agent work directory. To do this, re-run the agent configuration script and choose a different folder.
+
 1. Check the agent status by switching to the web browser displaying the Azure DevOps portal, navigating to the agent pool and clicking on the **Agents** tab. You should see the new agent in the list.
 
    ![Screenshot showing the agent status.](media/agent-status.png)
@@ -192,13 +204,16 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
    > [!IMPORTANT]
    > In order for the agent to be able to build and deploy Azure resources from the Azure DevOps pipelines (which you will step through in the upcoming labs), you need to install Azure CLI within the operating system of the Azure VM that is hosting the agent.
 
-1. Start a web browser and navigate to the page [Install Azure CLI on Windows](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update).
+1. Start a web browser and navigate to the page [Install Azure CLI on Windows](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update).
 
-1. Download and install Azure CLI. 
+1. Download and install Azure CLI.
 
-1. In the web browser navigate to the page Microsoft .NET 7.0 SDK installer page at `https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-7.0.404-windows-x64-installer`.
+1. In the web browser navigate to the page Microsoft .NET 8.0 SDK installer page at `https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.403-windows-x64-installer`.
 
-1. Download and install Microsoft .NET 7.0 SDK.
+   > [!IMPORTANT]
+   > You need to install the .NET 8.0 SDK (or higher) on the Azure VM that is hosting the agent. This is required to build the eShopOnWeb application in the upcoming labs. Any other tools or SDKs required for the application build should also be installed on the Azure VM.
+
+1. Download and install Microsoft .NET 8.0 SDK.
 
 ### Exercise 2: Create and configure agent pool security
 
@@ -206,7 +221,7 @@ In this exercise, you will configure security for the agent pool.
 
 #### Task 1: Create a new security group
 
-1. Within the Remote Desktop session to the Azure VM, in the web browser displaying the Azure DevOps portal, in the **Project settings** pane, in the **General** section, select **Permissions **.
+1. Within the Remote Desktop session to the Azure VM, in the web browser displaying the Azure DevOps portal, in the **Project settings** pane, in the **General** section, select **Permissions**.
 
 1. Select the **New Group** button.
 
@@ -245,33 +260,12 @@ In this task, you will manage permissions for the agent pool.
 
    ![Screenshot showing the agent pool security configuration.](media/agent-pool-security.png)
 
-You are now ready to securely use the agent pool in your pipelines. For more details on agent pools, see: [Agent pools](https://learn.microsoft.com/azure/devops/pipelines/agents/pools-queues).
+You are now ready to securely use the agent pool in your pipelines. You can use the new group to add users and manage permissions for the agent pool. You can reconfigure the installed self-hosted agent using the new group to ensure that the agent has the necessary permissions to run the pipelines and no more. For example, you can add a user to the group and configure the agent to run as that user.
 
-### Exercise 3: Perform cleanup of Azure and Azure DevOps resources
+For more details on agent pools, see: [Agent pools](https://learn.microsoft.com/azure/devops/pipelines/agents/pools-queues).
 
-In this exercise, you will perform post-lab cleanup of some of the Azure DevOps resources created in this lab.
-
-#### Task 1: Stop and deallocate the Azure VM
-
-> **Note**: You will be using the Azure VM you created in this lab in the next lab, so rather than deleting it, you will stop and deallocate it to eliminate its compute charges.
-
-1. In the Azure portal, navigate to the page displaying the Azure VM **eshoponweb-vm** you deployed in this lab
-
-1. On the **eshoponweb-vm** Azure VM page, in the toolbar, select **Stop** to stop and deallocate it.
-
-#### Task 2: Remove Azure DevOps resources
-
-> **Note**: You will be using the self-hosted agent you created in this lab in the next lab, so rather than deleting it, you will only revoke the Personal Access Token used to configure it. This will not prevent it from running later.
-
-1. In the Azure DevOps portal, select **User settings** from the right-side top menu (directly to the left of your user's avatar icon).
-
-1. Select the **Personal access tokens** menu item.
-
-   ![Screenshot showing the personal access tokens menu.](media/personal-access-token-menu.png)
-
-1. Select the **eShopOnWebToken** entry. 
-
-1. Select **Revoke** and, when prompted to confirm, select **Revoke** again.
+> [!IMPORTANT]
+> Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
 
 ## Review
 

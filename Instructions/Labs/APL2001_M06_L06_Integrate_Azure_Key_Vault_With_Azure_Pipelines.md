@@ -241,6 +241,9 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
 
+> [!IMPORTANT]
+> Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
+
 ## Review
 
 In this lab, you integrated Azure Key Vault with an Azure DevOps pipeline by using the following steps:

@@ -259,6 +259,9 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
 
+> [!IMPORTANT]
+> Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
+
 ## Review
 
 In this lab, you learned how to extend a pipeline into multiple templates by using Azure DevOps. This lab covered fundamental concepts and best practices for creating a multi-stage pipeline, creating a variables template, a job template, and a stage template.

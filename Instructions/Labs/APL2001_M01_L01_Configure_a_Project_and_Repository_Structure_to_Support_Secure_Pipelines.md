@@ -228,6 +228,9 @@ In this task, you will move the YAML templates to a separate repository and proj
 
 Now you have the YAML file in a separate repository and project. You can reuse this file in other pipelines in scenarios where you need to deploy the same resources. Also, your operations team can control the resource group, location, security and where the resources are deployed and other information by modifying values in the YAML file and you don't need to make any changes to your pipeline definition.
 
+> [!IMPORTANT]
+> Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
+
 ## Review
 
 In this lab, you learned how to configure and organize a secure project and repository structure in Azure DevOps. By managing permissions effectively, you can ensure that the right users have access to the resources they need while maintaining the security and integrity of your DevOps pipelines and processes.

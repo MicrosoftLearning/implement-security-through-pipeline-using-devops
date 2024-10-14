@@ -249,6 +249,9 @@ In this exercise, you will perform post-lab cleanup of the Azure and Azure DevOp
 
 1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
 
+> [!IMPORTANT]
+> Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
+
 ## Review
 
 In this lab, you learned how to use a managed identity assigned to self-hosted agents in Azure DevOps YAML pipelines.

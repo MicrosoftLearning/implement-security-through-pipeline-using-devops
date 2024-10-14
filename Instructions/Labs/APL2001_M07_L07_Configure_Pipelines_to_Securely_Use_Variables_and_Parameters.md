@@ -209,6 +209,9 @@ In this task, you will validate the mandatory variables before the pipeline exec
 
 1. Add the variable group and the buildConfiguration variable back to the variable group and run the pipeline again. It should run successfully.
 
+> [!IMPORTANT]
+> Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
+
 ## Review
 
 In this lab you learned how to configure pipelines to securely use variables and parameters, and how to validate mandatory variables and parameters.
