@@ -172,7 +172,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 1. To configure the agent, perform the following actions when prompted:
 
-   - Enter the URL of the Azure DevOps organization (**server URL**) in the format `https://dev.azure.com/`{your organization name}.
+   - Enter the URL of the Azure DevOps organization (**server URL**) in the format `https://aex.dev.azure.com`{your organization name}.
    - Accept the default authentication type (**PAT**).
    - Enter the value of the PAT token you created in the previous step.
    - Enter the agent pool name **eShopOnWebSelfPool** you created earlier in this exercise.
@@ -207,6 +207,14 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 1. Start a web browser and navigate to the page [Install Azure CLI on Windows](https://learn.microsoft.com/cli/azure/install-azure-cli-windows?tabs=azure-cli#install-or-update).
 
 1. Download and install Azure CLI.
+
+1. (Optional) If you prefer, run the following PowerShell command to install Azure CLI:
+
+   ```powershell
+   $ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'; Remove-Item .\AzureCLI.msi
+   ```
+
+   > **Note**: If you are using a different version of the Azure CLI, you may need to adjust the above command accordingly.
 
 1. In the web browser navigate to the page Microsoft .NET 8.0 SDK installer page at `https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-8.0.403-windows-x64-installer`.
 

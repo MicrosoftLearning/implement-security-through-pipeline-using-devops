@@ -27,7 +27,7 @@ In this exercise, you will import and run the CI pipeline for the eShopOnWeb app
 
 > **Note**: Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Open the **eShopOnWeb** project.
 
@@ -242,7 +242,7 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 #### Task 2: Remove Azure DevOps pipelines
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Open the **eShopOnWeb** project.
 

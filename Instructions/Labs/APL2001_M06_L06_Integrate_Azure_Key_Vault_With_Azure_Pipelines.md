@@ -40,7 +40,7 @@ In this exercise, you'll setup a CI YAML pipeline for:
 
 In this task, you will import an existing CI YAML pipeline definition, modify it, and run it. The pipeline will create an Azure Container Registry (ACR) and build/publish the eShopOnWeb container images.
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Navigate to the Azure DevOps **eShopOnWeb** project. Go to **Pipelines > Pipelines** and select **Create Pipeline**.
 
@@ -152,7 +152,7 @@ For this lab scenario, we will have an Azure Container Instance (ACI) that pull 
 
 In this task, you will create a Variable Group in Azure DevOps that will retrieve the ACR password secret from Key Vault using the Service Connection (Service Principal)
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Navigate to the Azure DevOps project **eShopOnWeb**.
 
@@ -209,7 +209,7 @@ In this exercise, you will remove Azure and Azure DevOps resources created in th
 
 #### Task 2: Remove Azure DevOps pipelines
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Open the **eShopOnWeb** project.
 

@@ -24,7 +24,7 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 Start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Open the eShopOnWeb project.
 

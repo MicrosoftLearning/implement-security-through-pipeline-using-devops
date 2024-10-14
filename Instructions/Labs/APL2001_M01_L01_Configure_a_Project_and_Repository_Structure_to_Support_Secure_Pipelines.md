@@ -24,7 +24,7 @@ In this exercise, you will configure a secure project structure by creating a ne
 
 #### Task 1: Create a new team project
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Open your **organization settings** at the bottom left corner of the portal and then **Projects** under the General section.
 
@@ -79,7 +79,9 @@ Now only the user you assigned permissions and the administrators can access the
 
 #### Task 1: Import and run the CI pipeline
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-ci.yml).
+
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Open the **eShopOnWeb** project in Azure DevOps.
 
@@ -93,7 +95,7 @@ Now only the user you assigned permissions and the administrators can access the
 
 1. Select **Existing Azure Pipelines YAML File**.
 
-1. Select the **/.ado/eshoponweb-ci.yml** file then select **Continue**.
+1. Select the **/.ado/eshoponweb-ci.yml** file then click on **Continue**.
 
 1. Select the **Run** button to run the pipeline.
 
@@ -104,6 +106,8 @@ Now only the user you assigned permissions and the administrators can access the
 1. Name it **eshoponweb-ci** and select **Save**.
 
 #### Task 2: Import and run the CD pipeline
+
+> **Note**: In this task, you will import and run the CD pipeline named [eshoponweb-cd-webapp-code.yml](https://github.com/MicrosoftLearning/eShopOnWeb/blob/main/.ado/eshoponweb-cd-webapp-code.yml).
 
 1. Go to **Pipelines > Pipelines**.
 
@@ -117,18 +121,30 @@ Now only the user you assigned permissions and the administrators can access the
 
 1. Select the **/.ado/eshoponweb-cd-webapp-code.yml** file then select **Continue**.
 
-1. In the YAML pipeline definition under the variables section, customize:
+1. In the YAML pipeline definition, set the variables section to:
 
-   - **Resource Group** named as **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb-secure**.
-   - **Location** with the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
+   ```yaml
+   variables:
+     resource-group: 'AZ400-EWebShop-NAME'
+     location: 'southcentralus'
+     templateFile: '.azure/bicep/webapp.bicep'
+     subscriptionid: 'YOUR-SUBSCRIPTION-ID'
+     azureserviceconnection: 'azure subs'
+     webappname: 'az400-webapp-NAME'
+   ```
+
+1. In the variables section, replace the placeholders with the following values:
+
+   - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb**.
+   - **location** with the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
    - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
-   - **az400-webapp-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-secure** followed by a random number.
+   - **Resource Group** named as **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb-secure**.
 
 1. Select **Save and Run** and choose to commit directly to the main branch.
 
 1. Select **Save and Run** again.
 
-1. Open the pipeline run. If you see the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", select **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
+1. Open the pipeline run. If you receive the message "This pipeline needs permission to access a resource before this run can continue to Deploy to WebApp", select **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure App Service resource.
 
    ![Screenshot of the permit access from the YAML pipeline.](media/pipeline-deploy-permit-resource.png)
 
@@ -137,11 +153,13 @@ Now only the user you assigned permissions and the administrators can access the
    - **AzureResourceManagerTemplateDeployment**: Deploys the Azure App Service web app using bicep template.
    - **AzureRmWebAppDeployment**: Publishes the Web site to the Azure App Service web app.
 
-1. Your pipeline will take a name based on the project name. Let's rename it for identifying the pipeline better.
+   > **Note**: In case the deployment fails, navigate to the pipeline run page and select **Rerun failed jobs** to invoke another pipeline run.
+
+   > **Note**: Your pipeline will take a name based on the project name. Let's **rename** it for identifying the pipeline better.
 
 1. Go to **Pipelines > Pipelines** and select the recently created pipeline. Select the ellipsis and then select **Rename/move** option.
 
-1. Name it **eshoponweb-cd-webapp-code** and select **Save**.
+1. Name it **eshoponweb-cd-webapp-code** and click on **Save**.
 
 Now you should have two pipelines running in your eShopOnWeb project.
 
