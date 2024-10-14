@@ -158,7 +158,7 @@ In this exercise, you will use a managed identity to configure a new service con
 
 1. Set the scope level to **Subscription** and provide the information from the Azure portal, including the **Subscription Id**, **Subscription name**, and **Tenant Id**.
 
-    > **Note**: You can find the **Subscription Id** in the Azure portal by navigating to the **Subscriptions** blade and selecting the subscription you are using. The **Tenant Id** can be found in the **Microsoft Entra ID** blade.
+   > **Note**: You can find the **Subscription Id** in the Azure portal by navigating to the **Subscriptions** blade and selecting the subscription you are using. The **Tenant Id** can be found in the **Microsoft Entra ID** blade.
 
 1. In **Service connection name** type **azure subs managed**. This name will be referenced in YAML pipelines when accessing your Azure subscription.
 
@@ -168,7 +168,7 @@ In this exercise, you will use a managed identity to configure a new service con
 
 1. Switch to the browser window displaying the **eShopSecurity** project in the Azure DevOps portal.
 
-    > **Note**: **eShopSecurity** is the name of the project you created in the [first lab](APL2001_M01_L01_Configure_a_Project_and_Repository_Structure_to_Support_Secure_Pipelines.md).
+   > **Note**: **eShopSecurity** is the name of the project you created in the [first lab](APL2001_M01_L01_Configure_a_Project_and_Repository_Structure_to_Support_Secure_Pipelines.md).
 
 1. On the **eShopSecurity** project page, navigate to **Repos > Files**.
 
@@ -209,13 +209,13 @@ In this exercise, you will use a managed identity to configure a new service con
 
 1. Click on the pipeline run and **Cancel**. Click on the **Yes** button to confirm.
 
-    > **Note**: You will run the pipeline enable system diagnostics to see the logs of the pipeline.
+   > **Note**: You will run the pipeline enable system diagnostics to see the logs of the pipeline.
 
 1. Click to **Run new** pipeline, check the "Enable system diagnostics" checkbox and click on the **Run** button.
 
 1. Open the pipeline run.
 
-    > **Note**: If you see the message "This pipeline needs permission to access 2 resources before this run can continue to Deploy to WebApp", select on **View**, **Permit** and **Permit** again for all resources. This is needed to allow the pipeline to use the service connection and the self-hosted agent pool.
+   > **Note**: If you see the message "This pipeline needs permission to access 2 resources before this run can continue to Deploy to WebApp", select on **View**, **Permit** and **Permit** again for all resources. This is needed to allow the pipeline to use the service connection and the self-hosted agent pool.
 
 1. The deployment may take a few minutes to complete, wait for the pipeline to execute.
 
@@ -229,8 +229,8 @@ In this exercise, you will use a managed identity to configure a new service con
 
    > **Note**: After the pipeline finishes, you can use the Azure portal to verify the state of the App Service web app resources.
 
-> [!IMPORTANT]
-> Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
+   > [!IMPORTANT]
+   > Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
 
 ## Review
 
