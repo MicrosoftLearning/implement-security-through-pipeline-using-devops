@@ -217,48 +217,6 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
    ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/multi-stage-completed.png)
 
-### Exercise 2: Perform cleanup of Azure and Azure DevOps resources
-
-In this exercise, you will remove Azure and Azure DevOps resources created in this lab.
-
-#### Task 1: Remove Azure resources
-
-1. In the Azure portal, navigate to the resource group **rg-eshoponweb-multi** containing deployed resources and select **Delete resource group** to delete all resources created in this lab.
-
-#### Task 2: Remove Azure DevOps pipelines
-
-1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
-
-1. Open the **eShopOnWeb** project.
-
-1. Go to **Pipelines > Pipelines**.
-
-1. Go to **Pipelines > Pipelines** and delete the existing pipelines.
-
-#### Task 3: Recreate the Azure DevOps repo
-
-1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
-
-1. In the **Project settings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
-
-1. In the **All Repositories** pane, hover over the far right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
-
-1. In the **Rename the eShopOnWeb repository** window, in the **Repository name** text box, enter **eShopOnWeb_old** and select **Rename**.
-
-1. Back in the **All Repositories** pane, select **+ Create**.
-
-1. In the **Create a repository** pane, in the **Repository name** text box, enter **eShopOnWeb**, uncheck the **Add a README** checkbox, and select **Create**.
-
-1. Back in the **All Repositories** pane, hover over the far right end of the **eShopOnWeb_old** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Delete**.  
-
-1. In the **Delete eShopOnWeb_old repository** window, enter **eShopOnWeb_old** and select **Delete**.
-
-1. In the left navigational menu of the Azure DevOps portal, select **Repos**.
-
-1. In the **eShopOnWeb is empty. Add some code!** pane, select **Import a repository**.
-
-1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
-
 > [!IMPORTANT]
 > Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
 
