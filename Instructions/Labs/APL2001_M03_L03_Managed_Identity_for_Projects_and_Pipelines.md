@@ -30,7 +30,7 @@ Complete the labs:
 
 ### Exercise 0: (skip if done) Import and run CI/CD Pipelines
 
-In this exercise, you will import and run the CI pipeline, configure the service connection with your Azure Subscription and then import and run the CD pipeline.
+In this exercise, you will import and run the CI/CD pipelines in the Azure DevOps project.
 
 #### Task 1: (skip if done) Import and run the CI pipeline
 
@@ -120,7 +120,7 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
 In this exercise, you will use a managed identity to configure a new service connection and incorporate it the CI/CD pipelines.
 
-#### Task 1: Configure a self-hosted agent to use managed identity and update the CI pipeline
+#### Task 1: Set the managed identity in the Azure subscription
 
 1. In your browser, open the Azure Portal at `https://portal.azure.com`.
 
@@ -164,7 +164,41 @@ In this exercise, you will use a managed identity to configure a new service con
 
 1. Select **Save**.
 
-#### Task 3: Update the CD pipeline
+#### Task 3: Update the CI pipeline to use the self-hosted agent pool
+
+In this task, you will update the CI pipeline to use the self-hosted agent pool.
+
+1. Switch to the browser window displaying the **eShopOnWeb** project in the Azure DevOps portal.
+
+1. On the **eShopOnWeb** project page, navigate to **Pipelines > Pipelines**.
+
+1. Select the **eshoponweb-ci** pipeline and select **Edit**.
+
+1. In the **jobs** subsection of the **stages** section, update the value of the **pool** property to reference the self-hosted agent pool **eShopOnWebSelfPool** you configured in this task, so it has the following format:
+
+   ```yaml
+     jobs:
+     - job: Build
+       pool: eShopOnWebSelfPool
+       steps:
+       - task: DotNetCoreCLI@2
+   ```
+
+1. Select **Validate and save** and choose to commit directly to the main branch.
+
+1. Select **Save** again.
+
+1. Select to **Run** the pipeline, and then click on **Run** again.
+
+1. Verify that the build job is running on the **eShopOnWebSelfAgent** agent and it completes successfully.
+
+    > **Note**: If you see the message **The agent request is not running because all potential agents are running other requests. Current position in queue: 1**, you can wait for the agent to become available or you can stop the agent job that is running. It may be the CD pipeline that is running automatically.
+
+    > **Note**: If you see the message "This pipeline needs permission to access a resource before this run can continue to Build .Net Core Solution" in the pipeline run page, select **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to use the self-hosted agent pool.
+
+#### Task 4: Update the CD pipeline to use the self-hosted agent pool and the managed identity-based service connection
+
+In this task, you will update the CD pipeline to use the managed identity-based service connection and the self-hosted agent pool.
 
 1. Switch to the browser window displaying the **eShopSecurity** project in the Azure DevOps portal.
 
