@@ -8,7 +8,7 @@ lab:
 
 In this lab, you'll set up a secure environment that adheres to the principle of least privilege, ensuring that members can access only the resources they need to perform their tasks and minimize potential security risks. This involves configuring and validating user and pipeline permissions and setting up approval and branch checks in Azure DevOps.
 
-These exercises take approximately **30** minutes.
+These exercises take approximately **20** minutes.
 
 ## Before you start
 
