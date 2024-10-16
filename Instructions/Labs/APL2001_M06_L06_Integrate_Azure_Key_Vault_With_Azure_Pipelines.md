@@ -8,7 +8,13 @@ lab:
 
 Azure Key Vault provides secure storage and management of sensitive data, such as keys, passwords, and certificates. Azure Key Vault includes support for hardware security modules and a range of encryption algorithms and key lengths. By using Azure Key Vault, you can minimize the possibility of disclosing sensitive data through source code, a common mistake developers make. Access to Azure Key Vault requires proper authentication and authorization, supporting fine-grained permissions to its content.
 
-These exercises take approximately **40** minutes.
+In this lab, you will see how you can integrate Azure Key Vault with Azure Pipelines by using the following steps:
+
+- Create an Azure Key vault to store an ACR password as a secret.
+- Configure permissions to allow the service principal to read the secret.
+- Configure the pipeline to retrieve the password from the Azure Key vault and pass it on to subsequent tasks.
+
+These exercises take approximately **30** minutes.
 
 ## Before you start
 
@@ -16,18 +22,12 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 - Follow the steps to [validate your lab environment](APL2001_M00_Validate_Lab_Environment.md).
 
-In this lab, you will leverage the service principal created when validating your lab environment in order to:
+In this lab, you will:
 
 - Deploy resources on your Azure subscription.
 - Obtain read access to Azure Key Vault secrets.
 
 ## Instructions
-
-In this lab, you will see how you can integrate Azure Key Vault with Azure Pipelines by using the following steps:
-
-- Create an Azure Key vault to store an ACR password as a secret.
-- Configure permissions to allow the service principal to read the secret.
-- Configure the pipeline to retrieve the password from the Azure Key vault and pass it on to subsequent tasks.
 
 ### Exercise 1: Setup CI pipeline to build eShopOnWeb container
 
@@ -42,7 +42,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
 1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
-1. Navigate to the Azure DevOps **eShopOnWeb** project. Go to **Pipelines > Pipelines** and select **Create Pipeline**.
+1. Navigate to the Azure DevOps **eShopOnWeb** project. Go to **Pipelines > Pipelines** and select **New pipeline**.
 
 1. On the **Where is your code?** page, select **Azure Repos Git (YAML)** and select the **eShopOnWeb** repository.
 
@@ -52,9 +52,9 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
 1. In the YAML pipeline definition, in the variables section, perform the following actions:
 
-   - replace **AZ400-EWebShop-NAME** by **rg-eshoponweb-secure**
-   - set the value of the location variable to the name of an Azure region you've been using in the previous labs of this course (for example **southcentralus**)
-   - replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription Id
+   - Replace **AZ400-EWebShop-NAME** by **rg-eshoponweb-secure**
+   - Set the value of the location variable to the name of an Azure region you've been using in the previous labs of this course (for example **centralus**)
+   - Replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription Id
 
 1. Select **Save and Run** and choose to commit directly to the main branch.
 
@@ -62,7 +62,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
    > **Note**: If you choose to create a new branch, you will need to create a pull request to merge the changes to the main branch.
 
-1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Docker Compose to WebApp", select **View**, **Permit** and **Permit** again. This is needed to allow the pipeline to create the Azure resources.
+1. Open the pipeline. If you see the message "This pipeline needs permission to access a resource before this run can continue to Create ACR for images", select **View**, **Permit** and **Permit** again. The pipeline will be run in a few minutes.
 
    ![Screenshot of the permit access from the YAML pipeline.](media/pipeline-permit-resource.png)
 
@@ -92,7 +92,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
    ![Screenshot of the container images in ACR from the Azure Portal.](media/azure-container-registry.png)
 
-1. Select **Access Keys**, enable the **Admin user** checkbox, and copy the **password** value, which will be used in the following task, as you will add it as a secret to Azure Key Vault.
+1. On the **Settings**, select **Access Keys**, enable the **Admin user** checkbox, and copy the **username** and **Registry name** values, which will be used in the following task, as you will add it as a secret to Azure Key Vault.
 
    ![Screenshot of the ACR password from the Access Keys setting.](media/acr-password.png)
 
@@ -104,9 +104,9 @@ In this task, you will create an Azure Key vault by using the Azure portal.
 
 For this lab scenario, we will have an Azure Container Instance (ACI) that pull and runs a container image stored in Azure Container Registry (ACR). We intend to store the password for the ACR as a secret in the Azure Key vault.
 
-1. In the Azure portal, in the **Search resources, services, and docs** text box, type **Key vault** and press the **Enter** key.
+1. In the Azure portal, in the **Search resources, services, and docs** text box, type **Key vaults** and press the **Enter** key.
 
-1. Select **Key vault** blade, click on **Create > Key Vault**.
+1. Select **Key vaults** blade, click on **Create key vault**.
 
 1. On the **Basics** tab of the **Create key vault** blade, specify the following settings and click on **Next**:
 
@@ -114,20 +114,22 @@ For this lab scenario, we will have an Azure Container Instance (ACI) that pull 
    | --- | --- |
    | Subscription | the name of the Azure subscription you are using in this lab |
    | Resource group | the resource group name **rg-eshoponweb-secure** |
-   | Key vault name | any unique valid name, like **ewebshop-kv-** followed by a random six-digit number |
+   | Key vault name | any unique valid name, like **ewebshop-kv** |
    | Region | the same Azure region you chose earlier in this lab |
    | Pricing tier | **Standard** |
    | Days to retain deleted vaults | **7** |
    | Purge protection | **Disable purge protection** |
 
-1. On the **Access configuration** tab of the **Create key vault** blade, in the **Permission model** section, select **Vault access policy**.
+1. Click on **Next: Access configuration**.
+
+1. Select **Vault access policy** in the **Permission model** section.
 
 1. In the **Access Policies** section, select **+ Create** to setup a new policy.
 
    > **Note**: You need to secure access to your key vaults by allowing only authorized applications and users. To access the data from the vault, you will need to provide read (Get/List) permissions to the previously created service principal that you will be using for authentication in the pipeline.
 
    - On the **Permission** blade, check **Get** and **List** permissions below **Secret Permission**. Select **Next**.
-   - On the **Principal** blade, search for the service principal you created when validating your lab environment, either by using its Id or name. Select **Next** and **Next** again.
+   - On the **Principal** blade, search and select your user, select **Next** and **Next** again.
    - On the **Review + create** blade, select **Create**
 
 1. Back on the **Create a Key Vault** blade, select **Review + Create > Create**
@@ -148,6 +150,8 @@ For this lab scenario, we will have an Azure Container Instance (ACI) that pull 
    | Name | **acr-secret** |
    | Value | ACR access password copied in previous task |
 
+1. Wait for the secret to be created.
+
 #### Task 3: Create a Variable Group connected to Azure Key Vault
 
 In this task, you will create a Variable Group in Azure DevOps that will retrieve the ACR password secret from Key Vault using the Service Connection (Service Principal)
@@ -167,6 +171,8 @@ In this task, you will create a Variable Group in Azure DevOps that will retriev
    | Azure subscription | **Available Azure service connection > azure subs** |
    | Key vault name | the name you assigned to the Azure Key vault in the previous task |
 
+1. Click on the **Authorize** button.
+
 1. Under **Variables**, select **+ Add** and select the **acr-secret** secret. Select **OK**.
 
 1. Select **Save**.
@@ -185,9 +191,9 @@ In this task, you will import a CD pipeline, customize it and run it for deployi
 
 1. In the YAML pipeline definition, in the variable section, perform the following actions:
 
-   - Set the value of the location variable to the name of an Azure region you used earlier in this lab
+   - Set the value of the location variable to the name of an Azure region you used earlier in this lab, for example **centralus**.
    - Replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription Id
-   - Replace **az400eshop-NAME** with a globally unique name of the Azure Container instance to be deployed, for example, the string **eshoponweb-lab-docker-** followed by a random six-digit number.
+   - Replace **az400eshop-NAME** with a globally unique name of the Azure Container instance to be deployed, for example, the string **eshoponweb-lab-docker** followed by a random six-digit number.
    - Replace **YOUR-ACR** and **ACR-USERNAME** with your ACR registry name you recorded earlier in this lab.
    - Replace **AZ400-EWebShop-NAME** with the name of the resource group you created earlier in this lab (**rg-eshoponweb-secure**).
 
@@ -206,6 +212,6 @@ In this task, you will import a CD pipeline, customize it and run it for deployi
 
 In this lab, you integrated Azure Key Vault with an Azure DevOps pipeline by using the following steps:
 
-- Used an Azure service principal to provide access to Azure Key vault's secrets and to provide access to Azure resources from Azure DevOps.
+- Provided access to Azure Key vault's secrets and Azure resources from Azure DevOps.
 - Ran two YAML pipelines imported from a Git repository.
 - Configured pipeline to retrieve the password from the Azure Key vault using a variable group and re-used it on subsequent tasks.
