@@ -125,20 +125,21 @@ Let's start by importing the CI pipeline named [eshoponweb-ci.yml](https://githu
 
    ```yaml
    variables:
-     resource-group: 'AZ400-EWebShop-NAME'
-     location: 'southcentralus'
-     templateFile: '.azure/bicep/webapp.bicep'
+     resource-group: 'YOUR-RESOURCE-GROUP-NAME'
+     location: 'centralus'
+     templateFile: 'infra/webapp.bicep'
      subscriptionid: 'YOUR-SUBSCRIPTION-ID'
-     azureserviceconnection: 'azure subs'
-     webappname: 'az400-webapp-NAME'
+     azureserviceconnection: 'YOUR-AZURE-SERVICE-CONNECTION-NAME'
+     webappname: 'YOUR-WEB-APP-NAME'
    ```
 
-1. In the variables section, replace the placeholders with the following values:
+1. Replace the values of the variables with the values of your environment:
 
-   - **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb**.
-   - **location** with the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
-   - **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
-   - **Resource Group** named as **AZ400-EWebShop-NAME** with the name of your preference, for example, **rg-eshoponweb-secure**.
+   - Replace **YOUR-RESOURCE-GROUP-NAME** with the name of the resource group you want to use in this lab, for example, **rg-eshoponweb-secure**.
+   - Set the value of the **location** variable to the name of the Azure region you want to deploy your resources, for example, **centralus**.
+   - Replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
+   - Replace **YOUR-AZURE-SERVICE-CONNECTION-NAME** with **azure subs**
+   - Replace **YOUR-WEB-APP-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-multi-123456** followed by a random six-digit number.
 
 1. Select **Save and Run** and choose to commit directly to the main branch.
 

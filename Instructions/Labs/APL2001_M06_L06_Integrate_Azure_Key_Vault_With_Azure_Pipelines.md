@@ -52,7 +52,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
 1. In the YAML pipeline definition, in the variables section, perform the following actions:
 
-   - replace **AZ400-EWebShop-NAME** by **rg-eshoponweb-docker**
+   - replace **AZ400-EWebShop-NAME** by **rg-eshoponweb-secure**
    - set the value of the location variable to the name of an Azure region you've been using in the previous labs of this course (for example **southcentralus**)
    - replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription Id
 
@@ -74,7 +74,7 @@ In this task, you will import an existing CI YAML pipeline definition, modify it
 
 1. Your pipeline will by default have the name based on the project name. Rename it to **eshoponweb-ci-dockercompose** in order to identify the pipeline better.
 
-1. Once the pipeline run completes, use the web browser to navigate to the Azure Portal, open the **rg-eshoponweb-docker** resource group, and select the entry representing the Azure Container Registry (ACR) deployed by the pipeline.
+1. Once the pipeline run completes, use the web browser to navigate to the Azure Portal, open the **rg-eshoponweb-secure** resource group, and select the entry representing the Azure Container Registry (ACR) deployed by the pipeline.
 
    > **Note**: In order to view repositories in the registry, you need to grant to your user account a role that provides such access. You will use for this purpose the AcrPull role.
 
@@ -113,14 +113,14 @@ For this lab scenario, we will have an Azure Container Instance (ACI) that pull 
    | Setting | Value |
    | --- | --- |
    | Subscription | the name of the Azure subscription you are using in this lab |
-   | Resource group | the resource group name **rg-eshoponweb-docker** |
+   | Resource group | the resource group name **rg-eshoponweb-secure** |
    | Key vault name | any unique valid name, like **ewebshop-kv-** followed by a random six-digit number |
    | Region | the same Azure region you chose earlier in this lab |
    | Pricing tier | **Standard** |
    | Days to retain deleted vaults | **7** |
    | Purge protection | **Disable purge protection** |
 
-1. On the **Access configuration** tab of the **Create key vault** blade, in the **Permission model** section, select **Vault access policy**. 
+1. On the **Access configuration** tab of the **Create key vault** blade, in the **Permission model** section, select **Vault access policy**.
 
 1. In the **Access Policies** section, select **+ Create** to setup a new policy.
 
@@ -185,11 +185,11 @@ In this task, you will import a CD pipeline, customize it and run it for deployi
 
 1. In the YAML pipeline definition, in the variable section, perform the following actions:
 
-   - set the value of the location variable to the name of an Azure region you used earlier in this lab
-   - replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription Id
-   - replace **az400eshop-NAME** with a globally unique name of the Azure Container instance to be deployed, for example, the string **eshoponweb-lab-docker-** followed by a random six-digit number. 
-   - replace **YOUR-ACR** and **ACR-USERNAME** with your ACR registry name you recorded earlier in this lab.
-   - replace **AZ400-EWebShop-NAME** with the name of the resource group you created earlier in this lab (**rg-eshoponweb-docker**).
+   - Set the value of the location variable to the name of an Azure region you used earlier in this lab
+   - Replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription Id
+   - Replace **az400eshop-NAME** with a globally unique name of the Azure Container instance to be deployed, for example, the string **eshoponweb-lab-docker-** followed by a random six-digit number.
+   - Replace **YOUR-ACR** and **ACR-USERNAME** with your ACR registry name you recorded earlier in this lab.
+   - Replace **AZ400-EWebShop-NAME** with the name of the resource group you created earlier in this lab (**rg-eshoponweb-secure**).
 
 1. Select **Save and Run** and then select **Save and Run** again.
 
