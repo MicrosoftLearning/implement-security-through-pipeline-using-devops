@@ -167,39 +167,26 @@ In this task, you will validate the mandatory variables before the pipeline exec
 
 1. Go to **Pipelines > Pipelines**.
 
-1. Open **eshoponweb-ci-parameters** pipeline and select **Edit**.
+1. Open **eshoponweb-ci** pipeline and select **Edit**.
 
-1. In the stages section, at its very beginning (following the `stage:` line), add a new stage named **Validate** to validate the mandatory variables before the pipeline executes.
+1. In the steps section, at its very beginning (following the **steps:** line), add a new script task to validate the mandatory variables before the pipeline executes.
 
     ```yaml
-    - stage: Validate
-      displayName: Validate mandatory variables
-      jobs:
-      - job: ValidateVariables
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-        - script: |
-            if [ -z "$(buildConfiguration)" ]; then
-              echo "Error: buildConfiguration variable is not set"
-              exit 1
-            fi
-          displayName: 'Validate Variables'
+    - script: |
+        IF NOT DEFINED buildConfiguration (
+          ECHO Error: buildConfiguration variable is not set
+          EXIT /B 1
+        )
+      displayName: 'Validate Variables'
      ```
 
-    > **Note**: This stage will run a script to validate the buildConfiguration variable. If the variables not set, the script will fail and the pipeline will stop.
+    > **Note**: This is a simple validation to check if the variable is set. If the variables not set, the script will fail and the pipeline will stop. You can add more complex validation to check the value of the variable or if it is set to a specific value.
 
-1. Make the **Build** stage depend on the **Validate** stage by adding `dependsOn: Validate` at the beginning of the **Build** stage:
+1. Click on **Validate and save** to save the changes, then click on **Save**.
 
-    ```yaml
-    - stage: Build
-      displayName: Build .Net Core Solution
-      dependsOn: Validate
-    ```
+1. Open the **eshoponweb-ci** pipeline run. It will run successfully because the buildConfiguration variable is set in the variable group.
 
-1. Save the pipeline and run it. It will run successfully because the buildConfiguration variable is set in the variable group.
-
-1. To test the validation, remove the buildConfiguration variable from the variable group, or delete the variable group, and run the pipeline again. It should fail with the following error:
+1. To test the validation, remove the buildConfiguration variable from the variable group, or rename the variable, and run the pipeline again. It should fail with the following error:
 
     ```yaml
     Error: buildConfiguration variable is not set   
@@ -207,7 +194,7 @@ In this task, you will validate the mandatory variables before the pipeline exec
 
     ![Screenshot of the pipeline run with validation failing.](media/pipeline-validation-fail.png)
 
-1. Add the variable group and the buildConfiguration variable back to the variable group and run the pipeline again. It should run successfully.
+1. Add the variable buildConfiguration variable back to the variable group and run the pipeline again. It should run successfully.
 
 > [!IMPORTANT]
 > Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
