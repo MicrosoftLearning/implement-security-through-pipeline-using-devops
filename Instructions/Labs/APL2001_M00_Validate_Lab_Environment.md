@@ -119,7 +119,7 @@ Next, you will create a service connection in Azure DevOps which will allow you 
 1. Fill in the empty fields using the information:
     - **Subscription**: Select your Azure subscription.
     - **Resource group**: Select the resource group where you want to deploy resources.
-    - **Service connection name**: Type **azure subs**. This name will be referenced in YAML pipelines to access your Azure subscription.
+    - **Service connection name**: Type **`azure subs`**. This name will be referenced in YAML pipelines to access your Azure subscription.
 
 1. Make sure the **Grant access permission to all pipelines** option is unchecked and select **Save**.
 
