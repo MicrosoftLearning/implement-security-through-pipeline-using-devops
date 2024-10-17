@@ -20,15 +20,17 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 ### Exercise 1: Create a multi-stage YAML pipeline
 
+In this exercise, you will create a multi-stage YAML pipeline in Azure DevOps.
+
 #### Task 1: Create a multi-stage main YAML pipeline
 
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
+1. Navigate to the Azure DevOps portal at `https://aex.dev.azure.com` and open your organization.
 
 1. Open the **eShopOnWeb** project.
 
 1. Go to **Pipelines > Pipelines**.
 
-1. Select **Create Pipeline**.
+1. Click on the **New Pipeline** button.
 
 1. Select **Azure Repos Git (Yaml)**.
 
@@ -86,8 +88,8 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
    ```yaml
    variables:
      resource-group: 'YOUR-RESOURCE-GROUP-NAME'
-     location: 'southcentralus' #name of the Azure region you want to deploy your resources
-     templateFile: '.azure/bicep/webapp.bicep'
+     location: 'centralus'
+     templateFile: 'infra/webapp.bicep'
      subscriptionid: 'YOUR-SUBSCRIPTION-ID'
      azureserviceconnection: 'YOUR-AZURE-SERVICE-CONNECTION-NAME'
      webappname: 'YOUR-WEB-APP-NAME'
@@ -95,24 +97,23 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Replace the values of the variables with the values of your environment:
 
-   - replace **YOUR-RESOURCE-GROUP-NAME** with the name of the resource group you want to use in this lab, for example, **rg-eshoponweb-multi**.
-   - set the value of the **location** variable to the name of the Azure region you want to deploy your resources, for example, **southcentralus**.
-   - replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
-   - replace **YOUR-AZURE-SERVICE-CONNECTION-NAME** with **azure subs**
-   - replace **YOUR-WEB-APP-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-multi-** followed by a random six-digit number.  
+   - Replace **YOUR-RESOURCE-GROUP-NAME** with the name of the resource group you want to use in this lab, for example, **rg-eshoponweb-secure**.
+   - Set the value of the **location** variable to the name of the Azure region you want to deploy your resources, for example, **centralus**.
+   - Replace **YOUR-SUBSCRIPTION-ID** with your Azure subscription id.
+   - Replace **YOUR-AZURE-SERVICE-CONNECTION-NAME** with **azure subs**
+   - Replace **YOUR-WEB-APP-NAME** with a globally unique name of the web app to be deployed, for example, the string **eshoponweb-lab-multi-123456** followed by a random six-digit number.  
 
 1. Select **Commit**, in the commit comment text box, enter `[skip ci]`, and then select **Commit**.
 
-   > [!NOTE]
-   > By adding the `[skip ci]` comment to the commit, you will prevent automatic pipeline execution, which, at this point, runs by default following every change to the repo. 
+   > **Note**: By adding the `[skip ci]` comment to the commit, you will prevent automatic pipeline execution, which, at this point, runs by default following every change to the repo. 
 
 #### Task 3: Prepare the pipeline to use templates
 
-1. In the Azure DevOps portal, on the **eShopOnWeb** project page, go to **Repos**. 
+1. In the Azure DevOps portal, on the **eShopOnWeb** project page, go to **Repos**.
 
 1. In the root directory of the repo, select **azure-pipelines.yml** which contains the definition of the **eShopOnWeb-MultiStage-Main** pipeline.
 
-1. Select **Edit**.
+1. Click on the **Edit** button.
 
 1. Replace the content of the **azure-pipelines.yml** file with the following code:
 
@@ -142,6 +143,8 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. In the **Repos** of the **eShopOnWeb** project, select the **.ado** directory and select the **eshoponweb-ci.yml** file.
 
+1. Click on the **Edit** button.
+
 1. Remove everything above the **jobs** section.
 
    ```yaml
@@ -163,30 +166,43 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. In the **Repos** of the **eShopOnWeb** project, select the **.ado** directory and select the **eshoponweb-cd-webapp-code.yml** file.
 
+1. Click on the **Edit** button.
+
 1. Remove everything above the **jobs** section.
 
    ```yaml
-   #NAME THE PIPELINE SAME AS FILE (WITHOUT ".yml")
-   
-   # Trigger CD when CI executed successfully
-   resources:
-     pipelines:
-       - pipeline: eshoponweb-ci
-         source: eshoponweb-ci # given pipeline name
-         trigger: true
-
-   variables:
-     resource-group: 'rg-eshoponweb'
-     location: 'southcentralus'
-     templateFile: '.azure/bicep/webapp.bicep'
-     subscriptionid: ''
-     azureserviceconnection: 'azure subs'
-     webappname: 'eshoponweb-lab'
-     # webappname: 'webapp-windows-eshop'
-   
-   stages:
-   - stage: Deploy
-     displayName: Deploy to WebApp`
+    # NAME THE PIPELINE SAME AS FILE (WITHOUT ".yml") #
+    # Trigger CD when CI executed successfully
+    
+    resources:
+      pipelines:
+        - pipeline: eshoponweb-ci
+          source: eshoponweb-ci # given pipeline name
+          trigger: true
+    
+    repositories:
+      - repository: eShopSecurity
+        type: git
+        name: eShopSecurity/eShopSecurity # name of the project and repository
+    
+    variables:
+      - template: eshoponweb-secure-variables.yml@eShopSecurity # name of the template and repository
+    
+    stages:
+      - stage: Test
+        displayName: Testing WebApp
+        jobs:
+          - deployment: Test
+            pool: eShopOnWebSelfPool
+            environment: Test
+            strategy:
+              runOnce:
+                deploy:
+                  steps:
+                    - script: echo Hello world! Testing environments!
+    
+      - stage: Deploy
+        displayName: Deploy to WebApp
    ```
 
 1. Replace the existing content of the **#download artifacts** step with:
@@ -208,58 +224,16 @@ You'll need an Azure subscription, Azure DevOps organization, and the eShopOnWeb
 
 1. Select **Run pipeline**.
 
-1. Once the pipeline reaches the **Deploy** stage in the **Test** environment, open the pipeline and note the message "This pipeline needs permission to access a resource before this run can continue Test". Select **View** and then select **Permit** to allow the pipeline to run.
+   > **Note**: If you receive a message that the pipeline needs permission to access a resource before this run can continue, select **View** and then select **Permit** and **Permit** again to allow the pipeline to run.
 
-   > [!NOTE]
-   > If any jobs in the Deploy stage fail, navigate to the pipeline run page and select **Rerun failed jobs***.
-
-1. Once the pipeline reaches the **Deploy** stage in the **Production** environment, open the pipeline and note the message "This pipeline needs permission to access a resource before this run can continue Production". Select **View** and then select **Permit** to allow the pipeline to run.
+   > **Note**: If any jobs in the Deploy stage fail, navigate to the pipeline run page and select **Rerun failed jobs***.
 
 1. Wait until the pipeline finishes and check the results.
 
    ![Screenshot of the pipeline running with the three stages and the corresponding jobs](media/multi-stage-completed.png)
 
-### Exercise 2: Perform cleanup of Azure and Azure DevOps resources
-
-In this exercise, you will remove Azure and Azure DevOps resources created in this lab.
-
-#### Task 1: Remove Azure resources
-
-1. In the Azure portal, navigate to the resource group **rg-eshoponweb-multi** containing deployed resources and select **Delete resource group** to delete all resources created in this lab.
-
-#### Task 2: Remove Azure DevOps pipelines
-
-1. Navigate to the Azure DevOps portal at `https://dev.azure.com` and open your organization.
-
-1. Open the **eShopOnWeb** project.
-
-1. Go to **Pipelines > Pipelines**.
-
-1. Go to **Pipelines > Pipelines** and delete the existing pipelines.
-
-#### Task 3: Recreate the Azure DevOps repo
-
-1. In the Azure DevOps portal, in the **eShopOnWeb** project, select **Project settings** in the lower left corner.
-
-1. In the **Project settings** vertical menu on the left side, in the **Repos** section, select **Repositories**.
-
-1. In the **All Repositories** pane, hover over the far right end of the **eShopOnWeb** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Rename**.  
-
-1. In the **Rename the eShopOnWeb repository** window, in the **Repository name** text box, enter **eShopOnWeb_old** and select **Rename**.
-
-1. Back in the **All Repositories** pane, select **+ Create**.
-
-1. In the **Create a repository** pane, in the **Repository name** text box, enter **eShopOnWeb**, uncheck the **Add a README** checkbox, and select **Create**.
-
-1. Back in the **All Repositories** pane, hover over the far right end of the **eShopOnWeb_old** repo entry until the **More options** ellipsis icon appears, select it, and, in the **More option** menu, select **Delete**.  
-
-1. In the **Delete eShopOnWeb_old repository** window, enter **eShopOnWeb_old** and select **Delete**.
-
-1. In the left navigational menu of the Azure DevOps portal, select **Repos**.
-
-1. In the **eShopOnWeb is empty. Add some code!** pane, select **Import a repository**.
-
-1. On the **Import a Git Repository** window, paste the following URL `https://github.com/MicrosoftLearning/eShopOnWeb` and select **Import**:
+> [!IMPORTANT]
+> Remember to delete the resources created in the Azure portal to avoid unnecessary charges.
 
 ## Review
 

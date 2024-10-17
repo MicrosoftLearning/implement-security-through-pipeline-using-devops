@@ -20,6 +20,8 @@ In preparation for the labs, it is crucial to have your environment correctly se
 
 - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli). Install the Azure CLI on the self-hosted agent machines.
 
+- [.NET SDK - Latest version](https://dotnet.microsoft.com/download/visual-studio-sdks). Install the .NET SDK on the self-hosted agent machines.
+
 ## Instructions to create an Azure DevOps Organization (you only have to do this once)
 
 > **Note**: Start at step 3, if you do already have a **personal Microsoft Account** setup and an active Azure Subscription linked to that account.
@@ -52,7 +54,19 @@ In preparation for the labs, it is crucial to have your environment correctly se
 
 1. Once the screen shows the linked Azure Subscription ID at the top, change the number of **Paid parallel jobs** for **MS Hosted CI/CD** from 0 to **1**. Then select **SAVE** button at the bottom.
 
-1. You may **wait at least 3 hours before using the CI/CD capabilities** so that the new settings are reflected in the backend. Otherwise, you will still see the message *"No hosted parallelism has been purchased or granted"*.
+   > **Note**: You may **wait a couple of minutes before using the CI/CD capabilities** so that the new settings are reflected in the backend. Otherwise, you will still see the message *"No hosted parallelism has been purchased or granted"*.
+
+1. In **Organization Settings**, go to section **Pipelines** and click **Settings**.
+
+1. Toggle the switch to **Off** for **Disable creation of classic build pipelines** and **Disable creation of classic release pipelines**
+
+   > **Note**: The **Disable creation of classic release pipelines** switch sets to **On** hides classic release pipeline creation options such as the **Release** menu in the **Pipeline** section of DevOps projects.
+
+1. In **Organization Settings**, go to section **Security** and click **Policies**.
+
+1. Toggle the switch to **On** for **Allow public projects**
+
+   > **Note**: Extensions used in some labs might require a public project to allow using the free version.
 
 ## Instructions to create and configure the Azure DevOps project (you only have to do this once)
 
@@ -96,48 +110,21 @@ Now, you'll import the eShopOnWeb into your git repository.
    - **.devcontainer** folder container setup to develop using containers (either locally in VS Code or GitHub Codespaces).
    - **.azure** folder contains Bicep & ARM infrastructure as code templates.
    - **.github** folder container YAML GitHub workflow definitions.
-   - **src** folder contains the .NET 6 website used on the lab scenarios. 
+   - **src** folder contains the .NET 8 website used on the lab scenarios.
 
 1. Leave the web browser window open.  
 
-### Create a service principal and service connection to access Azure resources
+1. Go to **Repos > Branches**.
 
-Next, you will create a service principal by using the Azure CLI, and a service connection in Azure DevOps which will allow you to deploy and access resources in your Azure subscription.
+1. Hover on the **main** branch then click the ellipsis on the right of the column.
 
-1. Start a web browser, navigate to the Azure Portal at `https://portal.azure.com`, and sign in with the user account that has the Owner role in the Azure subscription you will be using in the labs of this course and has the role of the Global Administrator in the Microsoft Entra tenant associated with this subscription.
+1. Click on **Set as default branch**.
 
-1. On the Azure portal, select the **Cloud Shell** icon, located directly to the right of the search textbox at the top of the page.
+### Create a service connection to access Azure resources
 
-1. If prompted to select either **Bash** or **PowerShell**, select **Bash**.
+Next, you will create a service connection in Azure DevOps which will allow you to deploy and access resources in your Azure subscription.
 
-   > [!NOTE]
-   > If this is the first time you are starting **Cloud Shell** and you are presented with the **You have no storage mounted** message, select the subscription you are using in this lab, and select **Create storage**.
-
-1. From the **Bash** prompt, in the **Cloud Shell** pane, run the following commands to retrieve the values of the Azure subscription ID and subscription name attributes:
-
-   ```bash
-   subscriptionName=$(az account show --query name --output tsv)
-   subscriptionId=$(az account show --query id --output tsv)
-   echo $subscriptionName
-   echo $subscriptionId
-   ```
-
-   > [!NOTE]
-   > Copy both values to a text file. You will need them in the labs of this course.
-
-1. From the **Bash** prompt in the **Cloud Shell** pane, run the following command to create a Service Principal:
-
-   ```bash
-   az ad sp create-for-rbac --name sp-eshoponweb-azdo --role contributor --scopes /subscriptions/$subscriptionId
-   ```
-
-   > [!NOTE]
-   > The command will generate a JSON output. Copy the output to text file. You will need it shortly.
-
-   > [!NOTE]
-   > Record the value of, security principal name, its Id, and tenant Id included in the JSON output. You will need them in the labs of this course.
-
-1. Switch back to the web browser window displaying the Azure DevOps portal with the **eShopOnWeb** project open and select **Project settings** in the bottom left corner of the portal.
+1. Start a web browser, navigate to the Azure DevOps portal with the **eShopOnWeb** project open and select **Project settings** in the bottom left corner of the portal.
 
 1. Select the **Service connections** under Pipelines, and then select **Create service connection** button.
 
@@ -145,19 +132,19 @@ Next, you will create a service principal by using the Azure CLI, and a service 
 
 1. On the **New service connection** blade, select **Azure Resource Manager** and **Next** (may need to scroll down).
 
-1. Then choose **Service Principal (manual)** and select **Next**.
+1. Select **Workload Identity federation (automatic)** and **Next**.
 
-1. Fill in the empty fields using the information gathered during previous steps:
+   > **Note**: You can also use **Workload identity federation (manual)** if you prefer to manually configure the service connection. Follow the steps in the [Azure DevOps documentation](https://learn.microsoft.com/azure/devops/pipelines/library/connect-to-azure) to create the service connection manually.
 
-   - Subscription Id and Name.
-   - Service Principal Id (or clientId/AppId), Service Principal Key (or Password) and TenantId.
-   - In **Service connection name** type **azure subs**. This name will be referenced in YAML pipelines to reference the service connection in order to access your Azure subscription.
+1. Fill in the empty fields using the information:
+    - **Subscription**: Select your Azure subscription.
+    - **Resource group**: Select the resource group where you want to deploy resources.
+    - **Service connection name**: Type **`azure subs`**. This name will be referenced in YAML pipelines to access your Azure subscription.
 
-   ![Screenshot of the Azure service connection configuration.](media/azure-service-connection.png)
+1. Make sure the **Grant access permission to all pipelines** option is unchecked and select **Save**.
 
-1. Do not check **Grant access permission to all pipelines**. Select **Verify and Save**.
+   > **Note:** The **Grant access permission to all pipelines** option is not recommended for production environments. It is only used in this lab to simplify the configuration of the pipeline.
 
-   > [!NOTE]
-   > The **Grant access permission to all pipelines** option is not recommended for production environments. It is only used in this lab to simplify the configuration of the pipeline.
+   > **Note**: If you see an error message indicating you don't have the necessary permissions to create a service connection, try again, or configure the service connection manually.
 
 You have now completed the necessary prerequisite steps to continue with the labs.
