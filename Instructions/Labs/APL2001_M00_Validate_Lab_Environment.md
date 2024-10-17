@@ -20,6 +20,8 @@ In preparation for the labs, it is crucial to have your environment correctly se
 
 - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli). Install the Azure CLI on the self-hosted agent machines.
 
+- [.NET SDK - Latest version](https://dotnet.microsoft.com/download/visual-studio-sdks). Install the .NET SDK on the self-hosted agent machines.
+
 ## Instructions to create an Azure DevOps Organization (you only have to do this once)
 
 > **Note**: Start at step 3, if you do already have a **personal Microsoft Account** setup and an active Azure Subscription linked to that account.
