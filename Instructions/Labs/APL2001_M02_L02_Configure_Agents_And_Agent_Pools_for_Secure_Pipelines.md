@@ -105,7 +105,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 
 1. Select the **New agent** button and then **Download** button from the **Download agent** in the new pop-up window.
 
-   > **Note**: Follow the installation instructions to install the agent.
+   > **Note**: Follow the installation instructions to install the agent and make note of the downloaded version in the file name (ex: vsts-agent-win-x64-3.246.0.zip)
 
 1. Start a PowerShell session and run the following commands to create a folder named **agent**.
 
@@ -118,7 +118,7 @@ In this exercise, you will create an Azure virtual machine (VM) and use it to cr
 1. Run the following command to extract the content of the downloaded agent installer files:
 
    ```powershell
-   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-3.245.0.zip", "$PWD")
+   Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$HOME\Downloads\vsts-agent-win-x64-3.246.0.zip", "$PWD")
    ```
 
    > **Note**: If you downloaded the agent to a different location (or the downloaded version differs), adjust the above command accordingly.
