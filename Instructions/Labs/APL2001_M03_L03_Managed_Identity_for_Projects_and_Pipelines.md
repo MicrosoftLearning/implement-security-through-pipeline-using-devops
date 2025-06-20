@@ -155,7 +155,7 @@ In this exercise, you will use a managed identity to configure a new service con
 
 1. Select the **New service connection** button and select **Azure Resource Manager**.
 
-1. Select **Managed Identity** as the **Authentication method**.
+1. Select **Managed Identity (agent-assigned)** as the **Authentication method**.
 
 1. Set the scope level to **Subscription** and provide the information from the Azure portal, including the **Subscription Id**, **Subscription name**, and **Tenant Id**.
 
