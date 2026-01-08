@@ -74,6 +74,7 @@ In this task, you will set parameter and parameter types for the pipeline.
 
    ```
 
+{% raw %}
 1. Replace the hardcoded paths in the "Restore", "Build", and "Test" tasks with the parameters you just created.
 
    - **Replace projects**: `**/*.sln` with projects: `${{ parameters.dotNetProjects }}` in the `Restore` and `Build` tasks.
@@ -103,6 +104,7 @@ In this task, you will set parameter and parameter types for the pipeline.
         projects: ${{ parameters.testProjects }}
     
     ```
+{% endraw %}
 
 1. Click on **Validate and save** to save the changes, then click on **Save**.
 
