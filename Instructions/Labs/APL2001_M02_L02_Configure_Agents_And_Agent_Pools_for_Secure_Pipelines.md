@@ -1,7 +1,16 @@
 ---
 lab:
-    title: Configure agents and agent pools for secure pipelines
-    module: 'Module 2: Configure secure access to pipeline resources'
+  title: Configure agents and agent pools for secure pipelines
+  module: 'Module 2: Configure secure access to pipeline resources'
+  description: In this lab, you will learn how to configure Azure DevOps agents and
+    agent Pools and manage permissions for those pools. Azure DevOps Agent Pools provide
+    the resources to run your build and release pipelines.
+  duration: 5 minutes
+  level: 400
+  islab: true
+  primarytopics:
+  - Azure
+  - Azure DevOps
 ---
 
 # Configure agents and agent pools for secure pipelines
