@@ -1,7 +1,13 @@
 ---
 lab:
-    title: Configure agents and agent pools for secure pipelines
-    module: 'Module 2: Configure secure access to pipeline resources'
+  title: Configure agents and agent pools for secure pipelines
+  module: 'Module 2: Configure secure access to pipeline resources'
+  description: In this exercise, you will create an Azure virtual machine (VM) and use it to create an agent and configure agent pools.
+  duration: 5 minutes
+  level: 400
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Configure agents and agent pools for secure pipelines
