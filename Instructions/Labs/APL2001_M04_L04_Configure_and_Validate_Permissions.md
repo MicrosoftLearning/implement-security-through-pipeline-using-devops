@@ -1,7 +1,14 @@
 ---
 lab:
-    title: 'Configure and validate permissions'
-    module: 'Module 4: Configure and validate permissions'
+  title: Configure and validate permissions
+  module: 'Module 4: Configure and validate permissions'
+  description: In this lab, you have learned how to set up a secure environment that adheres to the principle of least privilege, ensuring that members can access only the resources they need to perform their tasks and minimize potential security risks. You configured and validated user and pipeline permissions and set up approval and branch checks in Azure DevOps.
+  duration: 120 minutes
+  level: 400
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure DevOps
 ---
 
 # Configure and validate permissions
