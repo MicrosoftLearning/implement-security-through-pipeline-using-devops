@@ -1,7 +1,11 @@
 ---
 lab:
-    title: 'Managed identity for projects and pipelines'
-    module: 'Module 3: Manage identity for projects, pipelines, and agents'
+  title: Managed identity for projects and pipelines
+  module: 'Module 3: Manage identity for projects, pipelines, and agents'
+  description: In this exercise, you will use a managed identity to configure a new service connection and incorporate it the CI/CD pipelines.
+  duration: 30 minutes
+  level: 400
+  islab: true
 ---
 
 # Managed identity for projects and pipelines
