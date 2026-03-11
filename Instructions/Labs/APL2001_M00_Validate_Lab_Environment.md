@@ -1,7 +1,14 @@
 ---
 lab:
-    title: 'Validate your lab environment'
-    module: 'Module 0: Welcome'
+  title: Validate your lab environment
+  module: 'Module 0: Welcome'
+  description: Next, you will create a service connection in Azure DevOps which will allow you to deploy and access resources in your Azure subscription.
+  duration: 92 minutes
+  level: 400
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure DevOps
 ---
 
 # Validate your lab environment
