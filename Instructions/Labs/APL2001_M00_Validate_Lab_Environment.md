@@ -1,7 +1,13 @@
 ---
 lab:
-    title: 'Validate your lab environment'
-    module: 'Module 0: Welcome'
+  title: Validate your lab environment
+  module: 'Module 0: Welcome'
+  description: In preparation for the labs, it is crucial to have your environment
+    correctly set up. This page will guide you through the setup process, ensuring
+    all prerequisites are met.
+  duration: 92 minutes
+  level: 400
+  islab: true
 ---
 
 # Validate your lab environment
