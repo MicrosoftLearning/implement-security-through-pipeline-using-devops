@@ -1,7 +1,19 @@
 ---
 lab:
-    title: 'Managed identity for projects and pipelines'
-    module: 'Module 3: Manage identity for projects, pipelines, and agents'
+  title: Managed identity for projects and pipelines
+  module: 'Module 3: Manage identity for projects, pipelines, and agents'
+  description: Managed identities offer a secure method for controlling access to
+    Azure resources. Azure handles these identities automatically, allowing you to
+    verify access to services compatible with Azure AD authentication. This means
+    you won't need to embed credentials into your code, enhancing security. In Azure
+    DevOps, managed identities can authenticate Azure resources within your self-hosted
+    agents, simplifying access control without compromising security.
+  duration: 30 minutes
+  level: 400
+  islab: true
+  primarytopics:
+  - Azure
+  - Azure DevOps
 ---
 
 # Managed identity for projects and pipelines
