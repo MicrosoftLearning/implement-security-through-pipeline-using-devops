@@ -1,7 +1,17 @@
 ---
 lab:
-    title: 'Extend a pipeline to use multiple templates'
-    module: 'Module 5: Extend a pipeline to use multiple templates'
+  title: Extend a pipeline to use multiple templates
+  module: 'Module 5: Extend a pipeline to use multiple templates'
+  description: In this lab, explore the importance of extending a pipeline to multiple
+    templates and how to do it using Azure DevOps. This lab covers fundamental concepts
+    and best practices for creating a multi-stage pipeline, creating a variables template,
+    creating a job template, and creating a stage template.
+  duration: 100 minutes
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
+  - Azure DevOps
 ---
 
 # Extend a pipeline to use multiple templates
