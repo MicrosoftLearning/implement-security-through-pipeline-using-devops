@@ -1,7 +1,11 @@
 ---
 lab:
-    title: 'Configure pipelines to securely use variables and parameters'
-    module: 'Module 7: Configure pipelines to securely use variables and parameters'
+  title: Configure pipelines to securely use variables and parameters
+  module: 'Module 7: Configure pipelines to securely use variables and parameters'
+  description: In this lab, you will learn how to configure pipelines to securely use variables and parameters.
+  duration: 100 minutes
+  level: 200
+  islab: true
 ---
 
 # Configure pipelines to securely use variables and parameters

@@ -1,7 +1,16 @@
 ---
 lab:
-    title: 'Integrate Azure Key Vault with Azure Pipelines'
-    module: 'Module 6: Configure secure access to Azure Repos from pipelines'
+  title: Integrate Azure Key Vault with Azure Pipelines
+  module: 'Module 6: Configure secure access to Azure Repos from pipelines'
+  description: In this task, you will create an Azure Key vault by using the Azure portal.
+  duration: 5 minutes
+  level: 500
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure Key Vault
+    - Azure Pipelines
+    - Azure Portal
 ---
 
 # Integrate Azure Key Vault with Azure Pipelines
