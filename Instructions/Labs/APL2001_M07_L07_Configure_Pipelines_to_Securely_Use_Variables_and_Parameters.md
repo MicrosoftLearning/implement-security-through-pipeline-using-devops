@@ -78,6 +78,7 @@ In this task, you will set parameter and parameter types for the pipeline.
 
    ```
 
+{% raw %}
 1. Replace the hardcoded paths in the "Restore", "Build", and "Test" tasks with the parameters you just created.
 
    - **Replace projects**: `**/*.sln` with projects: `${{ parameters.dotNetProjects }}` in the `Restore` and `Build` tasks.
@@ -107,6 +108,7 @@ In this task, you will set parameter and parameter types for the pipeline.
         projects: ${{ parameters.testProjects }}
     
     ```
+{% endraw %}
 
 1. Click on **Validate and save** to save the changes, then click on **Save**.
 
@@ -151,11 +153,13 @@ In this task, you will secure the variables and parameters from your pipeline by
 
 1. In the "Build" task, add the configuration parameter to the task to utilize the build configuration from the variable group.
 
+{% raw %}
     ```yaml
             command: 'build'
             projects: ${{ parameters.dotNetProjects }}
             configuration: $(buildConfiguration)
     ```
+{% endraw %}
 
 1. Click on **Validate and save** to save the changes, then click on **Save**.
 
