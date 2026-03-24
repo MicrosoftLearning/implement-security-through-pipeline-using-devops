@@ -149,12 +149,12 @@ In this task, you will secure the variables and parameters from your pipeline by
      - group: BuildConfigurations
    ```
 
-1. In the "Build" task, add the configuration parameter to the task to utilize the build configuration from the variable group.
+1. In the "Build" task, add the arguments input with the configuration parameter to the task to utilize the build configuration from the variable group.
 
     ```yaml
             command: 'build'
             projects: ${{ parameters.dotNetProjects }}
-            configuration: $(buildConfiguration)
+            arguments: '--configuration $(buildConfiguration)'
     ```
 
 1. Click on **Validate and save** to save the changes, then click on **Save**.
